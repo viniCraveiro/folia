@@ -5,20 +5,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
 @Table(name = "USUARIO")
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
 
     @Id
+    @Setter(AccessLevel.NONE)
     private UUID id = UUID.randomUUID();
     @Column
     private String identificacao;
