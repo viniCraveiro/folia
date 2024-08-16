@@ -29,16 +29,16 @@ public class UsuarioRestController {
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/deleta/{uuid}")
+    @DeleteMapping("/{uuid}")
     public ResponseEntity<Void> deletar(@PathVariable UUID uuid){
         usuarioService.deletaUsuario(uuid);
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/atualiza/{uuid}")
-    public ResponseEntity<Void> atualizar(@PathVariable UUID uuid, @RequestBody Usuario usuario){
+    @PutMapping("/{uuid}")
+    public ResponseEntity<Usuario> atualizar(@PathVariable UUID uuid, @RequestBody Usuario usuario){
         usuarioService.atualizaUsuario(uuid, usuario);
-        return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+        return  new ResponseEntity<>(usuario, HttpStatus.OK);
     }
 
 }
