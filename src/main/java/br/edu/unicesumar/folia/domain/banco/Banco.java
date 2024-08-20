@@ -1,6 +1,5 @@
-package br.edu.unicesumar.folia.domain.empresa;
+package br.edu.unicesumar.folia.domain.banco;
 
-import br.edu.unicesumar.folia.domain.endereco.Endereco;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -9,25 +8,26 @@ import lombok.*;
 
 import java.util.UUID;
 
-@Table(name = "EMPRESA")
+@Table(name = "BANCO")
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Empresa {
+public class Banco {
 
     @Id
     @Setter(AccessLevel.NONE)
     private UUID uuid;
     @Column
-    private String nome;
+    private int agencia;
     @Column
-    private String cnpj;
+    private int agenciaDigito;
     @Column
-    private String telefone;
+    private int conta;
     @Column
-    private Endereco endereco;
-
+    private int contaDigito;
+    @Column
+    private int digitoVerificadorAgenciaConta;
 
 }

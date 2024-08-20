@@ -1,5 +1,8 @@
 package br.edu.unicesumar.folia.domain.boleto;
 
+import br.edu.unicesumar.folia.domain.banco.Banco;
+import br.edu.unicesumar.folia.domain.empresa.Empresa;
+import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,15 +23,7 @@ public class Boleto {
     @Setter(AccessLevel.NONE)
     private UUID uuid;
     @Column
-    private int agencia;
-    @Column
-    private int agenciaDigito;
-    @Column
-    private int conta;
-    @Column
-    private int contaDigito;
-    @Column
-    private int digitoVerificadorAgenciaConta;
+    private Banco banco; //Agencia, agencia digito, conta, conta digito, digito verificador agencia conta
     @Column
     private int convenio;
     @Column
@@ -44,31 +39,13 @@ public class Boleto {
     @Column
     private int tipoDocumento;
     @Column
-    private int tipoInscricao;
+    private Usuario usuario; //Tipo inscricao
     @Column
     private int caracteristicaTitulo;
     @Column
     private int codigoNegativacao;
     @Column
-    private String cnpj;
-    @Column
-    private String nome;
-    @Column
-    private String logradouro;
-    @Column
-    private String numeroResidencial;
-    @Column
-    private String complemento;
-    @Column
-    private String bairro;
-    @Column
-    private String cidade;
-    @Column
-    private String cep;
-    @Column
-    private String uf;
-    @Column
-    private String telefone;
+    private Empresa dadosEmpresa; //Armazena CNPJ, nome, logradouro, numero residencial, complemento, bairro, cidade, cep, uf, telefone.
     @Column
     private int identificacaoDistribuicao;
     @Column
