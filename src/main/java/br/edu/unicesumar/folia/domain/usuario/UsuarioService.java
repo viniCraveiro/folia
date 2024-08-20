@@ -19,6 +19,7 @@ public class UsuarioService {
     public Usuario salvaUsuario(Usuario usuario){
         return usuarioRepository.save(usuario);
     };
+
     public void deletaUsuario(UUID uuid){
         Usuario usuario = usuarioRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
         usuarioRepository.delete(usuario);
