@@ -1,10 +1,7 @@
 package br.edu.unicesumar.folia.domain.usuario;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import br.edu.unicesumar.folia.domain.endereco.Endereco;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -26,5 +23,8 @@ public class Usuario {
     private String nome;
     @Column
     private String email;
+    @ManyToOne
+    @JoinColumn(name = "ENDERECO_FK")
+    private Endereco endereco;
 
 }
