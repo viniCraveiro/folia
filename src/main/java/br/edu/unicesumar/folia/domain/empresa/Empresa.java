@@ -13,6 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Empresa {
+    //Gabriel é um corno
 
     @Id
     @Setter(AccessLevel.NONE)
