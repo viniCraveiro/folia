@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class FoliaApplication {
-
+//teste
 	public static void main(String[] args) {
 		SpringApplication.run(FoliaApplication.class, args);
 	}
