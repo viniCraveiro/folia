@@ -13,20 +13,30 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Empresa {
-    //Gabriel é um corno
 
     @Id
     @Setter(AccessLevel.NONE)
     private UUID uuid;
+
     @Column
-    private String nome;
+    private String nomo_fantasia;
+
     @Column
     private String cnpj;
+
     @Column
     private String telefone;
+
+    @Column
+    private String razaoSocial;
+
+    @Column
+    private String email;
+
+    @Column
+    private String senha;
+
     @ManyToOne()
     @JoinColumn(name = "ENDERECO_FK")
     private Endereco endereco;
-
-
 }
