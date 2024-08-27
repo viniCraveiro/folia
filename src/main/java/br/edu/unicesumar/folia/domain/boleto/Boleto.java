@@ -1,5 +1,6 @@
 package br.edu.unicesumar.folia.domain.boleto;
 
+import br.edu.unicesumar.folia.domain.Entidade;
 import br.edu.unicesumar.folia.domain.banco.Banco;
 import br.edu.unicesumar.folia.domain.empresa.Empresa;
 import br.edu.unicesumar.folia.domain.usuario.Usuario;
@@ -14,11 +15,8 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Boleto {
+public class Boleto extends Entidade {
 
-    @Id
-    @Setter(AccessLevel.NONE)
-    private UUID uuid;
     @ManyToOne
     @JoinColumn(name = "BANCO_FK")
     private Banco banco; //Agencia, agencia digito, conta, conta digito, digito verificador agencia conta
