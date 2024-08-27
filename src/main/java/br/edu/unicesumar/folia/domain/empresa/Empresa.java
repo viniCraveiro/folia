@@ -1,10 +1,7 @@
 package br.edu.unicesumar.folia.domain.empresa;
 
 import br.edu.unicesumar.folia.domain.endereco.Endereco;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -16,6 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Empresa {
+    //Gabriel é um corno
 
     @Id
     @Setter(AccessLevel.NONE)
@@ -24,9 +22,8 @@ public class Empresa {
     private String nome;
     @Column
     private String cnpj;
-    @Column
-    private String telefone;
-    @Column
+    @ManyToOne()
+    @JoinColumn(name = "ENDERECO_FK")
     private Endereco endereco;
 
 
