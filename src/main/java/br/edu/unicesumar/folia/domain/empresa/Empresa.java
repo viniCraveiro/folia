@@ -22,8 +22,6 @@ public class Empresa {
     private String nome;
     @Column
     private String cnpj;
-    @Column
-    private String telefone;
     @ManyToOne()
     @JoinColumn(name = "ENDERECO_FK")
     private Endereco endereco;

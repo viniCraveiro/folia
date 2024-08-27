@@ -30,11 +30,11 @@ public class ConfiguracaoBanco {
     @Column
     private String localPagamento;
     @Column
-    private String orientecaoBanco;
+    private String orientacaoBanco;
     @Column
     private int digito;
     @Column
-    private Double casasDecimaisMoraJuros;
+    private String casasDecimaisMoraJuros;
     @Column
     private String cip;
 
