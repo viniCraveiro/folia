@@ -1,5 +1,6 @@
 package br.edu.unicesumar.folia.domain.credencialBoleto;
 
+import br.edu.unicesumar.folia.domain.Entidade;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,11 +15,8 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CredencialBoleto {
+public class CredencialBoleto extends Entidade {
 
-    @Id
-    @Setter(AccessLevel.NONE)
-    private UUID uuid;
     @Column
     private String clientId;
     @Column
