@@ -1,6 +1,5 @@
 package br.edu.unicesumar.folia.domain.configuracaoBanco;
 
-import br.edu.unicesumar.folia.domain.Entidade;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -15,8 +14,11 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ConfiguracaoBanco extends Entidade {
+public class ConfiguracaoBanco {
 
+    @Id
+    @Setter(AccessLevel.NONE)
+    private UUID uuid;
     @Column
     private int tipoCobranca;
     @Column
@@ -28,11 +30,11 @@ public class ConfiguracaoBanco extends Entidade {
     @Column
     private String localPagamento;
     @Column
-    private String orientacaoBanco;
+    private String orientecaoBanco;
     @Column
     private int digito;
     @Column
-    private String casasDecimaisMoraJuros;
+    private Double casasDecimaisMoraJuros;
     @Column
     private String cip;
 
