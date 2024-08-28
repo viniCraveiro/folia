@@ -15,13 +15,21 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Empresa extends Entidade {
 
-    @Column
-    private String nome;
-    @Column
-    private String cnpj;
-    @ManyToOne()
-    @JoinColumn(name = "ENDERECO_FK")
-    private Endereco endereco;
-
+        @Id
+        @Setter(AccessLevel.NONE)
+        private UUID uuid;
+        @Column
+        private String nomeFantasia;
+        @Column
+        private String razaoSocial;
+        @Column
+        private String cnpj;
+        @Column
+        private String email;
+        @Column
+        private String Senha;
+        @ManyToOne()
+        @JoinColumn(name = "ENDERECO_FK")
+        private Endereco endereco;
 
 }
