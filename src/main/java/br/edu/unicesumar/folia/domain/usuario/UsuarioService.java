@@ -17,7 +17,10 @@ public class UsuarioService {
     }
 
     public Usuario salvaUsuario(Usuario usuario){
-        return usuarioRepository.save(usuario);
+        if(ValidarIdentificacao.validarCPF(usuario.getIdentificacao()) || ValidarIdentificacao.validarCNPJ(usuario.getIdentificacao())){
+            return usuarioRepository.save(usuario);
+        }
+        throw new RuntimeException("Identificação nõ é valida!");
     };
 
     public void deletaUsuario(UUID uuid){

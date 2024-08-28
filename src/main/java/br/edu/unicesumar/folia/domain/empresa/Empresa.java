@@ -1,5 +1,6 @@
 package br.edu.unicesumar.folia.domain.empresa;
 
+import br.edu.unicesumar.folia.domain.Entidade;
 import br.edu.unicesumar.folia.domain.endereco.Endereco;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,12 +13,8 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Empresa {
-    //Gabriel é um corno
+public class Empresa extends Entidade {
 
-    @Id
-    @Setter(AccessLevel.NONE)
-    private UUID uuid;
     @Column
     private String nome;
     @Column
