@@ -9,7 +9,7 @@ import lombok.*;
 
 import java.util.UUID;
 
-@Table(name = "ARQUIVOBOLETO")
+@Table(name = "ARQUIVO_BOLETO")
 @Entity
 @Getter
 @Setter
