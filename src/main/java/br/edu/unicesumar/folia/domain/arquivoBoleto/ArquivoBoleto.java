@@ -1,6 +1,5 @@
 package br.edu.unicesumar.folia.domain.arquivoBoleto;
 
-import br.edu.unicesumar.folia.domain.Entidade;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -15,8 +14,11 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ArquivoBoleto extends Entidade {
+public class ArquivoBoleto {
 
+    @Id
+    @Setter(AccessLevel.NONE)
+    private UUID uuid;
     @Column
     private String nome;
     @Column
