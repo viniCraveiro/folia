@@ -1,6 +1,7 @@
 package br.edu.unicesumar.folia.domain.boleto;
 
 
+import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,5 @@ public class BoletoService {
         Boleto boleto = boletoRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
         boletoRepository.delete(boleto);
     }
-
-
 
 }
