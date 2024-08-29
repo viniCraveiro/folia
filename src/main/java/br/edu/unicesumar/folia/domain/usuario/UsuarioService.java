@@ -31,7 +31,7 @@ public class UsuarioService {
 
     public Usuario atualizaUsuario(UUID uuid, Usuario usuarioAtualizado) {
         Usuario usuarioExistente = usuarioRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
-        usuarioExistente.setIdentificacao((usuarioAtualizado.getIdentificacao()));
+        usuarioExistente.setIdentificacao(usuarioAtualizado.getIdentificacao());
         usuarioExistente.setNome(usuarioAtualizado.getNome());
         usuarioExistente.setEmail(usuarioAtualizado.getEmail());
         return usuarioRepository.save(usuarioExistente);

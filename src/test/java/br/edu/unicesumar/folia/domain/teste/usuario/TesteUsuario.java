@@ -49,7 +49,7 @@ public class TesteUsuario {
     @Test
     void testarCadastroValidoComCPF(){
         Usuario usuario = new Usuario();
-        usuario.setIdentificacao("11122233344"); // CPF válido para o exemplo
+        usuario.setIdentificacao("13880494908"); // CPF válido para o exemplo
         usuario.setNome("Gabriel");
         usuario.setEmail("gabriel@gmail.com");
 

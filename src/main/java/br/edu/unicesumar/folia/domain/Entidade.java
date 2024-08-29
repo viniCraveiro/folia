@@ -10,6 +10,8 @@ import org.hibernate.annotations.UuidGenerator;
 import java.util.UUID;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS) // Specify inheritance strategy
+@Table(name = "ENTIDADE") // Define the table name for the hierarchy
 @Getter
 public abstract class Entidade {
 
