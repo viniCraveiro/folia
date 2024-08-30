@@ -23,7 +23,6 @@ public class EnderecoRestController {
     }
 
     @PostMapping
-    @Transactional
     public ResponseEntity<Void> cadastrar(@RequestBody @Valid Endereco endereco){
         enderecoService.salvaEndereco(endereco);
         return new ResponseEntity<>(null, HttpStatus.CREATED);

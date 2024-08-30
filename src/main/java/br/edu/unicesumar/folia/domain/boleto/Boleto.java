@@ -19,7 +19,7 @@ public class Boleto extends Entidade {
 
     @ManyToOne
     @JoinColumn(name = "BANCO_FK")
-    private Banco banco; //Agencia, agencia digito, conta, conta digito, digito verificador agencia conta
+    private Banco banco;
     @Column
     private int convenio;
     @Column

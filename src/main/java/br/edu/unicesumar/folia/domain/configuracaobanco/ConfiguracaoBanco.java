@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
 
-@Table(name = "CONFIGURACAOBANCO")
+@Table(name = "CONFIGURACAO_BANCO")
 @Entity
 @Getter
 @Setter
