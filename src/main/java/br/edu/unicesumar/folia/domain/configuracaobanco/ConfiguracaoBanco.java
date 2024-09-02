@@ -1,15 +1,12 @@
-package br.edu.unicesumar.folia.domain.configuracaoBanco;
+package br.edu.unicesumar.folia.domain.configuracaobanco;
 
 import br.edu.unicesumar.folia.domain.Entidade;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 
-import java.util.UUID;
-
-@Table(name = "CONFIGURACAOBANCO")
+@Table(name = "CONFIGURACAO_BANCO")
 @Entity
 @Getter
 @Setter
