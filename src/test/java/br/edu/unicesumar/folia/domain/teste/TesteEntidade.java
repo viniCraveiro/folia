@@ -15,7 +15,6 @@ public class TesteEntidade {
     void deveTestarGerarUuid() throws IOException {
         ModelEntidadeTeste entidade = new ModelEntidadeTeste();
         UUID uuid = (UUID) entidade.getId();
-        String nome;
         Assertions.assertThat(uuid).isNotNull();
 
         assertNotNull(uuid, "UUID não deve ser nulo");

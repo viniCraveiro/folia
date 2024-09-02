@@ -39,4 +39,5 @@ public class UsuarioRestController {
         usuarioService.atualizaUsuario(uuid, usuario);
         return  new ResponseEntity<>(usuario, HttpStatus.OK);
     }
+
 }
