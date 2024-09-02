@@ -1,13 +1,10 @@
-package br.edu.unicesumar.folia.domain.arquivoBoleto;
+package br.edu.unicesumar.folia.domain.arquivoboleto;
 
 import br.edu.unicesumar.folia.domain.Entidade;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
-
-import java.util.UUID;
 
 @Table(name = "ARQUIVO_BOLETO")
 @Entity

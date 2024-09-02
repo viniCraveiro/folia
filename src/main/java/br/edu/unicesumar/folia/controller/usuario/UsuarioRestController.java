@@ -23,7 +23,6 @@ public class UsuarioRestController {
     }
 
     @PostMapping
-    @Transactional
     public ResponseEntity<Void> cadastrar(@RequestBody @Valid Usuario usuario){
         usuarioService.salvaUsuario(usuario);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
@@ -40,4 +39,5 @@ public class UsuarioRestController {
         usuarioService.atualizaUsuario(uuid, usuario);
         return  new ResponseEntity<>(usuario, HttpStatus.OK);
     }
+
 }
