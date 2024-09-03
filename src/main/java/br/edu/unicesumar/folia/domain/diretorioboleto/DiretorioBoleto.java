@@ -1,15 +1,12 @@
-package br.edu.unicesumar.folia.domain.diretorioBoleto;
+package br.edu.unicesumar.folia.domain.diretorioboleto;
 
 import br.edu.unicesumar.folia.domain.Entidade;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 
-import java.util.UUID;
-
-@Table(name = "DIRETORIOBBOLETO")
+@Table(name = "DIRETORIOB_BOLETO")
 @Entity
 @Getter
 @Setter

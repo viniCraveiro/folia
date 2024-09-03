@@ -7,8 +7,6 @@ import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.UUID;
-
 @Table(name = "BOLETO")
 @Entity
 @Getter
@@ -19,7 +17,7 @@ public class Boleto extends Entidade {
 
     @ManyToOne
     @JoinColumn(name = "BANCO_FK")
-    private Banco banco; //Agencia, agencia digito, conta, conta digito, digito verificador agencia conta
+    private Banco banco;
     @Column
     private int convenio;
     @Column
@@ -43,7 +41,7 @@ public class Boleto extends Entidade {
     private int codigoNegativacao;
     @ManyToOne
     @JoinColumn(name = "EMPRESA_FK")
-    private Empresa dadosEmpresa; //Armazena CNPJ, nome, logradouro, numero residencial, complemento, bairro, cidade, cep, uf, telefone.
+    private Empresa dadosEmpresa;
     @Column
     private int identificacaoDistribuicao;
     @Column
