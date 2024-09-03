@@ -3,9 +3,10 @@ package br.edu.unicesumar.folia.domain.empresa;
 import br.edu.unicesumar.folia.domain.Entidade;
 import br.edu.unicesumar.folia.domain.endereco.Endereco;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
-import java.util.UUID;
+
 
 @Table(name = "EMPRESA")
 @Entity
@@ -15,21 +16,32 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Empresa extends Entidade {
 
-        @Id
-        @Setter(AccessLevel.NONE)
-        private UUID uuid;
-        @Column
+        @Column(nullable = false)
+        @NotBlank(message = "O nome fantasia não pode estar em branco.")
         private String nomeFantasia;
-        @Column
+
+        @Column(nullable = false)
+        @NotBlank(message = "A razão social não pode estar em branco.")
         private String razaoSocial;
-        @Column
+
+        @Column(nullable = false, unique = true)
+        @NotBlank(message = "O CNPJ não pode estar em branco.")
+        @Pattern(regexp = "\\d{14}", message = "O CNPJ deve conter exatamente 14 dígitos.")
         private String cnpj;
-        @Column
+
+        @Column(nullable = false)
+        @NotBlank(message = "O email não pode estar em branco.")
+        @Email(message = "O email deve ser válido.")
         private String email;
-        @Column
-        private String Senha;
+
+        @Column(nullable = false)
+        @NotBlank(message = "A senha não pode estar em branco.")
+        @Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres.")
+        private String senha;
+
         @ManyToOne()
         @JoinColumn(name = "ENDERECO_FK")
+        @NotNull(message = "O endereço é obrigatório.")
         private Endereco endereco;
 
 }
