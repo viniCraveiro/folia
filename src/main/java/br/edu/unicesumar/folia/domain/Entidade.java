@@ -19,5 +19,4 @@ public abstract class Entidade {
     @Id
     private UUID id = UUID.randomUUID();
 
-
 }
