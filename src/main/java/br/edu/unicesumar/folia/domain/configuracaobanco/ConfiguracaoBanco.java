@@ -4,7 +4,11 @@ import br.edu.unicesumar.folia.domain.Entidade;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Table(name = "CONFIGURACAO_BANCO")
 @Entity
@@ -14,23 +18,32 @@ import lombok.*;
 @AllArgsConstructor
 public class ConfiguracaoBanco extends Entidade {
 
-    @Column
-    private int tipoCobranca;
-    @Column
-    private int numeroCorrespondente;
-    @Column
-    private int layoutVersaoArquivo;
-    @Column
-    private int layoutVersaoLote;
-    @Column
+    @Column(length = 2)
+    @NotNull
+    private String tipoCobranca;
+    @Column(length = 2)
+    @NotNull
+    private String numeroCorrespondente;
+    @Column(length = 4)
+    @NotNull
+    private String layoutVersaoArquivo;
+    @Column(length = 4)
+    @NotNull
+    private String layoutVersaoLote;
+    @Column(length = 50)
+    @NotNull
     private String localPagamento;
-    @Column
+    @Column(length = 100)
+    @NotNull
     private String orientacaoBanco;
-    @Column
-    private int digito;
-    @Column
+    @Column(length = 4)
+    @NotNull
+    private String digito;
+    @Column(length = 2)
+    @NotNull
     private String casasDecimaisMoraJuros;
-    @Column
+    @Column(length = 50)
+    @NotNull
     private String cip;
 
 }

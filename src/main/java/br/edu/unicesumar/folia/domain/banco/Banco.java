@@ -3,11 +3,12 @@ package br.edu.unicesumar.folia.domain.banco;
 import br.edu.unicesumar.folia.domain.Entidade;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.*;
-
-import java.util.UUID;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Table(name = "BANCO")
 @Entity
@@ -17,15 +18,20 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Banco extends Entidade {
 
-    @Column
-    private int agencia;
-    @Column
-    private int agenciaDigito;
-    @Column
-    private int conta;
-    @Column
-    private int contaDigito;
-    @Column
-    private int digitoVerificadorAgenciaConta;
+    @Column(length = 36)
+    @NotNull
+    private String agencia;
+    @Column(length = 5)
+    @NotNull
+    private String agenciaDigito;
+    @Column(length = 9)
+    @NotNull
+    private String conta;
+    @Column(length = 9)
+    @NotNull
+    private String contaDigito;
+    @Column(length = 4)
+    @NotNull
+    private String digitoVerificadorAgenciaConta;
 
 }

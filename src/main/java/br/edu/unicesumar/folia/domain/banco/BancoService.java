@@ -24,15 +24,15 @@ public class BancoService {
     }
 
     public Banco atualizaBanco(UUID uuid, Banco bancoAtualizado) {
-        Banco usuarioExistente = bancoRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
-        bancoAtualizado.setAgencia((bancoAtualizado.getAgencia()));
-        bancoAtualizado.setConta((bancoAtualizado.getAgencia()));
-        bancoAtualizado.setAgenciaDigito((bancoAtualizado.getAgencia()));
-        bancoAtualizado.setContaDigito((bancoAtualizado.getAgencia()));
-        bancoAtualizado.setDigitoVerificadorAgenciaConta((bancoAtualizado.getAgencia()));
-        bancoAtualizado.setAgenciaDigito((bancoAtualizado.getAgencia()));
+        Banco bancoExistente = bancoRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
+        bancoExistente.setAgencia((bancoAtualizado.getAgencia()));
+        bancoExistente.setConta((bancoAtualizado.getAgencia()));
+        bancoExistente.setAgenciaDigito((bancoAtualizado.getAgencia()));
+        bancoExistente.setContaDigito((bancoAtualizado.getAgencia()));
+        bancoExistente.setDigitoVerificadorAgenciaConta((bancoAtualizado.getAgencia()));
+        bancoExistente.setAgenciaDigito((bancoAtualizado.getAgencia()));
 
-        return bancoRepository.save(bancoAtualizado);
+        return bancoRepository.save(bancoExistente);
     }
 
     public Banco encontrarPorIdBanco(UUID uuid) {

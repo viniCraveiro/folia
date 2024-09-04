@@ -1,10 +1,9 @@
 package br.edu.unicesumar.folia.controller.empresa;
 
 import br.edu.unicesumar.folia.domain.empresa.Empresa;
-import br.edu.unicesumar.folia.domain.empresa.EmpresaRepository;
 import br.edu.unicesumar.folia.domain.empresa.EmpresaService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,8 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+@Tag(
+        name = "Empresa",
+        description = "CRUD REST - create Empresa, Update Empresa, Delete Empresa"
+)
 @RestController
-@RequestMapping("empresa")
+@RequestMapping("api/empresa")
 public class EmpresaRestController {
 
     private final EmpresaService empresaService;
