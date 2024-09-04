@@ -4,6 +4,7 @@ import br.edu.unicesumar.folia.domain.endereco.Endereco;
 import br.edu.unicesumar.folia.domain.endereco.EnderecoService;
 import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+@Tag(
+        name = "Endereco",
+        description = "CRUD REST - create Endereco, Update Endereco, Get Endereco, Get All Endereco, Delete Endereco"
+)
 @RestController
-@RequestMapping("endereco")
+@RequestMapping("api/endereco")
 public class EnderecoRestController {
 
     private final EnderecoService enderecoService;

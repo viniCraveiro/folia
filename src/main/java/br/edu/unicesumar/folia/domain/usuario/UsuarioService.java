@@ -17,8 +17,10 @@ public class UsuarioService {
     }
 
     public Usuario salvaUsuario(Usuario usuario){
+        usuario.setIdentificacao(ValidarIdentificacao.removeNonDigits(usuario.getIdentificacao()));
         if(ValidarIdentificacao.validarCPF(usuario.getIdentificacao()) || ValidarIdentificacao.validarCNPJ(usuario.getIdentificacao())){
-            return usuarioRepository.save(usuario);
+            usuarioRepository.save(usuario);
+            return usuario;
         }
         throw new RuntimeException("Identificação nõ é valida!");
     };
@@ -34,6 +36,7 @@ public class UsuarioService {
         usuarioExistente.setIdentificacao(usuarioAtualizado.getIdentificacao());
         usuarioExistente.setNome(usuarioAtualizado.getNome());
         usuarioExistente.setEmail(usuarioAtualizado.getEmail());
-        return usuarioRepository.save(usuarioExistente);
+        usuarioRepository.save(usuarioExistente);
+        return usuarioExistente;
     }
 }
