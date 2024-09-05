@@ -1,21 +1,20 @@
 package br.edu.unicesumar.folia.controller.usuario;
 
 import br.edu.unicesumar.folia.domain.usuario.Usuario;
-import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @Tag(
         name = "Usuario",
-        description = "CRUD REST - create Usuario, Update Usuario, Get Usuario, Get All Usuario, Delete Usuario"
+
+        description = "CRUD REST - create Usuario, Update Usuario, Delete Usuario"
+
 )
 @RestController
 @RequestMapping("api/usuario")
