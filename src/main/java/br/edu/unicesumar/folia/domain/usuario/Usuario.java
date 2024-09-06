@@ -28,4 +28,11 @@ public class Usuario extends Entidade {
     @JoinColumn(name = "ENDERECO_FK")
     private Endereco endereco;
 
+    public Usuario(Usuario usuario) {
+        this.identificacao = usuario.getIdentificacao();
+        this.nome = usuario.getNome();
+        this.email = usuario.getEmail();
+        this.endereco = usuario.getEndereco();
+    }
+
 }
