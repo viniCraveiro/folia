@@ -22,7 +22,7 @@ public class Endereco extends Entidade {
     @Column
     private String numeroResidencial;
     @Column
-    private String Complemento;
+    private String complemento;
     @Column
     private String bairro;
     @Column

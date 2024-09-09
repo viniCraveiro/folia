@@ -18,8 +18,9 @@ public class EnderecoService {
     }
 
     public Endereco salvaEndereco(Endereco endereco){
+        enderecoRepository.save(endereco);
+        return endereco;
 
-        return enderecoRepository.save(endereco);
     }
 
     public void deletaEndereco(UUID uuid){
@@ -37,7 +38,8 @@ public class EnderecoService {
         enderecoExistente.setCidade(EnderecoAtualizado.getCidade());
         enderecoExistente.setCep(EnderecoAtualizado.getCep());
         enderecoExistente.setUf(EnderecoAtualizado.getUf());
-        return enderecoRepository.save(enderecoExistente);
+        enderecoRepository.save(enderecoExistente);
+        return enderecoExistente;
     }
 
 }

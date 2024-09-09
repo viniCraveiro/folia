@@ -12,10 +12,11 @@ import java.util.UUID;
 
 @Tag(
         name = "Endereco",
+
         description = "CRUD REST - create Endereco, Update Endereco, Delete Endereco"
 )
 @RestController
-@RequestMapping("endereco")
+@RequestMapping("api/endereco")
 public class EnderecoRestController {
 
     private final EnderecoService enderecoService;
