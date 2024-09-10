@@ -1,10 +1,19 @@
 package br.edu.unicesumar.folia.domain.empresa;
 
+import br.edu.unicesumar.folia.domain.usuario.ValidarIdentificacao;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 
 import java.util.UUID;
+
 
 @Service
 @Transactional
@@ -16,18 +25,23 @@ public class EmpresaService {
         this.empresaRepository = empresaRepository;
     }
 
-    public Empresa salvaEmpresa(Empresa empresa){
-        return empresaRepository.save(empresa);
+    public Empresa salvaEmpresa(@Valid Empresa empresa){
+        empresa.setCnpj(ValidarIdentificacao.removeNonDigits(empresa.getCnpj()));
+        if (ValidarIdentificacao.validarCNPJ(empresa.getCnpj())){
+            empresaRepository.save(empresa);
+            return empresa;
+        }
+        throw new RuntimeException("Esse CNPJ não existe ");
     }
 
     public void deletaEmpresa(UUID uuid){
-        Empresa empresa = empresaRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
-        empresaRepository.delete(empresa);
+        Empresa empresaExistente = empresaRepository.findById(uuid).orElseThrow(()-> new EntityNotFoundException("Empresa não encontrada com o id: " + uuid));
+        empresaRepository.delete(empresaExistente);
 
     }
 
-    public Empresa atualizaEmpresa(UUID uuid, Empresa empresaAtualizado) {
-        Empresa empresaExistente = empresaRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
+    public Empresa atualizaEmpresa(UUID uuid, @Valid Empresa empresaAtualizado) {
+        Empresa empresaExistente = empresaRepository.findById(uuid).orElseThrow(() ->new EntityNotFoundException("Empresa não encontrada com o id: " + uuid));
         empresaExistente.setNomeFantasia(empresaAtualizado.getNomeFantasia());
         empresaExistente.setCnpj(empresaAtualizado.getCnpj());
         empresaExistente.setRazaoSocial(empresaAtualizado.getRazaoSocial());
@@ -37,5 +51,19 @@ public class EmpresaService {
 
         return empresaRepository.save(empresaExistente);
     }
+
+    //execeção do EntityNot....
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleEntityNotFound(EntityNotFoundException ex){
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public String handleValidationExceptions(ConstraintViolationException ex){
+        return "Erro na validação" + ex.getMessage();
+    }
+
+
 }
 
