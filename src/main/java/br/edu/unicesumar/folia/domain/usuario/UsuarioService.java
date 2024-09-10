@@ -18,11 +18,14 @@ public class UsuarioService {
 
     public Usuario salvaUsuario(Usuario usuario){
         usuario.setIdentificacao(ValidarIdentificacao.removeNonDigits(usuario.getIdentificacao()));
-        if(ValidarIdentificacao.validarCPF(usuario.getIdentificacao()) || ValidarIdentificacao.validarCNPJ(usuario.getIdentificacao())){
-            usuarioRepository.save(usuario);
-            return usuario;
+        if (ValidarIdentificacao.validarCPF(usuario.getIdentificacao()) || ValidarIdentificacao.validarCNPJ(usuario.getIdentificacao())) {
+            if (ValidarIdentificacao.validarSenha(usuario.getSenha())) {
+                usuarioRepository.save(usuario);
+                return usuario;
+            }
+            throw new RuntimeException("Senha não é válida!");
         }
-        throw new RuntimeException("Identificação nõ é valida!");
+        throw new RuntimeException("Identificação não é válida!");
     };
 
     public void deletaUsuario(UUID uuid){
@@ -36,8 +39,10 @@ public class UsuarioService {
         usuarioExistente.setIdentificacao(usuarioAtualizado.getIdentificacao());
         usuarioExistente.setNome(usuarioAtualizado.getNome());
         usuarioExistente.setEmail(usuarioAtualizado.getEmail());
+        usuarioExistente.setUsuario(usuarioAtualizado.getUsuario());
+        usuarioExistente.setSenha(usuarioAtualizado.getSenha());
         usuarioExistente.setEndereco(usuarioAtualizado.getEndereco());
-        usuarioRepository.save(usuarioExistente);
+        salvaUsuario(usuarioExistente);
         return usuarioExistente;
     }
 }

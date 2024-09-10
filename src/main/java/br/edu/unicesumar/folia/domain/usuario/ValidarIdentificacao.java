@@ -1,6 +1,18 @@
 package br.edu.unicesumar.folia.domain.usuario;
 
+import static io.netty.util.internal.SWARUtil.containsUpperCase;
+
 public class ValidarIdentificacao {
+
+    public static boolean validarSenha(String senha){
+        boolean validacao1 = senha.chars().anyMatch(Character::isDigit);
+        boolean validacao2 = senha.chars().anyMatch(Character::isUpperCase);
+        if(validacao1 && validacao2) {
+            return true;
+        }
+        return false;
+
+    }
 
     public static String removeNonDigits(String input) {
         if (input == null) {

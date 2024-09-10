@@ -24,6 +24,12 @@ public class Usuario extends Entidade {
     private String nome;
     @Column
     private String email;
+    @Column
+    private String usuario;
+    @Column
+    private String senha;
+    @Column
+    private TipoUsuario tipoUsuario;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ENDERECO_FK")
     private Endereco endereco;
@@ -32,6 +38,9 @@ public class Usuario extends Entidade {
         this.identificacao = usuario.getIdentificacao();
         this.nome = usuario.getNome();
         this.email = usuario.getEmail();
+        this.usuario = usuario.getUsuario();
+        this.senha = usuario.getSenha();
+        this.tipoUsuario = usuario.getTipoUsuario();
         this.endereco = usuario.getEndereco();
     }
 
