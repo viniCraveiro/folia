@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Tag(
@@ -53,6 +54,11 @@ public class UsuarioRestController {
     @GetMapping
     public Page<Usuario> listar(Pageable paginacao){
         return repository.findAll(paginacao).map(Usuario::new);
+    }
+
+    @GetMapping("/findall") // Metodo não seguro temporario - Usando de Test no Front
+    public List<Usuario> listar(){
+        return repository.findAll();
     }
 
 }
