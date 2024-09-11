@@ -2,10 +2,8 @@ package br.edu.unicesumar.folia.domain.empresa;
 
 import br.edu.unicesumar.folia.domain.usuario.ValidarIdentificacao;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ExceptionHandler;

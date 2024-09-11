@@ -1,6 +1,5 @@
 package br.edu.unicesumar.folia.domain.usuario;
 
-import static io.netty.util.internal.SWARUtil.containsUpperCase;
 
 public class ValidarIdentificacao {
 
