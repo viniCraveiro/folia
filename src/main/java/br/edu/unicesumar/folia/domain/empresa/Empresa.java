@@ -6,8 +6,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-
-
 @Table(name = "EMPRESA")
 @Entity
 @Getter
@@ -39,7 +37,7 @@ public class Empresa extends Entidade {
         @Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres.")
         private String senha;
 
-        @ManyToOne()
+        @ManyToOne(cascade = CascadeType.ALL)
         @JoinColumn(name = "ENDERECO_FK")
         @NotNull(message = "O endereço é obrigatório.")
         private Endereco endereco;

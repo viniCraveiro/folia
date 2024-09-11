@@ -6,9 +6,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import java.util.UUID;
-
-
 @Table(name = "USUARIO")
 @Entity
 @Getter
