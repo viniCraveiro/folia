@@ -44,4 +44,8 @@ public class UsuarioService {
         salvaUsuario(usuarioExistente);
         return usuarioExistente;
     }
+
+    public Usuario findUsuarioByIdentificacao(String identificacao) {
+        return usuarioRepository.findByIdentificacao(identificacao);
+    }
 }

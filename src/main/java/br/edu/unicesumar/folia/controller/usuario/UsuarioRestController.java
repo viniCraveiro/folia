@@ -61,4 +61,13 @@ public class UsuarioRestController {
         return repository.findAll();
     }
 
+    @PostMapping("/login") // Metodo não seguro temporario - Usando de Test no Front
+    public ResponseEntity<Usuario> getLoginAtempt(@RequestBody UsuarioLoginDTO LoginDTO){
+        Usuario login = usuarioService.findUsuarioByIdentificacao(LoginDTO.identificacao);
+        if (login != null) {
+            return ResponseEntity.ok(login);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
