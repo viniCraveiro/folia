@@ -1,10 +1,12 @@
 package br.edu.unicesumar.folia.domain.usuario;
 
+import br.edu.unicesumar.folia.controller.usuario.UsuarioDTO;
+import br.edu.unicesumar.folia.controller.usuario.UsuarioResponse;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional
@@ -15,7 +17,7 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public Usuario salvaUsuario(Usuario usuario){
+    public Usuario salvaUsuario(Usuario usuario) {
         usuario.setIdentificacao(ValidarIdentificacao.removeNonDigits(usuario.getIdentificacao()));
         if (ValidarIdentificacao.validarCPF(usuario.getIdentificacao()) || ValidarIdentificacao.validarCNPJ(usuario.getIdentificacao())) {
             if (ValidarIdentificacao.validarSenha(usuario.getSenha())) {
@@ -25,9 +27,11 @@ public class UsuarioService {
             throw new RuntimeException("Senha não é válida!");
         }
         throw new RuntimeException("Identificação não é válida!");
-    };
+    }
 
-    public void deletaUsuario(UUID uuid){
+    ;
+
+    public void deletaUsuario(UUID uuid) {
         Usuario usuario = usuarioRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
         usuarioRepository.delete(usuario);
 
@@ -43,5 +47,22 @@ public class UsuarioService {
         usuarioExistente.setEndereco(usuarioAtualizado.getEndereco());
         salvaUsuario(usuarioExistente);
         return usuarioExistente;
+    }
+
+    public UsuarioResponse validaAcesso(String identificacao, String senha) {
+        UsuarioResponse response = new UsuarioResponse();
+        Optional<Usuario> optionalUsuario = usuarioRepository.findByIdentificacao(identificacao);
+
+        if (optionalUsuario.isPresent() && optionalUsuario.get().getSenha().equals(senha)) {
+            Usuario usuario = optionalUsuario.get();
+            response.setUuid(UUID.randomUUID().toString());
+            response.setNome(usuario.getNome());
+            response.setValid(true);
+            response.setTipoUsuario(usuario.getTipoUsuario());
+        } else {
+            response.setValid(false);
+        }
+
+        return response;
     }
 }
