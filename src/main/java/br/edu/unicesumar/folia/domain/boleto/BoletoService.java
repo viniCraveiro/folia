@@ -12,7 +12,7 @@ public class BoletoService {
 
     public BoletoService(BoletoRepository boletoRepository){this.boletoRepository = boletoRepository;}
 
-    public Boleto criarBolete(Boleto boleto){
+    public Boleto salvarBoleto(Boleto boleto){
         return boletoRepository.save(boleto);
     }
 
