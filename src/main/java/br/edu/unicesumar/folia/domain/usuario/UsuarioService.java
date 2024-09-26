@@ -27,9 +27,7 @@ public class UsuarioService {
             throw new RuntimeException("Senha não é válida!");
         }
         throw new RuntimeException("Identificação não é válida!");
-    }
-
-    ;
+    };
 
     public void deletaUsuario(UUID uuid) {
         Usuario usuario = usuarioRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
@@ -62,7 +60,6 @@ public class UsuarioService {
         } else {
             response.setValid(false);
         }
-
         return response;
     }
 }
