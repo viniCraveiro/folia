@@ -16,6 +16,10 @@ public class BoletoService {
         return boletoRepository.save(boleto);
     }
 
+    public Boleto findById(UUID uuid) {
+        return boletoRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
+    }
+
     public void deletarBoleto(UUID uuid){
         Boleto boleto = boletoRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
         boletoRepository.delete(boleto);
