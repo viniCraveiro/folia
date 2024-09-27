@@ -10,9 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Map;
 import java.util.UUID;
 
 @Tag(
@@ -61,8 +59,8 @@ public class UsuarioRestController {
     }
 
     @PostMapping("/validarLogin")
-    public ResponseEntity<UsuarioResponse> validarAcesso(@RequestBody UsuarioLogin usuarioLogin) {
-        UsuarioResponse response = usuarioService.validaAcesso(usuarioLogin.getIdentificacao(), usuarioLogin.getSenha());
+    public ResponseEntity<UsuarioResponseDTO> validarAcesso(@RequestBody UsuarioLoginDTO usuarioLogin) {
+        UsuarioResponseDTO response = usuarioService.validaAcesso(usuarioLogin.getIdentificacao(), usuarioLogin.getSenha());
 
         if (response.isValid()) {
             return ResponseEntity.ok(response);

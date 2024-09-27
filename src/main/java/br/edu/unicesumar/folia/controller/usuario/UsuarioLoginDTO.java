@@ -1,15 +1,9 @@
 package br.edu.unicesumar.folia.controller.usuario;
-
-import br.edu.unicesumar.folia.domain.Entidade;
 import lombok.Getter;
-
+import lombok.Setter;
 @Getter
-public class UsuarioLoginDTO extends Entidade {
-    public String identificacao;
-    public String senha;
-
-    UsuarioLoginDTO(){
-
-    }
-
+@Setter
+public class UsuarioLoginDTO {
+    private String identificacao;
+    private String senha;
 }
