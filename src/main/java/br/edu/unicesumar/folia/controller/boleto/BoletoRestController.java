@@ -44,6 +44,7 @@ public class BoletoRestController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
         }
     }
 
