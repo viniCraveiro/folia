@@ -79,8 +79,8 @@ public class UsuarioRestController {
 
 
     @PostMapping("/validarLogin")
-    public ResponseEntity<UsuarioResponse> validarAcesso(@RequestBody UsuarioLogin usuarioLogin) {
-        UsuarioResponse response = usuarioService.validaAcesso(usuarioLogin.getIdentificacao(), usuarioLogin.getSenha());
+    public ResponseEntity<UsuarioResponseDTO> validarAcesso(@RequestBody UsuarioLoginDTO usuarioLogin) {
+        UsuarioResponseDTO response = usuarioService.validaAcesso(usuarioLogin.getIdentificacao(), usuarioLogin.getSenha());
 
         if (response.isValid()) {
             return ResponseEntity.ok(response);

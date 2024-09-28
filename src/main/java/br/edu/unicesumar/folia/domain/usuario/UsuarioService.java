@@ -1,6 +1,7 @@
 package br.edu.unicesumar.folia.domain.usuario;
 
-import br.edu.unicesumar.folia.controller.usuario.UsuarioResponse;
+
+import br.edu.unicesumar.folia.controller.usuario.UsuarioResponseDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,9 +29,7 @@ public class UsuarioService {
             throw new RuntimeException("Senha não é válida!");
         }
         throw new RuntimeException("Identificação não é válida!");
-    }
-
-    ;
+    };
 
     public void deletaUsuario(UUID uuid) {
         Usuario usuario = usuarioRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
@@ -62,8 +61,9 @@ public class UsuarioService {
         return usuarioRepository.findByIdentificacao(identificacao);
     }
 
-    public UsuarioResponse validaAcesso(String identificacao, String senha) {
-        UsuarioResponse response = new UsuarioResponse();
+    public UsuarioResponseDTO validaAcesso(String identificacao, String senha) {
+        UsuarioResponseDTO response = new UsuarioResponseDTO();
+
         Optional<Usuario> optionalUsuario = usuarioRepository.findByIdentificacao(identificacao);
 
         if (optionalUsuario.isPresent() && optionalUsuario.get().getSenha().equals(senha)) {
@@ -75,7 +75,6 @@ public class UsuarioService {
         } else {
             response.setValid(false);
         }
-
         return response;
     }
 }
