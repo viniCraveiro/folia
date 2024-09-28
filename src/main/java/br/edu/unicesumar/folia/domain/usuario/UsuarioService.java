@@ -1,8 +1,9 @@
 package br.edu.unicesumar.folia.domain.usuario;
 
-import br.edu.unicesumar.folia.controller.usuario.UsuarioDTO;
 import br.edu.unicesumar.folia.controller.usuario.UsuarioResponse;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,13 +50,25 @@ public class UsuarioService {
         return usuarioExistente;
     }
 
+    public Optional<Usuario> buscarPorId(UUID id) {
+        return usuarioRepository.findById(id);
+    }
+
+    public Page<Usuario> buscarPorNome(String nome, Pageable pageable) {
+        return usuarioRepository.findByNomeContaining(nome, pageable);
+    }
+
+    public Optional<Usuario> buscarPorIdentificacao(String identificacao) {
+        return usuarioRepository.findByIdentificacao(identificacao);
+    }
+
     public UsuarioResponse validaAcesso(String identificacao, String senha) {
         UsuarioResponse response = new UsuarioResponse();
         Optional<Usuario> optionalUsuario = usuarioRepository.findByIdentificacao(identificacao);
 
         if (optionalUsuario.isPresent() && optionalUsuario.get().getSenha().equals(senha)) {
             Usuario usuario = optionalUsuario.get();
-            response.setUuid(UUID.randomUUID().toString());
+            response.setUuid(usuario.getId().toString());
             response.setNome(usuario.getNome());
             response.setValid(true);
             response.setTipoUsuario(usuario.getTipoUsuario());

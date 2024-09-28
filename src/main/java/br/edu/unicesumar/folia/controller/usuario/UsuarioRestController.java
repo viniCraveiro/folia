@@ -7,13 +7,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Tag(
         name = "Usuario",
@@ -57,8 +56,27 @@ public class UsuarioRestController {
     public ResponseEntity<Page<Usuario>> listar(Pageable paginacao){
         var page = repository.findAll(paginacao).map(Usuario::new);
         return ResponseEntity.ok(page);
-
     }
+
+    @GetMapping("/buscarPorId/{id}")
+    public ResponseEntity<Usuario> buscarPorId(@PathVariable UUID id) {
+        Optional<Usuario> usuario = usuarioService.buscarPorId(id);
+        return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/buscarPorNome") //Utilizar ?nome={nome}&page=0&size=5
+    public ResponseEntity<Page<Usuario>> buscarPorNome(String nome, @PageableDefault(size = 10) Pageable pageable) {
+        Page<Usuario> usuarios = usuarioService.buscarPorNome(nome, pageable);
+        return ResponseEntity.ok(usuarios);
+    }
+
+    @GetMapping("/buscarPorIdentificacao")//Utilizar ?identificacao={identificacao}
+    public ResponseEntity<Usuario> buscarPorIdentificacao(@RequestParam String identificacao) {
+        Optional<Usuario> usuario = usuarioService.buscarPorIdentificacao(identificacao);
+        return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
 
     @PostMapping("/validarLogin")
     public ResponseEntity<UsuarioResponse> validarAcesso(@RequestBody UsuarioLogin usuarioLogin) {
