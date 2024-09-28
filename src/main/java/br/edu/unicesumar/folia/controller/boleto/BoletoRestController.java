@@ -10,11 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Tag(
         name = "Boleto",
-        description = "CRUD REST - create Boleto, Update Boleto, Get Boleto, Get All Boleto, Delete Boleto"
+        description = "Listar, buscar e atualizar status de boletos"
 )
 @RestController
 @RequestMapping("api/boleto")
@@ -26,47 +27,33 @@ public class BoletoRestController {
         this.boletoService = boletoService;
     }
 
-    @PostMapping
-    @Transactional
-    public ResponseEntity<Void> create(@RequestBody @Valid Boleto boleto) {
-        try {
-            boletoService.criarBolete(boleto);
-            return new ResponseEntity<>(null, HttpStatus.CREATED);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    //todos os boletos
+    @GetMapping
+    public ResponseEntity<List<Boleto>> listarBoletos() {
+        List<Boleto> boletos = boletoService.listarBoletos();
+        return new ResponseEntity<>(boletos, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{uuid}")
-    public ResponseEntity<Void> delete(@PathVariable UUID uuid) {
-        try {
-            boletoService.deletarBoleto(uuid);
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
-        }
-    }
-
-    @PutMapping("/{uuid}")
-    public ResponseEntity<Boleto> update(@PathVariable UUID uuid, @RequestBody Boleto boleto) {
-        try {
-            Boleto atualizado = boletoService.atualizarBolete(uuid, boleto);
-            return new ResponseEntity<>(atualizado, HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-        }
-    }
-
+    // Buscar boleto
     @GetMapping("/{uuid}")
-    public ResponseEntity<Boleto> getById(@PathVariable UUID uuid) {
+    public ResponseEntity<Boleto> buscarBoleto(@PathVariable UUID uuid) {
         try {
-            Boleto boleto = boletoService.findById(uuid);
+            Boleto boleto = boletoService.buscarBoleto(uuid);
             return new ResponseEntity<>(boleto, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    // Atualizar status boleto
+    @PutMapping("/{uuid}/status")
+    public ResponseEntity<Void> atualizarStatusBoleto(@PathVariable UUID uuid, @RequestParam String novoStatus) {
+        try {
+            boletoService.atualizarStatusBoleto(uuid, novoStatus);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
