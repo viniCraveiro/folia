@@ -33,26 +33,40 @@ public class UsuarioRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> cadastrar(@RequestBody @Valid Usuario usuario){
+    public ResponseEntity cadastrar(@RequestBody @Valid Usuario usuario){
         usuarioService.salvaUsuario(usuario);
+
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<Void> deletar(@PathVariable UUID uuid){
+    public ResponseEntity deletar(@PathVariable UUID uuid){
         usuarioService.deletaUsuario(uuid);
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity<Usuario> atualizar(@PathVariable UUID uuid, @RequestBody Usuario usuario){
+    public ResponseEntity atualizar(@PathVariable UUID uuid, @RequestBody Usuario usuario){
         usuarioService.atualizaUsuario(uuid, usuario);
-        return  new ResponseEntity<>(usuario, HttpStatus.OK);
+        return ResponseEntity.ok(usuario);
     }
 
     @GetMapping
-    public Page<Usuario> listar(Pageable paginacao){
-        return repository.findAll(paginacao).map(Usuario::new);
+    public ResponseEntity<Page<Usuario>> listar(Pageable paginacao){
+        var page = repository.findAll(paginacao).map(Usuario::new);
+        return ResponseEntity.ok(page);
+
     }
+
+    @PostMapping("/validarLogin")
+    public ResponseEntity<UsuarioResponseDTO> validarAcesso(@RequestBody UsuarioLoginDTO usuarioLogin) {
+        UsuarioResponseDTO response = usuarioService.validaAcesso(usuarioLogin.getIdentificacao(), usuarioLogin.getSenha());
+
+        if (response.isValid()) {
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
+
 
 }

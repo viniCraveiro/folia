@@ -6,9 +6,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import java.util.UUID;
-
-
 @Table(name = "USUARIO")
 @Entity
 @Getter
@@ -28,7 +25,8 @@ public class Usuario extends Entidade {
     private String usuario;
     @Column
     private String senha;
-    @Column
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TIPO_USUARIO", length = 7)
     private TipoUsuario tipoUsuario;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ENDERECO_FK")
