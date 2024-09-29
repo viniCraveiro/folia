@@ -56,5 +56,7 @@ public class Boleto extends Entidade {
     private String chavePix;
     @Column
     private int tipoChavePix;
+    @Column
+    private String status;
 
 }
