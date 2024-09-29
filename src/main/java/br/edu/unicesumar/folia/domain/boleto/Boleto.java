@@ -15,7 +15,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Boleto extends Entidade {
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "BANCO_FK")
     private Banco banco;
     @Column
@@ -25,38 +25,41 @@ public class Boleto extends Entidade {
     @Column
     private String totalParcelas;
     @Column
-    private int convenio;
+    private Integer convenio;
     @Column
-    private int codigoCedente;
+    private Integer codigoCedente;
     @Column
-    private int codigoTransmissao;
+    private Integer codigoTransmissao;
     @Column
-    private int modalidade;
+    private Integer modalidade;
     @Column
-    private int responsavelEmissao;
+    private Integer responsavelEmissao;
     @Column
-    private int tipoCarteira;
+    private Integer tipoCarteira;
     @Column
-    private int tipoDocumento;
-    @ManyToOne
-    @JoinColumn(name = "USUARIO_FK")
+    private Integer tipoDocumento;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USUARIO_FK", nullable = false)
     private Usuario usuario;
     @Column
-    private int caracteristicaTitulo;
+    private Integer caracteristicaTitulo;
     @Column
-    private int codigoNegativacao;
-    @ManyToOne
+    private Integer codigoNegativacao;
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "EMPRESA_FK")
     private Empresa dadosEmpresa;
     @Column
-    private int identificacaoDistribuicao;
+    private Integer identificacaoDistribuicao;
     @Column
     private String operacao;
     @Column
     private String chavePix;
     @Column
-    private int tipoChavePix;
+    private Integer tipoChavePix;
+    @Enumerated(EnumType.STRING)
     @Column
-    private String status;
+    private Status status;
+    @Column
+    private String url;
 
 }

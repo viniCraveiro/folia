@@ -18,6 +18,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Banco extends Entidade {
 
+    @Column
+    private String nome;
     @Column(length = 36)
     @NotNull
     private String agencia;
@@ -30,7 +32,7 @@ public class Banco extends Entidade {
     @Column(length = 9)
     @NotNull
     private String contaDigito;
-    @Column(length = 4)
+    @Column(name = "DIGITO_VERIFICADOR", length = 4)
     @NotNull
     private String digitoVerificadorAgenciaConta;
 

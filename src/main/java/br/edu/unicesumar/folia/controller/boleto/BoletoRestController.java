@@ -1,13 +1,15 @@
 package br.edu.unicesumar.folia.controller.boleto;
 
 import br.edu.unicesumar.folia.domain.boleto.Boleto;
+import br.edu.unicesumar.folia.domain.boleto.BoletoRepository;
 import br.edu.unicesumar.folia.domain.boleto.BoletoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +25,11 @@ public class BoletoRestController {
 
     private final BoletoService boletoService;
 
-    public BoletoRestController(BoletoService boletoService) {
+    private final BoletoRepository repository;
+
+    public BoletoRestController(BoletoService boletoService, BoletoRepository repository) {
         this.boletoService = boletoService;
+        this.repository = repository;
     }
 
     //todos os boletos
@@ -33,7 +38,11 @@ public class BoletoRestController {
         List<Boleto> boletos = boletoService.listarBoletos();
         return new ResponseEntity<>(boletos, HttpStatus.OK);
     }
-
+    @GetMapping("/usuario/{usuarioId}")
+    public Page<Boleto> listarBoletosPorUsuario(@PathVariable UUID usuarioId,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return boletoService.listar(usuarioId, pageable);
+    }
     // Buscar boleto
     @GetMapping("/{uuid}")
     public ResponseEntity<Boleto> buscarBoleto(@PathVariable UUID uuid) {
