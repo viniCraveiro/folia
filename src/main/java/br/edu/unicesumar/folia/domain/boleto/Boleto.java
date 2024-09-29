@@ -19,6 +19,12 @@ public class Boleto extends Entidade {
     @JoinColumn(name = "BANCO_FK")
     private Banco banco;
     @Column
+    private String valor;
+    @Column
+    private String dataVencimento;
+    @Column
+    private String totalParcelas;
+    @Column
     private int convenio;
     @Column
     private int codigoCedente;
