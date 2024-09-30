@@ -1,20 +1,29 @@
 package br.edu.unicesumar.folia.domain.boleto;
 
 
+import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class BoletoService {
     private final BoletoRepository boletoRepository ;
+    private final UsuarioRepository usuarioRepository;
 
-    public BoletoService(BoletoRepository boletoRepository){this.boletoRepository = boletoRepository;}
+    public BoletoService(BoletoRepository boletoRepository, UsuarioRepository usuarioRepository){this.boletoRepository = boletoRepository;
+        this.usuarioRepository = usuarioRepository;
+    }
 
     public Boleto salvarBoleto(Boleto boleto){
         return boletoRepository.save(boleto);
+    }
+
+    public Page<Boleto> listar(UUID usuarioId, Pageable pageable) {
+        return boletoRepository.findByUsuarioId(usuarioId, pageable);
     }
 
     // todos os boletos
@@ -30,7 +39,7 @@ public class BoletoService {
     // Atualizar apenas o status do boleto
     public void atualizarStatusBoleto(UUID uuid, String novoStatus) {
         Boleto boleto = boletoRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
-        boleto.setStatus(novoStatus);  // Atualiza o status do boleto
+        boleto.setStatus(Status.valueOf(novoStatus));  // Atualiza o status do boleto
         boletoRepository.save(boleto);  // Salva a alteração
     }
 
