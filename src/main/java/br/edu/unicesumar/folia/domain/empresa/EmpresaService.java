@@ -31,7 +31,7 @@ public class EmpresaService {
         ///}
         //throw new RuntimeException("Esse CNPJ não existe ");
     }
-
+ 
     public void deletaEmpresa(UUID uuid){
         Empresa empresaExistente = empresaRepository.findById(uuid).orElseThrow(()-> new EntityNotFoundException("Empresa não encontrada com o id: " + uuid));
         empresaRepository.delete(empresaExistente);
