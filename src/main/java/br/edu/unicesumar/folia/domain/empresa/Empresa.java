@@ -11,7 +11,6 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Empresa extends Entidade {
 
         @Column(nullable = false)
@@ -24,7 +23,7 @@ public class Empresa extends Entidade {
 
         @Column(nullable = false, unique = true)
         @NotBlank(message = "O CNPJ não pode estar em branco.")
-        @Pattern(regexp = "\\d{14}", message = "O CNPJ deve conter exatamente 14 dígitos.")
+       // @Pattern(regexp = "\\d{14}", message = "O CNPJ deve conter exatamente 14 dígitos.")
         private String cnpj;
 
         @Column(nullable = false)
@@ -33,13 +32,24 @@ public class Empresa extends Entidade {
         private String email;
 
         @Column(nullable = false)
-        @NotBlank(message = "A senha não pode estar em branco.")
-        @Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres.")
-        private String senha;
+        @NotNull(message = "o relefone não pode estar em branco")
+        private String telefone;
 
         @ManyToOne(cascade = CascadeType.ALL)
         @JoinColumn(name = "ENDERECO_FK")
         @NotNull(message = "O endereço é obrigatório.")
         private Endereco endereco;
 
+        public Empresa(String nomeFantasia, String razaoSocial, String cnpj, String email, String telefone, Endereco endereco) {
+                this.nomeFantasia = nomeFantasia;
+                this.razaoSocial = razaoSocial;
+                this.cnpj = cnpj;
+                this.email = email;
+                this.telefone = telefone;
+                this.endereco = endereco;
+        }
+
+        public Empresa(String nomeFantasia, String cnpj, String email, String telefone, Endereco endereco) {
+                super();
+        }
 }
