@@ -41,7 +41,6 @@ public class EmpresaRestController {
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
-
    private Empresa convertToEntity(EmpresaDTO dto) {
         return new Empresa(
                 dto.getNomeFantasia(),

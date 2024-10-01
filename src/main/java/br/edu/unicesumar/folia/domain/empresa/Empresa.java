@@ -51,6 +51,6 @@ public class Empresa extends Entidade {
 
         public Empresa(String nomeFantasia, String cnpj, String email, String telefone, Endereco endereco) {
                 super();
-                
+
         }
 }
