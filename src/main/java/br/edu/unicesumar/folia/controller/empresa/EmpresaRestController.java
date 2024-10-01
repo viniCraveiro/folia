@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import br.edu.unicesumar.folia.controller.empresa.EmpresaDTO;
 
 import java.util.UUID;
 
@@ -27,22 +28,39 @@ public class EmpresaRestController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> cadastrar(@RequestBody @Valid Empresa empresa){
+    public ResponseEntity<Void> cadastrar(@RequestBody @Valid EmpresaDTO empresaDTO) {
+        Empresa empresa = convertToEntity(empresaDTO);
         empresaService.salvaEmpresa(empresa);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{uuid}")
-    public ResponseEntity<Void> deletar(@PathVariable UUID uuid){
-        empresaService.deletaEmpresa(uuid);
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    @PutMapping("/{uuid}")
+    public ResponseEntity<EmpresaDTO> atualizar(@PathVariable UUID uuid, @RequestBody EmpresaDTO empresaDTO) {
+        Empresa empresaAtualizada = empresaService.atualizaEmpresa(uuid, convertToEntity(empresaDTO));
+        EmpresaDTO responseDTO = convertToDTO(empresaAtualizada);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
-    @PutMapping("/{uuid}")
-    public ResponseEntity<Empresa> atualizar(@PathVariable UUID uuid, @RequestBody Empresa empresa){
-        empresaService.atualizaEmpresa(uuid, empresa);
-        return  new ResponseEntity<>(empresa, HttpStatus.OK);
+   private Empresa convertToEntity(EmpresaDTO dto) {
+        return new Empresa(
+                dto.getNomeFantasia(),
+                dto.getCnpj(),
+                dto.getEmail(),
+                dto.getTelefone(),
+                dto.getEndereco()
+        );
     }
+
+    private EmpresaDTO convertToDTO(Empresa empresa) {
+        return new EmpresaDTO(
+                empresa.getNomeFantasia(),
+                empresa.getCnpj(),
+                empresa.getEmail(),
+                empresa.getTelefone(),
+                empresa.getEndereco()
+        );
+    }
+
 
 }
 

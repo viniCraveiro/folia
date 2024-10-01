@@ -22,16 +22,16 @@ public class EmpresaService {
     public EmpresaService(EmpresaRepository empresaRepository) {
         this.empresaRepository = empresaRepository;
     }
-
+    @Transactional
     public Empresa salvaEmpresa(@Valid Empresa empresa){
-        empresa.setCnpj(ValidarIdentificacao.removeNonDigits(empresa.getCnpj()));
-        if (ValidarIdentificacao.validarCNPJ(empresa.getCnpj())){
+        //empresa.setCnpj(ValidarIdentificacao.removeNonDigits(empresa.getCnpj()));
+        //if (ValidarIdentificacao.validarCNPJ(empresa.getCnpj())){
             empresaRepository.save(empresa);
             return empresa;
-        }
-        throw new RuntimeException("Esse CNPJ não existe ");
+        ///}
+        //throw new RuntimeException("Esse CNPJ não existe ");
     }
-
+ 
     public void deletaEmpresa(UUID uuid){
         Empresa empresaExistente = empresaRepository.findById(uuid).orElseThrow(()-> new EntityNotFoundException("Empresa não encontrada com o id: " + uuid));
         empresaRepository.delete(empresaExistente);
@@ -44,7 +44,7 @@ public class EmpresaService {
         empresaExistente.setCnpj(empresaAtualizado.getCnpj());
         empresaExistente.setRazaoSocial(empresaAtualizado.getRazaoSocial());
         empresaExistente.setEmail(empresaAtualizado.getEmail());
-        empresaExistente.setSenha(empresaAtualizado.getSenha());
+        empresaExistente.setTelefone(empresaAtualizado.getTelefone());
         empresaExistente.setEndereco(empresaAtualizado.getEndereco());
 
         return empresaRepository.save(empresaExistente);
