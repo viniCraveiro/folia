@@ -15,12 +15,12 @@ INSERT INTO USUARIO (ID, IDENTIFICACAO, NOME, EMAIL, USUARIO, SENHA, TIPO_USUARI
 ('550e8400-e29b-41d4-a716-446655440104', 'ID005', 'Luana E', 'luana.v@email.com', 'luana', 'senha345', 'USER', '550e8400-e29b-41d4-a716-446655440004');
 
 --Inserir Empresa
-INSERT INTO EMPRESA (ID, NOME_FANTASIA, RAZAO_SOCIAL, CNPJ, EMAIL, SENHA, ENDERECO_FK) VALUES
-('550e8400-e29b-41d4-a716-446655440100', 'Empresa A', 'Razao Social A', '12345678000101', 'contato@empresaa.com', 'senhaSegura1', '550e8400-e29b-41d4-a716-446655440000'),
-('550e8400-e29b-41d4-a716-446655440102', 'Empresa B', 'Razao Social B', '98765432000102', 'contato@empresab.com', 'senhaSegura2', '550e8400-e29b-41d4-a716-446655440001'),
-('550e8400-e29b-41d4-a716-446655440103', 'Empresa C', 'Razao Social C', '19283746000103', 'contato@empresac.com', 'senhaSegura3', '550e8400-e29b-41d4-a716-446655440002'),
-('550e8400-e29b-41d4-a716-446655440104', 'Empresa D', 'Razao Social D', '56473829000104', 'contato@empresad.com', 'senhaSegura4', '550e8400-e29b-41d4-a716-446655440003'),
-('550e8400-e29b-41d4-a716-446655440105', 'Empresa E', 'Razao Social E', '10293847560105', 'contato@empresae.com', 'senhaSegura5', '550e8400-e29b-41d4-a716-446655440004');
+INSERT INTO EMPRESA (ID, NOME_FANTASIA, RAZAO_SOCIAL, CNPJ, EMAIL, TELEFONE, ENDERECO_FK) VALUES
+('550e8400-e29b-41d4-a716-446655440100', 'Empresa A', 'Razao Social A', '12345678000101', 'contato@empresaa.com', '5544999999999', '550e8400-e29b-41d4-a716-446655440000'),
+('550e8400-e29b-41d4-a716-446655440102', 'Empresa B', 'Razao Social B', '98765432000102', 'contato@empresab.com', '5544888888888', '550e8400-e29b-41d4-a716-446655440001'),
+('550e8400-e29b-41d4-a716-446655440103', 'Empresa C', 'Razao Social C', '19283746000103', 'contato@empresac.com', '5544777777777', '550e8400-e29b-41d4-a716-446655440002'),
+('550e8400-e29b-41d4-a716-446655440104', 'Empresa D', 'Razao Social D', '56473829000104', 'contato@empresad.com', '5544666666666', '550e8400-e29b-41d4-a716-446655440003'),
+('550e8400-e29b-41d4-a716-446655440105', 'Empresa E', 'Razao Social E', '10293847560105', 'contato@empresae.com', '5544555555555', '550e8400-e29b-41d4-a716-446655440004');
 
 
 -- Inserir Banco
