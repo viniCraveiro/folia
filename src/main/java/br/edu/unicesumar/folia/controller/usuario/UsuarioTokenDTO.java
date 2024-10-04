@@ -1,15 +1,12 @@
 package br.edu.unicesumar.folia.controller.usuario;
-
-import br.edu.unicesumar.folia.domain.Entidade;
-import br.edu.unicesumar.folia.domain.usuario.TipoUsuario;
-
-public class UsuarioTokenDTO extends Entidade {
-    public String nome;
-    public String valid;
-    public TipoUsuario tipoUsuario;
-
-    UsuarioTokenDTO(){
-
-    }
-
+import br.edu.unicesumar.folia.domain.usuario.RoleUsuario;
+import lombok.Getter;
+import lombok.Setter;
+@Getter
+@Setter
+public class UsuarioTokenDTO {
+    private String uuid;
+    private String nome;
+    private boolean valid;
+    private RoleUsuario tipoUsuario;
 }

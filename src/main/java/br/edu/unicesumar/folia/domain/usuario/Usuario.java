@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.Set;
+
 @Table(name = "USUARIO")
 @Entity
 @Getter
@@ -25,9 +27,10 @@ public class Usuario extends Entidade {
     private String usuario;
     @Column
     private String senha;
+    @ElementCollection(targetClass = RoleUsuario.class)
     @Enumerated(EnumType.STRING)
-    @Column(name = "TIPO_USUARIO", length = 7)
-    private TipoUsuario tipoUsuario;
+    @Column(name = "ROLE_USUARIO", length = 7)
+    private Set<RoleUsuario> tipoUsuario;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ENDERECO_FK")
     private Endereco endereco;

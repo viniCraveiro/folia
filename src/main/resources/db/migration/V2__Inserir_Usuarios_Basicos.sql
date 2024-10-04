@@ -7,12 +7,20 @@ INSERT INTO ENDERECO (ID, LOGRADOURO, NUMERO_RESIDENCIAL, COMPLEMENTO, BAIRRO, C
 ('550e8400-e29b-41d4-a716-446655440004', 'Rua das Palmeiras', '654', '', 'Bela Vista', 'São Paulo', '01002000', 'SP');
 
 -- Inserir Usuários com referência aos endereços
-INSERT INTO USUARIO (ID, IDENTIFICACAO, NOME, EMAIL, USUARIO, SENHA, TIPO_USUARIO, ENDERECO_FK) VALUES
-('550e8400-e29b-41d4-a716-446655440100', 'ID001', 'Vinicius A', 'vinicius.a@email.com', 'vinicius', 'senha123', 'ADMIN', '550e8400-e29b-41d4-a716-446655440000'),
-('550e8400-e29b-41d4-a716-446655440101', 'ID002', 'Gabriel B', 'gabriel.b@email.com', 'gabriel', 'senha456', 'USER', '550e8400-e29b-41d4-a716-446655440001'),
-('550e8400-e29b-41d4-a716-446655440102', 'ID003', 'Fernando C', 'fernando.c@email.com', 'fernando', 'senha789', 'USER', '550e8400-e29b-41d4-a716-446655440002'),
-('550e8400-e29b-41d4-a716-446655440103', 'ID004', 'Yasmin D', 'yasmin.d@email.com', 'yasmin', 'senha012', 'ADMIN', '550e8400-e29b-41d4-a716-446655440003'),
-('550e8400-e29b-41d4-a716-446655440104', 'ID005', 'Luana E', 'luana.v@email.com', 'luana', 'senha345', 'USER', '550e8400-e29b-41d4-a716-446655440004');
+INSERT INTO USUARIO (ID, IDENTIFICACAO, NOME, EMAIL, USUARIO, SENHA, ENDERECO_FK) VALUES
+('550e8400-e29b-41d4-a716-446655440100', 'ID001', 'Vinicius A', 'vinicius.a@email.com', 'vinicius', 'senha123', '550e8400-e29b-41d4-a716-446655440000'),
+('550e8400-e29b-41d4-a716-446655440101', 'ID002', 'Gabriel B', 'gabriel.b@email.com', 'gabriel', 'senha456', '550e8400-e29b-41d4-a716-446655440001'),
+('550e8400-e29b-41d4-a716-446655440102', 'ID003', 'Fernando C', 'fernando.c@email.com', 'fernando', 'senha789', '550e8400-e29b-41d4-a716-446655440002'),
+('550e8400-e29b-41d4-a716-446655440103', 'ID004', 'Yasmin D', 'yasmin.d@email.com', 'yasmin', 'senha012', '550e8400-e29b-41d4-a716-446655440003'),
+('550e8400-e29b-41d4-a716-446655440104', 'ID005', 'Luana E', 'luana.v@email.com', 'luana', 'senha345', '550e8400-e29b-41d4-a716-446655440004');
+
+-- Inserir Roles dos Usuários
+INSERT INTO USER_ROLES (USER_ID, ROLE_USUARIO) VALUES
+('550e8400-e29b-41d4-a716-446655440100', 'ADMIN'),
+('550e8400-e29b-41d4-a716-446655440101', 'USER'),
+('550e8400-e29b-41d4-a716-446655440102', 'USER'),
+('550e8400-e29b-41d4-a716-446655440103', 'ADMIN'),
+('550e8400-e29b-41d4-a716-446655440104', 'USER');
 
 --Inserir Empresa
 INSERT INTO EMPRESA (ID, NOME_FANTASIA, RAZAO_SOCIAL, CNPJ, EMAIL, TELEFONE, ENDERECO_FK) VALUES
