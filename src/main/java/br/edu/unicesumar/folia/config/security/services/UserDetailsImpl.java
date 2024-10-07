@@ -1,12 +1,11 @@
-package br.edu.unicesumar.folia.config.security;
+package br.edu.unicesumar.folia.config.security.services;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
-import br.edu.unicesumar.folia.controller.usuario.UsuarioTokenDTO;
+import br.edu.unicesumar.folia.controller.usuario.JwtTokenDTO;
 import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
-    private UsuarioTokenDTO token;
+    private JwtTokenDTO token;
 
     @JsonIgnore
     private String password;
@@ -26,7 +25,7 @@ public class UserDetailsImpl implements UserDetails {
 
     public UserDetailsImpl(String uuid, String nome, String password,
                            Collection<? extends GrantedAuthority> authorities) {
-        this.token.setUuid(uuid);
+        this.token.setId(uuid);
         this.token.setNome(nome);
         this.password = password;
         this.authorities = authorities;
@@ -34,27 +33,23 @@ public class UserDetailsImpl implements UserDetails {
 
     public static UserDetailsImpl build(Usuario user) {
         List<GrantedAuthority> authorities = user.getTipoUsuario().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .map(role -> new SimpleGrantedAuthority(role.getValue()))
                 .collect(Collectors.toList());
 
         return new UserDetailsImpl(
                 user.getId().toString(),
                 user.getNome(),
                 user.getSenha(),
-                authoritie);
+                authorities);
     }
 
     public String getId() {
-        return token.getUuid();
-    }
-
-    public String getNome() {
-        return token.getNome();
+        return token.getId();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return authorities;
     }
 
     @Override
@@ -64,8 +59,9 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return token.getNome();
+        return token.getIdendificacao();
     }
+
 
     @Override
     public boolean isAccountNonExpired() {
@@ -94,6 +90,6 @@ public class UserDetailsImpl implements UserDetails {
         if (o == null || getClass() != o.getClass())
             return false;
         UserDetailsImpl user = (UserDetailsImpl) o;
-        return Objects.equals(id, user.id);
+        return Objects.equals(token.getId(), user.getId());
     }
 }

@@ -1,5 +1,8 @@
 package br.edu.unicesumar.folia.config.security;
 
+import br.edu.unicesumar.folia.config.security.jwt.AuthEntryPointJwt;
+import br.edu.unicesumar.folia.config.security.jwt.AuthTokenFilter;
+import br.edu.unicesumar.folia.config.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +34,6 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
     }
-    git commit -m "Implementação inicial (NÃO ESTA FUNCIONANDO)"
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {

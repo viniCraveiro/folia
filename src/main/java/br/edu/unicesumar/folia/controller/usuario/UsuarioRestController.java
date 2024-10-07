@@ -77,8 +77,8 @@ public class UsuarioRestController {
     }
 
     @PostMapping("/validarLogin")
-    public ResponseEntity<UsuarioTokenDTO> validarAcesso(@RequestBody UsuarioLoginDTO usuarioLogin) {
-        UsuarioTokenDTO response = usuarioService.validaAcesso(usuarioLogin.getIdentificacao(), usuarioLogin.getSenha());
+    public ResponseEntity<JwtTokenDTO> validarAcesso(@RequestBody PayloadLogin usuarioLogin) {
+        JwtTokenDTO response = usuarioService.validaAcesso(usuarioLogin.getIdentificacao(), usuarioLogin.getSenha());
 
         if (response.isValid()) {
             return ResponseEntity.ok(response);
