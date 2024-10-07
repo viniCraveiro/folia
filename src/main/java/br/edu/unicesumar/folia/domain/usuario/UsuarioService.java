@@ -71,7 +71,7 @@ public class UsuarioService {
             response.setId(usuario.getId().toString());
             response.setNome(usuario.getNome());
             response.setValid(true);
-            response.setTipoUsuario(usuario.getTipoUsuario());
+            response.setTipoUsuario(usuario.getRoles());
         } else {
             response.setValid(false);
         }

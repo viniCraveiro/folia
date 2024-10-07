@@ -3,6 +3,7 @@ package br.edu.unicesumar.folia.domain.boleto;
 
 import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
