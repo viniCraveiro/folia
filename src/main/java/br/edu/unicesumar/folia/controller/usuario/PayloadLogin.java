@@ -3,7 +3,7 @@ import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
-public class UsuarioLoginDTO {
+public class PayloadLogin {
     private String identificacao;
     private String senha;
 }

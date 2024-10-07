@@ -1,7 +1,7 @@
 package br.edu.unicesumar.folia.domain.usuario;
 
 
-import br.edu.unicesumar.folia.controller.usuario.UsuarioResponseDTO;
+import br.edu.unicesumar.folia.controller.usuario.JwtTokenDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -61,17 +61,17 @@ public class UsuarioService {
         return usuarioRepository.findByIdentificacao(identificacao);
     }
 
-    public UsuarioResponseDTO validaAcesso(String identificacao, String senha) {
-        UsuarioResponseDTO response = new UsuarioResponseDTO();
+    public JwtTokenDTO validaAcesso(String identificacao, String senha) {
+        JwtTokenDTO response = new JwtTokenDTO();
 
         Optional<Usuario> optionalUsuario = usuarioRepository.findByIdentificacao(identificacao);
 
         if (optionalUsuario.isPresent() && optionalUsuario.get().getSenha().equals(senha)) {
             Usuario usuario = optionalUsuario.get();
-            response.setUuid(usuario.getId().toString());
+            response.setId(usuario.getId().toString());
             response.setNome(usuario.getNome());
             response.setValid(true);
-            response.setTipoUsuario(usuario.getTipoUsuario());
+            response.setTipoUsuario(usuario.getRoles());
         } else {
             response.setValid(false);
         }

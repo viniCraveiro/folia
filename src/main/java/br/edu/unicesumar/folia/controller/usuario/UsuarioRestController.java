@@ -76,11 +76,9 @@ public class UsuarioRestController {
         return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
-
     @PostMapping("/validarLogin")
-    public ResponseEntity<UsuarioResponseDTO> validarAcesso(@RequestBody UsuarioLoginDTO usuarioLogin) {
-        UsuarioResponseDTO response = usuarioService.validaAcesso(usuarioLogin.getIdentificacao(), usuarioLogin.getSenha());
+    public ResponseEntity<JwtTokenDTO> validarAcesso(@RequestBody PayloadLogin usuarioLogin) {
+        JwtTokenDTO response = usuarioService.validaAcesso(usuarioLogin.getIdentificacao(), usuarioLogin.getSenha());
 
         if (response.isValid()) {
             return ResponseEntity.ok(response);
