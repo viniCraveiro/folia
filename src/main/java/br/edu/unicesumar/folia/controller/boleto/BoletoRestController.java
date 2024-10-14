@@ -3,6 +3,7 @@ package br.edu.unicesumar.folia.controller.boleto;
 import br.edu.unicesumar.folia.domain.boleto.Boleto;
 import br.edu.unicesumar.folia.domain.boleto.BoletoRepository;
 import br.edu.unicesumar.folia.domain.boleto.BoletoService;
+import br.edu.unicesumar.folia.domain.usuario.TipoUsuario;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
@@ -38,11 +39,11 @@ public class BoletoRestController {
         List<Boleto> boletos = boletoService.listarBoletos();
         return new ResponseEntity<>(boletos, HttpStatus.OK);
     }
-    @GetMapping("/usuario/{usuarioId}")
+    /*@GetMapping("/usuario/{usuarioId}")
     public Page<Boleto> listarBoletosPorUsuario(@PathVariable UUID usuarioId,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return boletoService.listar(usuarioId, pageable);
-    }
+    }*/
     // Buscar boleto
     @GetMapping("/{uuid}")
     public ResponseEntity<Boleto> buscarBoleto(@PathVariable UUID uuid) {
@@ -65,5 +66,12 @@ public class BoletoRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/listarBoletos/{uuid}")
+    public ResponseEntity<BoletoInformacoesDTO> informacoesBoletos(@PathVariable UUID uuid) {
+        BoletoInformacoesDTO boletos = boletoService.listarBoletosPorEmpresa(uuid);
+        return new ResponseEntity<>(boletos, HttpStatus.OK);
+    }
+
 }
 

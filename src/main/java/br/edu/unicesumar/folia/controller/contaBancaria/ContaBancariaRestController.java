@@ -50,7 +50,7 @@ public class ContaBancariaRestController {
     }
 
     // detetar conta bancaria
-    @DeleteMapping("/{id]")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarConta(@PathVariable UUID uuid){
         try {
             contaBancariaService.detelarContaBancaria(uuid);

@@ -1,6 +1,7 @@
 package br.edu.unicesumar.folia.domain.boleto;
 
 
+import br.edu.unicesumar.folia.controller.boleto.BoletoInformacoesDTO;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
@@ -22,9 +23,9 @@ public class BoletoService {
         return boletoRepository.save(boleto);
     }
 
-    public Page<Boleto> listar(UUID usuarioId, Pageable pageable) {
+   /* public Page<Boleto> listar(UUID usuarioId, Pageable pageable) {
         return boletoRepository.findByUsuarioId(usuarioId, pageable);
-    }
+    }*/
 
     // todos os boletos
     public List<Boleto> listarBoletos() {
@@ -43,4 +44,16 @@ public class BoletoService {
         boletoRepository.save(boleto);  // Salva a alteração
     }
 
+    public BoletoInformacoesDTO listarBoletosPorEmpresa(UUID uuid) {
+        List<Boleto> boletos = boletoRepository.findByUsuarioId(uuid);
+
+        long boletosAbertos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.ABERTO).count();
+        long boletosVencidos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.VENCIDO).count();
+
+        BoletoInformacoesDTO boletoDTO = new BoletoInformacoesDTO();
+        boletoDTO.setQuantidadeBoletosAberto(boletosAbertos);
+        boletoDTO.setQuantidadeBoletosVendcido(boletosVencidos);
+
+        return boletoDTO;
+    }
 }
