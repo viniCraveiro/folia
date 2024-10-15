@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/contas-bancarias")
+@RequestMapping("/api/contas-bancarias")
 public class ContaBancariaRestController {
     @Autowired
     private ContaBancariaService contaBancariaService;
@@ -26,20 +27,24 @@ public class ContaBancariaRestController {
 
     }
 
+
+
     @GetMapping
-    public ResponseEntity<List<ContaBancaria>> listarTodas(){
-        List<ContaBancaria> conta = contaBancariaService.listarTodas();
-        return new ResponseEntity<>(conta, HttpStatus.OK);
+    public ResponseEntity<List<ContaBancariaListaDTO>> listarTodas(){
+        List<ContaBancariaListaDTO> contas = contaBancariaService.listarTodas();
+        return new ResponseEntity<>(contas,HttpStatus.OK);
+
 
     }
 
-    @GetMapping("/{id}")
+
+    @GetMapping("/{uuid}")
     public ResponseEntity<ContaBancaria> buscarPorId (@PathVariable UUID uuid){
 
         Optional<ContaBancaria> contaBancaria = contaBancariaService.buscarPorId(uuid);
         return contaBancaria.map(ResponseEntity::ok).orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
     }
-    @PutMapping("/{id}")
+    @PutMapping("/{uuid}")
     public ResponseEntity<ContaBancaria> atualizarConta(@PathVariable UUID uuid, @RequestBody ContaBancaria contaAtualizada){
         try {
             ContaBancaria contaBancaria = contaBancariaService.atualizarConta(uuid, contaAtualizada);
@@ -50,7 +55,7 @@ public class ContaBancariaRestController {
     }
 
     // detetar conta bancaria
-    @DeleteMapping("/{id]")
+    @DeleteMapping("/{uuid}")
     public ResponseEntity<Void> deletarConta(@PathVariable UUID uuid){
         try {
             contaBancariaService.detelarContaBancaria(uuid);
