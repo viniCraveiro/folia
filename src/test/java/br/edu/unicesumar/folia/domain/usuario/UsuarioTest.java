@@ -26,7 +26,7 @@ public class UsuarioTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         endereco = new Endereco("Avenida Teste", "123", "Apto 101", "Rua teste", "Maringá", "01311-200", "PR");
-        usuario = new Usuario("13880494908", "Gabriel", "gabriel@example.com", endereco);
+        usuario = new Usuario("13880494908", "Gabriel", "gabriel@example.com", null,null,TipoUsuario.ADMIN, endereco);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class UsuarioTest {
         when(usuarioRepository.save(any(Usuario.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         Endereco enderecoNovo = new Endereco("Avenida Teste Atualizado", "321", "Apto 232", "Rua teste Atualizado", "Maringá", "01311-200", "PR");
-        Usuario usuarioAtualizado = new Usuario("453.263.940-90", "Luiz", "luiz@example.com", enderecoNovo);
+        Usuario usuarioAtualizado = UsuarioDataProvider.luiz();
 
         Usuario resultado = usuarioService.atualizaUsuario(usuario.getId(), usuarioAtualizado);
 

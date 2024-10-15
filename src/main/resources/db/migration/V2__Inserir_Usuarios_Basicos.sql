@@ -1,59 +1,75 @@
 -- Inserir Endereços
-INSERT INTO ENDERECO (ID, LOGRADOURO, NUMERO_RESIDENCIAL, COMPLEMENTO, BAIRRO, CIDADE, CEP, UF) VALUES
-('550e8400-e29b-41d4-a716-446655440000', 'Rua das Flores', '123', 'Apto 101', 'Jardim das Acácias', 'São Paulo', '01000000', 'SP'),
-('550e8400-e29b-41d4-a716-446655440001', 'Avenida Central', '456', '', 'Centro', 'Rio de Janeiro', '20000000', 'RJ'),
-('550e8400-e29b-41d4-a716-446655440002', 'Praça da Sé', '789', 'Sala 202', 'Sé', 'São Paulo', '01001000', 'SP'),
-('550e8400-e29b-41d4-a716-446655440003', 'Rua dos Coqueiros', '321', 'Casa', 'Vila Nova', 'Campinas', '13000000', 'SP'),
-('550e8400-e29b-41d4-a716-446655440004', 'Rua das Palmeiras', '654', '', 'Bela Vista', 'São Paulo', '01002000', 'SP');
+INSERT INTO ENDERECO (ID, LOGRADOURO, NUMERO_RESIDENCIAL, COMPLEMENTO, BAIRRO, CIDADE, CEP, UF)
+VALUES ('a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6', 'Rua das Flores', '123', 'Apto 101', 'Jardim das Acácias', 'São Paulo', '01000000', 'SP'),
+       ('b2c3d4e5-f6a7-8b9c-0d1e-f2a3b4c5d6e7', 'Avenida Central', '456', '', 'Centro', 'Rio de Janeiro', '20000000', 'RJ'),
+       ('c3d4e5f6-a7b8-9c0d-1e2f-a3b4c5d6e7f8', 'Praça da Sé', '789', 'Sala 202', 'Sé', 'São Paulo', '01001000', 'SP'),
+       ('d4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f90', 'Rua dos Coqueiros', '321', 'Casa', 'Vila Nova', 'Campinas', '13000000', 'SP'),
+       ('e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'Rua das Palmeiras', '654', '', 'Bela Vista', 'São Paulo', '01002000', 'SP');
 
 -- Inserir Usuários com referência aos endereços
-INSERT INTO USUARIO (ID, IDENTIFICACAO, NOME, EMAIL, USUARIO, SENHA, TIPO_USUARIO, ENDERECO_FK) VALUES
-('550e8400-e29b-41d4-a716-446655440100', 'ID001', 'Vinicius A', 'vinicius.a@email.com', 'vinicius', 'senha123', 'ADMIN', '550e8400-e29b-41d4-a716-446655440000'),
-('550e8400-e29b-41d4-a716-446655440101', 'ID002', 'Gabriel B', 'gabriel.b@email.com', 'gabriel', 'senha456', 'USER', '550e8400-e29b-41d4-a716-446655440001'),
-('550e8400-e29b-41d4-a716-446655440102', 'ID003', 'Fernando C', 'fernando.c@email.com', 'fernando', 'senha789', 'USER', '550e8400-e29b-41d4-a716-446655440002'),
-('550e8400-e29b-41d4-a716-446655440103', 'ID004', 'Yasmin D', 'yasmin.d@email.com', 'yasmin', 'senha012', 'ADMIN', '550e8400-e29b-41d4-a716-446655440003'),
-('550e8400-e29b-41d4-a716-446655440104', 'ID005', 'Luana E', 'luana.v@email.com', 'luana', 'senha345', 'USER', '550e8400-e29b-41d4-a716-446655440004');
+INSERT INTO USUARIO (ID, IDENTIFICACAO, NOME, EMAIL, USUARIO, SENHA, TIPO_USUARIO, ENDERECO_FK)
+VALUES ('e1f2a3b4-c5d6-7e8f-90a1-b2c3d4e5f6a7', 'ID001', 'Vinicius A', 'vinicius.a@email.com', 'vinicius', 'senha123', 'ADMIN',
+        'a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6'),
+       ('f2a3b4c5-d6e7-8f90-a1b2-c3d4e5f6a7b8', 'ID002', 'Gabriel B', 'gabriel.b@email.com', 'gabriel', 'senha456', 'USER',
+        'b2c3d4e5-f6a7-8b9c-0d1e-f2a3b4c5d6e7'),
+       ('a3b4c5d6-e7f8-90a1-b2c3-d4e5f6a7b8c9', 'ID003', 'Fernando C', 'fernando.c@email.com', 'fernando', 'senha789', 'USER',
+        'c3d4e5f6-a7b8-9c0d-1e2f-a3b4c5d6e7f8'),
+       ('b4c5d6e7-f8a9-0a1b-2c3d-e5f6a7b8c9d0', 'ID004', 'Yasmin D', 'yasmin.d@email.com', 'yasmin', 'senha012', 'ADMIN',
+        'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f90'),
+       ('c5d6e7f8-a9b0-1b2c-3d4e-f6a7b8c9d0e1', 'ID005', 'Luana E', 'luana.v@email.com', 'luana', 'senha345', 'USER',
+        'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1');
 
---Inserir Empresa
-INSERT INTO EMPRESA (ID, NOME_FANTASIA, RAZAO_SOCIAL, CNPJ, EMAIL, TELEFONE, ENDERECO_FK) VALUES
-('550e8400-e29b-41d4-a716-446655440100', 'Empresa A', 'Razao Social A', '12345678000101', 'contato@empresaa.com', '5544999999999', '550e8400-e29b-41d4-a716-446655440000'),
-('550e8400-e29b-41d4-a716-446655440102', 'Empresa B', 'Razao Social B', '98765432000102', 'contato@empresab.com', '5544888888888', '550e8400-e29b-41d4-a716-446655440001'),
-('550e8400-e29b-41d4-a716-446655440103', 'Empresa C', 'Razao Social C', '19283746000103', 'contato@empresac.com', '5544777777777', '550e8400-e29b-41d4-a716-446655440002'),
-('550e8400-e29b-41d4-a716-446655440104', 'Empresa D', 'Razao Social D', '56473829000104', 'contato@empresad.com', '5544666666666', '550e8400-e29b-41d4-a716-446655440003'),
-('550e8400-e29b-41d4-a716-446655440105', 'Empresa E', 'Razao Social E', '10293847560105', 'contato@empresae.com', '5544555555555', '550e8400-e29b-41d4-a716-446655440004');
-
+-- Inserir Empresa
+INSERT INTO EMPRESA (ID, NOME_FANTASIA, RAZAO_SOCIAL, CNPJ, EMAIL, TELEFONE, ENDERECO_FK)
+VALUES ('d6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f', 'Empresa A', 'Razao Social A', '12345678000101', 'contato@empresaa.com', '5544999999999',
+        'a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6'),
+       ('e7f8a9b0-c1d2-3d4e-5f6a-8b9c0d1e2f3a', 'Empresa B', 'Razao Social B', '98765432000102', 'contato@empresab.com', '5544888888888',
+        'b2c3d4e5-f6a7-8b9c-0d1e-f2a3b4c5d6e7'),
+       ('f8a9b0c1-d2e3-4e5f-6a7b-9c0d1e2f3a4b', 'Empresa C', 'Razao Social C', '19283746000103', 'contato@empresac.com', '5544777777777',
+        'c3d4e5f6-a7b8-9c0d-1e2f-a3b4c5d6e7f8'),
+       ('a9b0c1d2-e3f4-5f6a-7b8c-0d1e2f3a4b5c', 'Empresa D', 'Razao Social D', '56473829000104', 'contato@empresad.com', '5544666666666',
+        'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f90'),
+       ('b0c1d2e3-f4a5-6a7b-8c9d-1e2f3a4b5c6d', 'Empresa E', 'Razao Social E', '10293847560105', 'contato@empresae.com', '5544555555555',
+        'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1');
 
 -- Inserir Banco
-INSERT INTO BANCO (ID, AGENCIA, AGENCIA_DIGITO, CONTA, CONTA_DIGITO, DIGITO_VERIFICADOR) VALUES
-('550e8400-e29b-41d4-a716-446655440200', '1234', '5', '987654', '3', '1234'),
-('550e8400-e29b-41d4-a716-446655440201', '5678', '9', '654321', '7', '5678'),
-('550e8400-e29b-41d4-a716-446655440202', '9101', '2', '123456', '1', '9101'),
-('550e8400-e29b-41d4-a716-446655440203', '1122', '3', '543210', '8', '1122'),
-('550e8400-e29b-41d4-a716-446655440204', '3344', '6', '789012', '4', '3344');
+INSERT INTO BANCO (ID, AGENCIA, AGENCIA_DIGITO, CONTA, CONTA_DIGITO, DIGITO_VERIFICADOR)
+VALUES ('f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f90a1b2', '1234', '5', '987654', '3', '1234'),
+       ('a7b8c9d0-e1f2-3a4b-5c6d-7e8f90a1b2c3', '5678', '9', '654321', '7', '5678'),
+       ('b8c9d0e1-f2a3-4b5c-6d7e-8f90a1b2c3d4', '9101', '2', '123456', '1', '9101'),
+       ('c9d0e1f2-a3b4-5c6d-7e8f-90a1b2c3d4e5', '1122', '3', '543210', '8', '1122'),
+       ('d0e1f2a3-b4c5-6d7e-8f90-a1b2c3d4e5f6', '3344', '6', '789012', '4', '3344');
 
---Inserir Boleto
-INSERT INTO BOLETO (ID, BANCO_FK, VALOR, DATA_VENCIMENTO, TOTAL_PARCELAS, CONVENIO, CODIGO_CEDENTE, CODIGO_TRANSMISSAO, MODALIDADE, RESPONSAVEL_EMISSAO, TIPO_CARTEIRA, TIPO_DOCUMENTO, USUARIO_FK, CARAC_TITULO, CODIGO_NEGATIVACAO, EMPRESA_FK, IDENT_DISTRIBUICAO, OPERACAO, CHAVE_PIX, TIPO_CHAVE_PIX, STATUS, URL) VALUES
-('550e8400-e29b-41d4-a716-446655440100', '550e8400-e29b-41d4-a716-446655440200', '1500.00', '20241230', '12', '10', '05', '08', '01', '02', '03', '04', '550e8400-e29b-41d4-a716-446655440100', '01', '02', '550e8400-e29b-41d4-a716-446655440100', '01', 'Operacao1', 'chavePix1', '01', 'ABERTO', 'https://boleto1.com.br'),
-('550e8400-e29b-41d4-a716-446655440101', '550e8400-e29b-41d4-a716-446655440201', '2500.00', '20241130', '06', '12', '06', '09', '02', '03', '04', '05', '550e8400-e29b-41d4-a716-446655440101', '02', '03', '550e8400-e29b-41d4-a716-446655440102', '02', 'Operacao2', 'chavePix2', '02', 'PAGO', 'https://boleto2.com.br'),
-('550e8400-e29b-41d4-a716-446655440102', '550e8400-e29b-41d4-a716-446655440202', '3500.00', '20241030', '08', '14', '07', '10', '03', '04', '05', '06', '550e8400-e29b-41d4-a716-446655440102', '03', '04', '550e8400-e29b-41d4-a716-446655440103', '03', 'Operacao3', 'chavePix3', '03', 'VENCIDO', 'https://boleto3.com.br'),
-('550e8400-e29b-41d4-a716-446655440103', '550e8400-e29b-41d4-a716-446655440203', '4500.00', '20240930', '10', '16', '08', '11', '04', '05', '06', '07', '550e8400-e29b-41d4-a716-446655440103', '04', '05', '550e8400-e29b-41d4-a716-446655440104', '04', 'Operacao4', 'chavePix4', '04', 'ABERTO', 'https://boleto4.com.br'),
-('550e8400-e29b-41d4-a716-446655440104', '550e8400-e29b-41d4-a716-446655440204', '5500.00', '20240830', '04', '18', '09', '12', '05', '06', '07', '08', '550e8400-e29b-41d4-a716-446655440104', '05', '06', '550e8400-e29b-41d4-a716-446655440105', '05', 'Operacao5', 'chavePix5', '05', 'PAGO', 'https://boleto5.com.br');
+-- Inserir Boleto
+INSERT INTO BOLETO (ID, BANCO_FK, VALOR, DATA_VENCIMENTO, TOTAL_PARCELAS, CONVENIO, CODIGO_CEDENTE, CODIGO_TRANSMISSAO, MODALIDADE,
+                    RESPONSAVEL_EMISSAO, TIPO_CARTEIRA, TIPO_DOCUMENTO, USUARIO_FK, CARACTERISTICA_TITULO, CODIGO_NEGATIVACAO, EMPRESA_FK,
+                    IDENTIFICACAO_DISTRIBUICAO, OPERACAO, CHAVE_PIX, TIPO_CHAVE_PIX, STATUS, URL)
+VALUES ('c1d2e3f4-a5b6-7b8c-9d0e-2f3a4b5c6d7e', 'f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f90a1b2', '1500.00', '20241230', '12', '10', '05', '08', '01', '02',
+        '03', '04', 'e1f2a3b4-c5d6-7e8f-90a1-b2c3d4e5f6a7', '01', '02', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f', '01', 'Operacao1', 'chavePix1', '01',
+        'ABERTO', 'https://boleto1.com.br'),
+       ('d2e3f4a5-b6c7-8c9d-0e1f-3a4b5c6d7e8f', 'a7b8c9d0-e1f2-3a4b-5c6d-7e8f90a1b2c3', '2500.00', '20241130', '06', '12', '06', '09', '02', '03',
+        '04', '05', 'f2a3b4c5-d6e7-8f90-a1b2-c3d4e5f6a7b8', '02', '03', 'e7f8a9b0-c1d2-3d4e-5f6a-8b9c0d1e2f3a', '02', 'Operacao2', 'chavePix2', '02',
+        'PAGO', 'https://boleto2.com.br'),
+       ('e3f4a5b6-c7d8-9d0e-1f2a-4b5c6d7e8f90', 'b8c9d0e1-f2a3-4b5c-6d7e-8f90a1b2c3d4', '3500.00', '20241030', '08', '14', '07', '10', '03', '04',
+        '05', '06', 'a3b4c5d6-e7f8-90a1-b2c3-d4e5f6a7b8c9', '03', '04', 'f8a9b0c1-d2e3-4e5f-6a7b-9c0d1e2f3a4b', '03', 'Operacao3', 'chavePix3', '03',
+        'VENCIDO', 'https://boleto3.com.br'),
+       ('f4a5b6c7-d8e9-0e1f-2a3b-5c6d7e8f90a1', 'c9d0e1f2-a3b4-5c6d-7e8f-90a1b2c3d4e5', '4500.00', '20240930', '10', '16', '08', '11', '04', '05',
+        '06', '07', 'b4c5d6e7-f8a9-0a1b-2c3d-e5f6a7b8c9d0', '04', '05', 'a9b0c1d2-e3f4-5f6a-7b8c-0d1e2f3a4b5c', '04', 'Operacao4', 'chavePix4', '04',
+        'ABERTO', 'https://boleto4.com.br'),
+       ('a5b6c7d8-e9f0-1f2a-3b4c-6d7e8f90a1b2', 'd0e1f2a3-b4c5-6d7e-8f90-a1b2c3d4e5f6', '5500.00', '20240830', '04', '18', '09', '12', '05', '06',
+        '07', '08', 'c5d6e7f8-a9b0-1b2c-3d4e-f6a7b8c9d0e1', '05', '06', 'b0c1d2e3-f4a5-6a7b-8c9d-1e2f3a4b5c6d', '05', 'Operacao5', 'chavePix5', '05',
+        'PAGO', 'https://boleto5.com.br');
 
-INSERT INTO CONTA_BANCARIA (ID, BANCO_FK, NUMERO_CONTA, AGENCIA, TITULAR, CPF_CNPJ, TIPO_CONTA, CODIGO_IBAN, DATA_ABERTURA, TELEFONE_CONTATO, EMAIL_TITULAR) VALUES
-('550e8400-e29b-41d4-a716-446655440300', '550e8400-e29b-41d4-a716-446655440200', '987654', '1234', 'João Silva', '12345678909', 'CORRENTE', 'BR1234567890123456789001', '2024-01-01', '11987654321', 'joao.silva@example.com'),
-('550e8400-e29b-41d4-a716-446655440301', '550e8400-e29b-41d4-a716-446655440201', '654321', '5678', 'Maria Oliveira', '98765432100', 'POUPANCA', 'BR1234567890123456789002', '2024-02-01', '11987654322', 'maria.oliveira@example.com'),
-('550e8400-e29b-41d4-a716-446655440302', '550e8400-e29b-41d4-a716-446655440202', '123456', '9101', 'Carlos Souza', '12312312312', 'CORRENTE', 'BR1234567890123456789003', '2024-03-01', '11987654323', 'carlos.souza@example.com'),
-('550e8400-e29b-41d4-a716-446655440303', '550e8400-e29b-41d4-a716-446655440203', '543210', '1122', 'Ana Costa', '32132132198', 'POUPANCA', 'BR1234567890123456789004', '2024-04-01', '11987654324', 'ana.costa@example.com'),
-('550e8400-e29b-41d4-a716-446655440304', '550e8400-e29b-41d4-a716-446655440204', '789012', '3344', 'Pedro Almeida', '45645645645', 'CORRENTE', 'BR1234567890123456789005', '2024-05-01', '11987654325', 'pedro.almeida@example.com');
-
-
-
-
-
-
-
-
-
-
-
-
+-- Inserir Conta Bancaria
+INSERT INTO CONTA_BANCARIA (ID, BANCO_FK, NUMERO_CONTA, AGENCIA, TITULAR, CPF_CNPJ, TIPO_CONTA, CODIGO_IBAN, DATA_ABERTURA, TELEFONE_CONTATO,
+                            EMAIL_TITULAR)
+VALUES ('b6c7d8e9-f0a1-2a3b-4c5d-7e8f90a1b2c3', 'f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f90a1b2', '987654', '1234', 'João Silva', '12345678909', 'CORRENTE',
+        'BR1234567890123456789001', '2024-01-01', '11987654321', 'joao.silva@example.com'),
+       ('c7d8e9f0-a1b2-3b4c-5d6e-8f90a1b2c3d4', 'a7b8c9d0-e1f2-3a4b-5c6d-7e8f90a1b2c3', '654321', '5678', 'Maria Oliveira', '98765432100', 'POUPANCA',
+        'BR1234567890123456789002', '2024-02-01', '11987654322', 'maria.oliveira@example.com'),
+       ('d8e9f0a1-b2c3-4c5d-6e7f-9a0b1c2d3e4f', 'b8c9d0e1-f2a3-4b5c-6d7e-8f90a1b2c3d4', '123456', '9101', 'Carlos Souza', '12312312312', 'CORRENTE',
+        'BR1234567890123456789003', '2024-03-01', '11987654323', 'carlos.souza@example.com'),
+       ('e9f0a1b2-c3d4-5d6e-7f8a-0b1c2d3e4f5a', 'c9d0e1f2-a3b4-5c6d-7e8f-90a1b2c3d4e5', '543210', '1122', 'Ana Costa', '32132132198', 'POUPANCA',
+        'BR1234567890123456789004', '2024-04-01', '11987654324', 'ana.costa@example.com'),
+       ('f0a1b2c3-d4e5-6e7f-8a9b-1c2d3e4f5a6b', 'd0e1f2a3-b4c5-6d7e-8f90-a1b2c3d4e5f6', '789012', '3344', 'Pedro Almeida', '45645645645', 'CORRENTE',
+        'BR1234567890123456789005', '2024-05-01', '11987654325', 'pedro.almeida@example.com');
