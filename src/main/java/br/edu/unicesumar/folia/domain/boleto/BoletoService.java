@@ -1,7 +1,9 @@
 package br.edu.unicesumar.folia.domain.boleto;
 
 
+import br.edu.unicesumar.folia.controller.Conversor;
 import br.edu.unicesumar.folia.controller.boleto.BoletoInformacoesDTO;
+import br.edu.unicesumar.folia.controller.boleto.BoletoListaDTO;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
@@ -23,10 +25,16 @@ public class BoletoService {
         return boletoRepository.save(boleto);
     }
 
-   /* public Page<Boleto> listar(UUID usuarioId, Pageable pageable) {
-        return boletoRepository.findByUsuarioId(usuarioId, pageable);
-    }*/
+    public Page<BoletoListaDTO> listarBoletosPorUsuario(UUID usuarioId, Pageable pageable) {
+        Page<Boleto> boletosPage = boletoRepository.findByUsuarioId(usuarioId, pageable);
 
+        // Mapeia os boletos para o DTO
+        return boletosPage.map(boleto -> {
+            BoletoListaDTO dto = new BoletoListaDTO();
+            dto.alimentarDados(boleto); // Preenche os dados do DTO
+            return dto;
+        });
+    }
     // todos os boletos
     public List<Boleto> listarBoletos() {
         return boletoRepository.findAll();
@@ -57,3 +65,4 @@ public class BoletoService {
         return boletoDTO;
     }
 }
+

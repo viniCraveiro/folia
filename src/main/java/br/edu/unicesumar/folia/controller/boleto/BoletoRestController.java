@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,11 +40,12 @@ public class BoletoRestController {
         List<Boleto> boletos = boletoService.listarBoletos();
         return new ResponseEntity<>(boletos, HttpStatus.OK);
     }
-    /*@GetMapping("/usuario/{usuarioId}")
-    public Page<Boleto> listarBoletosPorUsuario(@PathVariable UUID usuarioId,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return boletoService.listar(usuarioId, pageable);
-    }*/
+
+    @GetMapping("/usuario/{uuid}")
+    public ResponseEntity<Page<BoletoListaDTO>> listarBoletosPorUsuario(@PathVariable UUID uuid, @PageableDefault(size = 10) Pageable pageable) {
+        Page<BoletoListaDTO> boletos = boletoService.listarBoletosPorUsuario(uuid, pageable);
+        return ResponseEntity.ok(boletos);
+    }
     // Buscar boleto
     @GetMapping("/{uuid}")
     public ResponseEntity<Boleto> buscarBoleto(@PathVariable UUID uuid) {

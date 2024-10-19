@@ -22,9 +22,10 @@ public class BoletoListaDTO {
         if (boleto.getDadosEmpresa() != null) {
             this.nome = boleto.getDadosEmpresa().getNomeFantasia();
         }
-        this.banco = Conversor.obterNomeBanco(Integer.parseInt(boleto.getBanco().getNome()));
+        this.banco = boleto.getBanco().getNome();
         this.parcela = boleto.getTotalParcelas();
-        this.vencimento = boleto.getDataVencimento() != null ? boleto.getDataVencimento().toString() : "N/A";
-        this.valor = boleto.getValor() != null ? boleto.getValor().toString() : "0.00";
+        this.vencimento = boleto.getDataVencimento();
+        this.valor = boleto.getValor();
+        this.status = boleto.getStatus();
     }
 }
