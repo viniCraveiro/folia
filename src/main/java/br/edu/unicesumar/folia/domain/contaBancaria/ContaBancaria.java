@@ -25,9 +25,8 @@ public class ContaBancaria extends Entidade {
     @Column(nullable = false)
     private String agencia;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "USUARIO_FK", nullable = false)
-    private Usuario titular;
+    @Column(nullable = false)
+    private String titular;
 
     @Column(nullable = false)
     private String cpfCnpj;

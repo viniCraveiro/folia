@@ -1,5 +1,6 @@
 package br.edu.unicesumar.folia.domain.contaBancaria;
 
+import br.edu.unicesumar.folia.controller.contaBancaria.ContaBancariaListaDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ContaBancariaService {
@@ -19,8 +21,18 @@ public class ContaBancariaService {
         return contaBancariaRepository.save(contaBancaria);
     }
     //listar contas
-    public List<ContaBancaria> listarTodas() {
-        return contaBancariaRepository.findAll();
+    public List<ContaBancariaListaDTO> listarTodas() {
+        List<ContaBancaria> contas = contaBancariaRepository.findAll();
+        return contas.stream().map(this::convertToDTO).collect(Collectors.toList());
+
+    }
+    private ContaBancariaListaDTO convertToDTO (ContaBancaria contaBancaria){
+        return new ContaBancariaListaDTO(
+                contaBancaria.getBanco(),
+                contaBancaria.getTitular(),
+                contaBancaria.getNumeroConta(),
+                contaBancaria.getCodigoIban()
+        );
     }
 
     public Optional<ContaBancaria> buscarPorId(UUID uuid){

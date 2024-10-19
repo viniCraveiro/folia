@@ -27,7 +27,7 @@ public class UsuarioTesteIntegracao {
     @BeforeEach
     void setUp() {
         endereco = new Endereco("Avenida Teste", "123", "Apto 101", "Rua teste", "Maringá", "01311-200", "PR");
-        usuario = new Usuario("13880494908", "Gabriel", "gabriel@example.com", endereco);
+        usuario = UsuarioDataProvider.luiz();
     }
 
     @Test
