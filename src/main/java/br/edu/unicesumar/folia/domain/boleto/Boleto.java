@@ -47,7 +47,7 @@ public class Boleto extends Entidade {
     private Integer codigoNegativacao;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "EMPRESA_FK")
-    private Empresa dadosEmpresa;
+    private Empresa empresa;
     @Column
     private Integer identificacaoDistribuicao;
     @Column

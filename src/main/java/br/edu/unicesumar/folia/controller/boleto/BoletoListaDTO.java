@@ -19,8 +19,8 @@ public class BoletoListaDTO {
     private String valor;
 
     public void alimentarDados(Boleto boleto) {
-        if (boleto.getDadosEmpresa() != null) {
-            this.nome = boleto.getDadosEmpresa().getNomeFantasia();
+        if (boleto.getEmpresa() != null) {
+            this.nome = boleto.getEmpresa().getNomeFantasia();
         }
         this.banco = boleto.getBanco().getNome();
         this.parcela = boleto.getTotalParcelas();

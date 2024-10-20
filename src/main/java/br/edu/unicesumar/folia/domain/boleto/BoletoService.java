@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -53,14 +55,31 @@ public class BoletoService {
     }
 
     public BoletoInformacoesDTO listarBoletosPorEmpresa(UUID uuid) {
-        List<Boleto> boletos = boletoRepository.findByUsuarioId(uuid);
+        List<Boleto> boletos = boletoRepository.findByEmpresaId(uuid);
 
+        long totalBoletos = boletos.size();
         long boletosAbertos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.ABERTO).count();
         long boletosVencidos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.VENCIDO).count();
 
+        // Definir o formato da data
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        // Contagem de boletos próximos ao vencimento
+        long boletosProximosVencimento = boletos.stream()
+                .filter(boleto -> {
+                    try {
+                        LocalDate dataVencimento = LocalDate.parse(boleto.getDataVencimento(), formatter);
+                        return dataVencimento.isBefore(LocalDate.now().plusDays(7)) && dataVencimento.isAfter(LocalDate.now());
+                    } catch (Exception e) {
+                        return false;
+                    }
+                }).count();
+
         BoletoInformacoesDTO boletoDTO = new BoletoInformacoesDTO();
+        boletoDTO.setQuantidadeBoletos(totalBoletos);
         boletoDTO.setQuantidadeBoletosAberto(boletosAbertos);
         boletoDTO.setQuantidadeBoletosVendcido(boletosVencidos);
+        boletoDTO.setQuanidadeBoletosProximosVencimento(boletosProximosVencimento);
 
         return boletoDTO;
     }
