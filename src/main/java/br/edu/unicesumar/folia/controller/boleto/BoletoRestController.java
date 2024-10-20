@@ -3,11 +3,13 @@ package br.edu.unicesumar.folia.controller.boleto;
 import br.edu.unicesumar.folia.domain.boleto.Boleto;
 import br.edu.unicesumar.folia.domain.boleto.BoletoRepository;
 import br.edu.unicesumar.folia.domain.boleto.BoletoService;
+import br.edu.unicesumar.folia.domain.usuario.TipoUsuario;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,10 +40,11 @@ public class BoletoRestController {
         List<Boleto> boletos = boletoService.listarBoletos();
         return new ResponseEntity<>(boletos, HttpStatus.OK);
     }
-    @GetMapping("/usuario/{usuarioId}")
-    public Page<Boleto> listarBoletosPorUsuario(@PathVariable UUID usuarioId,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return boletoService.listar(usuarioId, pageable);
+
+    @GetMapping("/usuario/{uuid}")
+    public ResponseEntity<Page<BoletoListaDTO>> listarBoletosPorUsuario(@PathVariable UUID uuid, @PageableDefault(size = 10) Pageable pageable) {
+        Page<BoletoListaDTO> boletos = boletoService.listarBoletosPorUsuario(uuid, pageable);
+        return ResponseEntity.ok(boletos);
     }
     // Buscar boleto
     @GetMapping("/{uuid}")
@@ -65,5 +68,12 @@ public class BoletoRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/listarBoletos/{uuid}")
+    public ResponseEntity<BoletoInformacoesDTO> informacoesBoletos(@PathVariable UUID uuid) {
+        BoletoInformacoesDTO boletos = boletoService.listarBoletosPorEmpresa(uuid);
+        return new ResponseEntity<>(boletos, HttpStatus.OK);
+    }
+
 }
 
