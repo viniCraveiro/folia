@@ -69,11 +69,10 @@ public class BoletoRestController {
         }
     }
 
-    @GetMapping("/listarBoletos/{uuid}")
+    @GetMapping("/dadosBoletos/{uuid}")
     public ResponseEntity<BoletoInformacoesDTO> informacoesBoletos(@PathVariable UUID uuid) {
         BoletoInformacoesDTO boletos = boletoService.listarBoletosPorEmpresa(uuid);
         return new ResponseEntity<>(boletos, HttpStatus.OK);
     }
-
 }
 

@@ -11,5 +11,5 @@ import java.util.UUID;
 @Repository
 public interface BoletoRepository extends JpaRepository<Boleto, UUID> {
     Page<Boleto> findByUsuarioId(UUID usuarioId, Pageable pageable);
-    List<Boleto> findByUsuarioId(UUID usuarioId);
+    List<Boleto> findByEmpresaId(UUID empresaId);
 }
