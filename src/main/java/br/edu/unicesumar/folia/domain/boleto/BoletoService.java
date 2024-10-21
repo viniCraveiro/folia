@@ -1,12 +1,17 @@
 package br.edu.unicesumar.folia.domain.boleto;
 
 
+import br.edu.unicesumar.folia.controller.Conversor;
+import br.edu.unicesumar.folia.controller.boleto.BoletoInformacoesDTO;
+import br.edu.unicesumar.folia.controller.boleto.BoletoListaDTO;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -22,10 +27,16 @@ public class BoletoService {
         return boletoRepository.save(boleto);
     }
 
-    public Page<Boleto> listar(UUID usuarioId, Pageable pageable) {
-        return boletoRepository.findByUsuarioId(usuarioId, pageable);
-    }
+    public Page<BoletoListaDTO> listarBoletosPorUsuario(UUID usuarioId, Pageable pageable) {
+        Page<Boleto> boletosPage = boletoRepository.findByUsuarioId(usuarioId, pageable);
 
+        // Mapeia os boletos para o DTO
+        return boletosPage.map(boleto -> {
+            BoletoListaDTO dto = new BoletoListaDTO();
+            dto.alimentarDados(boleto); // Preenche os dados do DTO
+            return dto;
+        });
+    }
     // todos os boletos
     public List<Boleto> listarBoletos() {
         return boletoRepository.findAll();
@@ -43,4 +54,34 @@ public class BoletoService {
         boletoRepository.save(boleto);  // Salva a alteração
     }
 
+    public BoletoInformacoesDTO listarBoletosPorEmpresa(UUID uuid) {
+        List<Boleto> boletos = boletoRepository.findByEmpresaId(uuid);
+
+        long totalBoletos = boletos.size();
+        long boletosAbertos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.ABERTO).count();
+        long boletosVencidos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.VENCIDO).count();
+
+        // Definir o formato da data
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        // Contagem de boletos próximos ao vencimento
+        long boletosProximosVencimento = boletos.stream()
+                .filter(boleto -> {
+                    try {
+                        LocalDate dataVencimento = LocalDate.parse(boleto.getDataVencimento(), formatter);
+                        return dataVencimento.isBefore(LocalDate.now().plusDays(7)) && dataVencimento.isAfter(LocalDate.now());
+                    } catch (Exception e) {
+                        return false;
+                    }
+                }).count();
+
+        BoletoInformacoesDTO boletoDTO = new BoletoInformacoesDTO();
+        boletoDTO.setQuantidadeBoletos(totalBoletos);
+        boletoDTO.setQuantidadeBoletosAberto(boletosAbertos);
+        boletoDTO.setQuantidadeBoletosVendcido(boletosVencidos);
+        boletoDTO.setQuanidadeBoletosProximosVencimento(boletosProximosVencimento);
+
+        return boletoDTO;
+    }
 }
+
