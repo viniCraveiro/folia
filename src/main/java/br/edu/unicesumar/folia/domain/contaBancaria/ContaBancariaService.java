@@ -2,6 +2,7 @@ package br.edu.unicesumar.folia.domain.contaBancaria;
 
 import br.edu.unicesumar.folia.controller.contaBancaria.ContaBancariaListaDTO;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class ContaBancariaService {
     private ContaBancariaRepository contaBancariaRepository;
 
     //cadastrar conta
-    public ContaBancaria cadastrarContaBancaria (ContaBancaria contaBancaria){
+    public ContaBancaria cadastrarContaBancaria (@Valid ContaBancaria contaBancaria){
         return contaBancariaRepository.save(contaBancaria);
     }
     //listar contas
@@ -40,7 +41,7 @@ public class ContaBancariaService {
 
     }
 
-    public ContaBancaria atualizarConta (UUID uuid, ContaBancaria contaAtualizada ){
+    public ContaBancaria atualizarConta (UUID uuid, @Valid ContaBancaria contaAtualizada ){
         Optional<ContaBancaria> contaExistente = contaBancariaRepository.findById(uuid);
 
         if (contaExistente.isPresent()){
