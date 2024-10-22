@@ -36,4 +36,7 @@ public class Banco extends Entidade {
     @NotNull
     private String digitoVerificadorAgenciaConta;
 
+    public Banco (String nome){
+        this.nome = nome;
+    }
 }
