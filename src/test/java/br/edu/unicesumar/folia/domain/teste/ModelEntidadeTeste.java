@@ -16,8 +16,6 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-@Table(name = "USUARIO")
 @Entity
 @Getter
 @Setter
