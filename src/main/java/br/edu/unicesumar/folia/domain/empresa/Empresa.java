@@ -2,9 +2,13 @@ package br.edu.unicesumar.folia.domain.empresa;
 
 import br.edu.unicesumar.folia.domain.Entidade;
 import br.edu.unicesumar.folia.domain.endereco.Endereco;
+import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "EMPRESA")
 @Entity
@@ -40,6 +44,9 @@ public class Empresa extends Entidade {
         @NotNull(message = "O endereço é obrigatório.")
         private Endereco endereco;
 
+        @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+        private Set<Usuario> usuarios = new HashSet<>();
+
         public Empresa(String nomeFantasia, String razaoSocial, String cnpj, String email, String telefone, Endereco endereco) {
                 this.nomeFantasia = nomeFantasia;
                 this.razaoSocial = razaoSocial;
@@ -51,6 +58,10 @@ public class Empresa extends Entidade {
 
         public Empresa(String nomeFantasia, String cnpj, String email, String telefone, Endereco endereco) {
                 super();
+        }
 
+        public void addUsuario(Usuario usuario) {
+                usuarios.add(usuario);
+                usuario.setEmpresa(this);
         }
 }

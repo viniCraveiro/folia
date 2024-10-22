@@ -8,6 +8,6 @@ import lombok.Setter;
 public class BoletoInformacoesDTO {
     private Long quantidadeBoletos;
     private Long quantidadeBoletosAberto;
-    private Long quantidadeBoletosVendcido;
+    private Long quantidadeBoletosVencido;
     private Long quanidadeBoletosProximosVencimento;
 }
