@@ -6,31 +6,33 @@ VALUES ('a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6', 'Rua das Flores', '123', 'Apto 1
        ('d4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f90', 'Rua dos Coqueiros', '321', 'Casa', 'Vila Nova', 'Campinas', '13000000', 'SP'),
        ('e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'Rua das Palmeiras', '654', '', 'Bela Vista', 'São Paulo', '01002000', 'SP');
 
--- Inserir Usuários com referência aos endereços
-INSERT INTO USUARIO (ID, IDENTIFICACAO, NOME, EMAIL, USUARIO, SENHA, TIPO_USUARIO, ENDERECO_FK)
-VALUES ('e1f2a3b4-c5d6-7e8f-90a1-b2c3d4e5f6a7', 'ID001', 'Vinicius A', 'vinicius.a@email.com', 'vinicius', 'senha123', 'ADMIN',
+-- Inserir Empresas
+INSERT INTO EMPRESA (ID, NOME_FANTASIA, RAZAO_SOCIAL, CNPJ, EMAIL, TELEFONE, ENDERECO_FK)
+VALUES
+    ('d6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f', 'Empresa A', 'Razao Social A', '12345678000101', 'contato@empresaa.com', '5544999999999',
         'a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6'),
-       ('f2a3b4c5-d6e7-8f90-a1b2-c3d4e5f6a7b8', 'ID002', 'Gabriel B', 'gabriel.b@email.com', 'gabriel', 'senha456', 'USER',
+    ('e7f8a9b0-c1d2-3d4e-5f6a-8b9c0d1e2f3a', 'Empresa B', 'Razao Social B', '98765432000102', 'contato@empresab.com', '5544888888888',
         'b2c3d4e5-f6a7-8b9c-0d1e-f2a3b4c5d6e7'),
-       ('a3b4c5d6-e7f8-90a1-b2c3-d4e5f6a7b8c9', 'ID003', 'Fernando C', 'fernando.c@email.com', 'fernando', 'senha789', 'USER',
+    ('f8a9b0c1-d2e3-4e5f-6a7b-9c0d1e2f3a4b', 'Empresa C', 'Razao Social C', '19283746000103', 'contato@empresac.com', '5544777777777',
         'c3d4e5f6-a7b8-9c0d-1e2f-a3b4c5d6e7f8'),
-       ('b4c5d6e7-f8a9-0a1b-2c3d-e5f6a7b8c9d0', 'ID004', 'Yasmin D', 'yasmin.d@email.com', 'yasmin', 'senha012', 'ADMIN',
+    ('a9b0c1d2-e3f4-5f6a-7b8c-0d1e2f3a4b5c', 'Empresa D', 'Razao Social D', '56473829000104', 'contato@empresad.com', '5544666666666',
         'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f90'),
-       ('c5d6e7f8-a9b0-1b2c-3d4e-f6a7b8c9d0e1', 'ID005', 'Luana E', 'luana.v@email.com', 'luana', 'senha345', 'USER',
+    ('b0c1d2e3-f4a5-6a7b-8c9d-1e2f3a4b5c6d', 'Empresa E', 'Razao Social E', '10293847560105', 'contato@empresae.com', '5544555555555',
         'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1');
 
--- Inserir Empresa
-INSERT INTO EMPRESA (ID, NOME_FANTASIA, RAZAO_SOCIAL, CNPJ, EMAIL, TELEFONE, ENDERECO_FK)
-VALUES ('d6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f', 'Empresa A', 'Razao Social A', '12345678000101', 'contato@empresaa.com', '5544999999999',
-        'a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6'),
-       ('e7f8a9b0-c1d2-3d4e-5f6a-8b9c0d1e2f3a', 'Empresa B', 'Razao Social B', '98765432000102', 'contato@empresab.com', '5544888888888',
-        'b2c3d4e5-f6a7-8b9c-0d1e-f2a3b4c5d6e7'),
-       ('f8a9b0c1-d2e3-4e5f-6a7b-9c0d1e2f3a4b', 'Empresa C', 'Razao Social C', '19283746000103', 'contato@empresac.com', '5544777777777',
-        'c3d4e5f6-a7b8-9c0d-1e2f-a3b4c5d6e7f8'),
-       ('a9b0c1d2-e3f4-5f6a-7b8c-0d1e2f3a4b5c', 'Empresa D', 'Razao Social D', '56473829000104', 'contato@empresad.com', '5544666666666',
-        'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f90'),
-       ('b0c1d2e3-f4a5-6a7b-8c9d-1e2f3a4b5c6d', 'Empresa E', 'Razao Social E', '10293847560105', 'contato@empresae.com', '5544555555555',
-        'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1');
+-- Inserir Usuários com referência aos endereços e empresas
+INSERT INTO USUARIO (ID, IDENTIFICACAO, NOME, EMAIL, USUARIO, SENHA, TIPO_USUARIO, ENDERECO_FK, EMPRESA_FK)
+VALUES
+    ('e1f2a3b4-c5d6-7e8f-90a1-b2c3d4e5f6a7', 'ID001', 'Vinicius A', 'vinicius.a@email.com', 'vinicius', 'senha123', 'ADMIN',
+        'a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f'),
+    ('f2a3b4c5-d6e7-8f90-a1b2-c3d4e5f6a7b8', 'ID002', 'Gabriel B', 'gabriel.b@email.com', 'gabriel', 'senha456', 'USER',
+        'b2c3d4e5-f6a7-8b9c-0d1e-f2a3b4c5d6e7', 'e7f8a9b0-c1d2-3d4e-5f6a-8b9c0d1e2f3a'),
+    ('a3b4c5d6-e7f8-90a1-b2c3-d4e5f6a7b8c9', 'ID003', 'Fernando C', 'fernando.c@email.com', 'fernando', 'senha789', 'USER',
+        'c3d4e5f6-a7b8-9c0d-1e2f-a3b4c5d6e7f8', 'f8a9b0c1-d2e3-4e5f-6a7b-9c0d1e2f3a4b'),
+    ('b4c5d6e7-f8a9-0a1b-2c3d-e5f6a7b8c9d0', 'ID004', 'Yasmin D', 'yasmin.d@email.com', 'yasmin', 'senha012', 'ADMIN',
+        'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f90', 'a9b0c1d2-e3f4-5f6a-7b8c-0d1e2f3a4b5c'),
+    ('c5d6e7f8-a9b0-1b2c-3d4e-f6a7b8c9d0e1', 'ID005', 'Luana E', 'luana.v@email.com', 'luana', 'senha345', 'USER',
+        'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'b0c1d2e3-f4a5-6a7b-8c9d-1e2f3a4b5c6d');
 
 -- Inserir Banco
 INSERT INTO BANCO (ID, NOME, AGENCIA, AGENCIA_DIGITO, CONTA, CONTA_DIGITO, DIGITO_VERIFICADOR)
