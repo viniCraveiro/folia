@@ -37,7 +37,7 @@ public class UsuarioTesteIntegracao {
         Assertions.assertNotNull(usuarioSalvo, "Usuário deve ser salvo!");
         Usuario usuarioEncontrado = usuarioRepository.findById(usuarioSalvo.getId()).orElse(null);
         Assertions.assertNotNull(usuarioEncontrado, "Usuário deve estar presente no banco de dados!");
-        Assertions.assertEquals("Gabriel", usuarioEncontrado.getNome());
-        Assertions.assertEquals("Avenida Teste", usuarioEncontrado.getEndereco().getLogradouro());
+        Assertions.assertEquals("Luiz", usuarioEncontrado.getNome());
+        Assertions.assertEquals("Avenida Teste Atualizado", usuarioEncontrado.getEndereco().getLogradouro());
     }
 }

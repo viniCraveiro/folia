@@ -78,7 +78,7 @@ public class BoletoService {
         BoletoInformacoesDTO boletoDTO = new BoletoInformacoesDTO();
         boletoDTO.setQuantidadeBoletos(totalBoletos);
         boletoDTO.setQuantidadeBoletosAberto(boletosAbertos);
-        boletoDTO.setQuantidadeBoletosVendcido(boletosVencidos);
+        boletoDTO.setQuantidadeBoletosVencido(boletosVencidos);
         boletoDTO.setQuanidadeBoletosProximosVencimento(boletosProximosVencimento);
 
         return boletoDTO;

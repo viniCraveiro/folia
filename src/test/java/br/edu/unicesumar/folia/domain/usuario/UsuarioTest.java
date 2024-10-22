@@ -25,8 +25,7 @@ public class UsuarioTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        endereco = new Endereco("Avenida Teste", "123", "Apto 101", "Rua teste", "Maringá", "01311-200", "PR");
-        usuario = new Usuario("13880494908", "Gabriel", "gabriel@example.com", null,null,TipoUsuario.ADMIN, endereco);
+        usuario = UsuarioDataProvider.luiz();
     }
 
     @Test

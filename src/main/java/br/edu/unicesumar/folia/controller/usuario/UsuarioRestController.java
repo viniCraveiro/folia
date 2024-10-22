@@ -1,5 +1,8 @@
 package br.edu.unicesumar.folia.controller.usuario;
 
+import br.edu.unicesumar.folia.controller.empresa.EmpresaInformacaoDTO;
+import br.edu.unicesumar.folia.domain.empresa.Empresa;
+import br.edu.unicesumar.folia.domain.empresa.EmpresaRepository;
 import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioService;
@@ -28,9 +31,12 @@ public class UsuarioRestController {
 
     private final UsuarioRepository repository;
 
-    public UsuarioRestController(UsuarioService usuarioService, UsuarioRepository repository) {
+    private final EmpresaRepository empresaRepository;
+
+    public UsuarioRestController(UsuarioService usuarioService, UsuarioRepository repository, EmpresaRepository empresaRepository) {
         this.usuarioService = usuarioService;
         this.repository = repository;
+        this.empresaRepository = empresaRepository;
     }
 
     @PostMapping
@@ -76,8 +82,6 @@ public class UsuarioRestController {
         return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
-
     @PostMapping("/validarLogin")
     public ResponseEntity<UsuarioResponseDTO> validarAcesso(@RequestBody UsuarioLoginDTO usuarioLogin) {
         UsuarioResponseDTO response = usuarioService.validaAcesso(usuarioLogin.getIdentificacao(), usuarioLogin.getSenha());
@@ -86,6 +90,20 @@ public class UsuarioRestController {
             return ResponseEntity.ok(response);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
+
+    @PostMapping("/empresas/{usuarioUUID}")
+    public ResponseEntity<EmpresaInformacaoDTO> empresaVinculada(@PathVariable  UUID usuarioUUID) {
+        Optional<Usuario> usuarioOptional = repository.findById(usuarioUUID);
+        if (usuarioOptional.isPresent()) {
+            Empresa empresa  = usuarioOptional.get().getEmpresa();
+            if (empresa != null) {
+                return ResponseEntity.ok(new EmpresaInformacaoDTO(empresa.getNomeFantasia(),empresa.getId()));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 
 
