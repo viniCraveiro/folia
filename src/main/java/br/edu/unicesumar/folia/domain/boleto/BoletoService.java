@@ -79,7 +79,7 @@ public class BoletoService {
         boletoDTO.setQuantidadeBoletos(totalBoletos);
         boletoDTO.setQuantidadeBoletosAberto(boletosAbertos);
         boletoDTO.setQuantidadeBoletosVencido(boletosVencidos);
-        boletoDTO.setQuanidadeBoletosProximosVencimento(boletosProximosVencimento);
+        boletoDTO.setQuantidadeBoletosProximosVencimento(boletosProximosVencimento);
 
         return boletoDTO;
     }
