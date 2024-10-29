@@ -106,5 +106,4 @@ public class UsuarioRestController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 
-
 }

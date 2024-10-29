@@ -1,7 +1,9 @@
 package br.edu.unicesumar.folia.domain.usuario;
 
 
+import br.edu.unicesumar.folia.controller.usuario.UsuarioListaDTO;
 import br.edu.unicesumar.folia.controller.usuario.UsuarioResponseDTO;
+import br.edu.unicesumar.folia.domain.boleto.Boleto;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -77,4 +79,6 @@ public class UsuarioService {
         }
         return response;
     }
+
+
 }
