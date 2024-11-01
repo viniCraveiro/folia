@@ -43,6 +43,7 @@ public class Usuario extends Entidade {
     @JoinColumn(name = "EMPRESA_FK", nullable = false)
     private Empresa empresa;
 
+
     public Usuario(Usuario usuario) {
         this.identificacao = usuario.getIdentificacao();
         this.nome = usuario.getNome();
