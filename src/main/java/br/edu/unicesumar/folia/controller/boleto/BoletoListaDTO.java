@@ -24,7 +24,7 @@ public class BoletoListaDTO {
         }
         this.banco = boleto.getBanco().getNome();
         this.parcela = boleto.getTotalParcelas();
-        this.vencimento = boleto.getDataVencimento();
+        this.vencimento = String.valueOf(boleto.getDataVencimento());
         this.valor = boleto.getValor();
         this.status = boleto.getStatus();
     }

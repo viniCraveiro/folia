@@ -67,7 +67,7 @@ public class BoletoService {
         // Contagem de boletos próximos ao vencimento
         long boletosProximosVencimento = boletos.stream()
                 .filter(boleto -> {
-                    LocalDate dataVencimento = LocalDate.parse(boleto.getDataVencimento(), formatter);
+                    LocalDate dataVencimento = boleto.getDataVencimento();
                     return !dataVencimento.isBefore(LocalDate.now()) && dataVencimento.isBefore(LocalDate.now().plusDays(7));
                 }).count();
 
