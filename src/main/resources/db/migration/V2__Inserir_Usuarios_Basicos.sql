@@ -100,9 +100,6 @@ VALUES ('c1d2e3f4-a5b6-7b8c-9d0e-2f3a4b5c6d7e', 'f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f9
         'PAGO', 'https://boleto10.com.br');
 
 
-
-
-
 -- Inserir Conta Bancaria
 INSERT INTO CONTA_BANCARIA (ID, BANCO_FK, NUMERO_CONTA, AGENCIA, TITULAR, CPF_CNPJ, TIPO_CONTA, CODIGO_IBAN, DATA_ABERTURA, TELEFONE_CONTATO,
                             EMAIL_TITULAR)

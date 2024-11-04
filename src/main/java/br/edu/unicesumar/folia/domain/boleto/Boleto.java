@@ -7,6 +7,8 @@ import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Table(name = "BOLETO")
 @Entity
 @Getter
@@ -21,7 +23,7 @@ public class Boleto extends Entidade {
     @Column
     private String valor;
     @Column
-    private String dataVencimento;
+    private LocalDate dataVencimento;
     @Column
     private String totalParcelas;
     @Column
@@ -61,5 +63,4 @@ public class Boleto extends Entidade {
     private Status status;
     @Column
     private String url;
-
 }
