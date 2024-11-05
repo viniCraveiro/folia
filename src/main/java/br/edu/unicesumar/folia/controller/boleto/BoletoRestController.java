@@ -74,5 +74,6 @@ public class BoletoRestController {
         BoletoInformacoesDTO boletos = boletoService.listarBoletosPorEmpresa(uuid);
         return new ResponseEntity<>(boletos, HttpStatus.OK);
     }
+
 }
 

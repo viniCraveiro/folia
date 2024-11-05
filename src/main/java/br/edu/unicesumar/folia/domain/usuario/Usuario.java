@@ -1,11 +1,14 @@
 package br.edu.unicesumar.folia.domain.usuario;
 
 import br.edu.unicesumar.folia.domain.Entidade;
+import br.edu.unicesumar.folia.domain.boleto.Boleto;
 import br.edu.unicesumar.folia.domain.empresa.Empresa;
 import br.edu.unicesumar.folia.domain.endereco.Endereco;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+
+import java.util.List;
 
 @Table(name = "USUARIO")
 @Entity
