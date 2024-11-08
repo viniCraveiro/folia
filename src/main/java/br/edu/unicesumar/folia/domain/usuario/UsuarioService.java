@@ -42,7 +42,7 @@ public class UsuarioService {
         usuarioExistente.setIdentificacao(usuarioAtualizado.getIdentificacao());
         usuarioExistente.setNome(usuarioAtualizado.getNome());
         usuarioExistente.setEmail(usuarioAtualizado.getEmail());
-        usuarioExistente.setUsuario(usuarioAtualizado.getUsuario());
+        usuarioExistente.setUsername(usuarioAtualizado.getUsername());
         usuarioExistente.setSenha(usuarioAtualizado.getSenha());
         usuarioExistente.setEndereco(usuarioAtualizado.getEndereco());
         salvaUsuario(usuarioExistente);

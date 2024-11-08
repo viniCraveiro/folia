@@ -29,7 +29,7 @@ public class Usuario extends Entidade {
     private String email;
 
     @Column
-    private String usuario;
+    private String username;
 
     @Column
     private String senha;
@@ -51,7 +51,7 @@ public class Usuario extends Entidade {
         this.identificacao = usuario.getIdentificacao();
         this.nome = usuario.getNome();
         this.email = usuario.getEmail();
-        this.usuario = usuario.getUsuario();
+        this.username = usuario.getUsername();
         this.senha = usuario.getSenha();
         this.tipoUsuario = usuario.getTipoUsuario();
         this.endereco = usuario.getEndereco();
@@ -62,7 +62,7 @@ public class Usuario extends Entidade {
         this.identificacao = usuario.getIdentificacao();
         this.nome = usuario.getNome();
         this.email = usuario.getEmail();
-        this.usuario = usuario.getUsuario();
+        this.username = usuario.getUsername();
         this.senha = usuario.getSenha();
         this.tipoUsuario = usuario.getTipoUsuario();
         this.endereco = usuario.getEndereco();

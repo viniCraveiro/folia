@@ -4,11 +4,9 @@ import br.edu.unicesumar.folia.domain.usuarioboleto.UsuarioBoletoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Tag(
@@ -28,6 +26,11 @@ public class UsuarioBoletoRestController {
     public ResponseEntity<UsuarioBoletoListaDTO> obterBoletosPorUsuario(@PathVariable UUID uuid) {
         UsuarioBoletoListaDTO dto = usuarioBoletoService.obterDadosUsuarioBoletos(uuid);
         return ResponseEntity.ok(dto);
+    }
+
+    @PostMapping("/filtrar")
+    public List<UsuarioBoletoFiltradoDTO> filtrarBoletos(@RequestBody UsuarioBoletoFiltroDTO filtro) {
+        return usuarioBoletoService.buscarComFiltro(filtro);
     }
 
 }

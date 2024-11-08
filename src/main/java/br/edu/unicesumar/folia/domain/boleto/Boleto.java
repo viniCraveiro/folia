@@ -23,6 +23,8 @@ public class Boleto extends Entidade {
     @Column
     private String valor;
     @Column
+    private LocalDate dataEmissao;
+    @Column
     private LocalDate dataVencimento;
     @Column
     private String totalParcelas;
