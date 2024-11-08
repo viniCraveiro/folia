@@ -1,12 +1,8 @@
 package br.edu.unicesumar.folia.controller.usuarioboleto;
 
-import br.edu.unicesumar.folia.domain.boleto.Boleto;
-import br.edu.unicesumar.folia.domain.boleto.BoletoService;
 import br.edu.unicesumar.folia.domain.usuarioboleto.UsuarioBoletoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,10 +28,9 @@ public class UsuarioBoletoRestController {
         return ResponseEntity.ok(dto);
     }
 
-    @PostMapping("/filtros")
-    public ResponseEntity<List<Boleto>> obterFiltro(@RequestBody UsuarioBoletoFiltroDTO filtro) {
-        List<Boleto> boletosFiltrados = usuarioBoletoService.filtrarBoletos(filtro);
-        return ResponseEntity.ok(boletosFiltrados);
+    @PostMapping("/filtrar")
+    public List<UsuarioBoletoFiltradoDTO> filtrarBoletos(@RequestBody UsuarioBoletoFiltroDTO filtro) {
+        return usuarioBoletoService.buscarComFiltro(filtro);
     }
 
 }

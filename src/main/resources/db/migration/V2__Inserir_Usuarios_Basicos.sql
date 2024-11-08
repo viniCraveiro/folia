@@ -21,7 +21,7 @@ VALUES
         'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1');
 
 -- Inserir Usuários com referência aos endereços e empresas
-INSERT INTO USUARIO (ID, IDENTIFICACAO, NOME, EMAIL, USUARIO, SENHA, TIPO_USUARIO, ENDERECO_FK, EMPRESA_FK)
+INSERT INTO USUARIO (ID, IDENTIFICACAO, NOME, EMAIL, USERNAME, SENHA, TIPO_USUARIO, ENDERECO_FK, EMPRESA_FK)
 VALUES
     ('e1f2a3b4-c5d6-7e8f-90a1-b2c3d4e5f6a7', 'ID001', 'Vinicius A', 'vinicius.a@email.com', 'vinicius', 'senha123', 'ADMIN',
         'a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f'),

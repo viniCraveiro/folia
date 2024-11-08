@@ -1,5 +1,6 @@
 package br.edu.unicesumar.folia.domain.usuarioboleto;
 
+import br.edu.unicesumar.folia.controller.usuarioboleto.UsuarioBoletoFiltradoDTO;
 import br.edu.unicesumar.folia.controller.usuarioboleto.UsuarioBoletoFiltroDTO;
 import br.edu.unicesumar.folia.controller.usuarioboleto.UsuarioBoletoListaDTO;
 import br.edu.unicesumar.folia.domain.boleto.Boleto;
@@ -10,11 +11,12 @@ import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -40,7 +42,7 @@ public class UsuarioBoletoService {
         UsuarioBoletoListaDTO dto = new UsuarioBoletoListaDTO();
         dto.setIdentificacao(usuario.getIdentificacao());
         dto.setNome(usuario.getNome());
-        dto.setUsuario(usuario.getUsuario());
+        dto.setUsuario(usuario.getUsername());
         dto.setQuantidadeBoletos(quantidadeBoletos);
         dto.setQuantidadeBoletosAbertos(quantidadeBoletosAbertos);
         dto.setQuantidadeBoletosVencidos(quantidadeBoletosVencidos);
@@ -48,57 +50,33 @@ public class UsuarioBoletoService {
         return dto;
     }
 
-    public List<Boleto> filtrarBoletos(UsuarioBoletoFiltroDTO filtro) {
-        List<Boleto> boletos = boletoRepository.findAll(); // Obtendo todos os boletos
+    public List<UsuarioBoletoFiltradoDTO> buscarComFiltro(UsuarioBoletoFiltroDTO filtro) {
+        Specification<Boleto> specification = UsuarioBoletoFiltragem.comFiltros(filtro);
 
-        if (filtro.getUsuarioId() != null) {
-            boletos = boletos.stream()
-                    .filter(b -> b.getUsuario().getId().equals(filtro.getUsuarioId()))
-                    .collect(Collectors.toList());
-        }
+        // Definir o critério de ordenação (por data de emissão, por exemplo)
+        Sort sort = Sort.by(Sort.Direction.ASC, "dataEmissao");
 
-        if (filtro.getIdentificacao() != null && !filtro.getIdentificacao().isEmpty()) {
-            boletos = boletos.stream()
-                    .filter(b -> b.getUsuario().getIdentificacao().equals(filtro.getIdentificacao()))
-                    .collect(Collectors.toList());
-        }
+        // Buscar boletos filtrados com a especificação e a ordenação
+        List<Boleto> boletosFiltrados = boletoRepository.findAll(specification, sort);
 
-        if (filtro.getNome() != null && !filtro.getNome().isEmpty()) {
-            boletos = boletos.stream()
-                    .filter(b -> b.getUsuario().getNome().equalsIgnoreCase(filtro.getNome()))
-                    .collect(Collectors.toList());
-        }
+        // Mapear os boletos filtrados para o DTO
+        return boletosFiltrados.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
 
-        if (filtro.getDataInicialEmissao() != null) {
-            boletos = boletos.stream()
-                    .filter(b -> !b.getDataEmissao().isBefore(filtro.getDataInicialEmissao()))
-                    .collect(Collectors.toList());
-        }
+    private UsuarioBoletoFiltradoDTO toDTO(Boleto boleto) {
+        return new UsuarioBoletoFiltradoDTO(
+                boleto.getUsuario().getIdentificacao(),
+                boleto.getUsuario().getNome(),
+                boleto.getUsuario().getUsername(),
+                boleto.getBanco().getNome(),
+                boleto.getValor(),
+                boleto.getTotalParcelas(),
+                boleto.getDataEmissao(),
+                boleto.getDataVencimento(),
+                boleto.getStatus()
+        );
 
-        if (filtro.getDataFinalEmissao() != null) {
-            boletos = boletos.stream()
-                    .filter(b -> !b.getDataEmissao().isAfter(filtro.getDataFinalEmissao()))
-                    .collect(Collectors.toList());
-        }
-
-        if (filtro.getDataInicialVencimento() != null) {
-            boletos = boletos.stream()
-                    .filter(b -> !b.getDataVencimento().isBefore(filtro.getDataInicialVencimento()))
-                    .collect(Collectors.toList());
-        }
-
-        if (filtro.getDataFinalVencimento() != null) {
-            boletos = boletos.stream()
-                    .filter(b -> !b.getDataVencimento().isAfter(filtro.getDataFinalVencimento()))
-                    .collect(Collectors.toList());
-        }
-
-        if (filtro.getStatus() != null) {
-            boletos = boletos.stream()
-                    .filter(b -> b.getStatus().equals(filtro.getStatus()))
-                    .collect(Collectors.toList());
-        }
-
-        return boletos;
     }
 }
