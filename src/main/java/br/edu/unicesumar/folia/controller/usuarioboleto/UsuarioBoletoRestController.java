@@ -29,8 +29,8 @@ public class UsuarioBoletoRestController {
     }
 
     @PostMapping("/filtrar")
-    public List<UsuarioBoletoFiltradoDTO> filtrarBoletos(@RequestBody UsuarioBoletoFiltroDTO filtro) {
-        return usuarioBoletoService.buscarComFiltro(filtro);
+    public ResponseEntity<List<UsuarioBoletoFiltradoDTO>> filtrarBoletos(@RequestBody UsuarioBoletoFiltroDTO filtro) {
+        return ResponseEntity.ok(usuarioBoletoService.buscarComFiltro(filtro));
     }
 
 }
