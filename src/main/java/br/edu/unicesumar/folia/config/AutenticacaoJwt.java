@@ -1,5 +1,5 @@
 package br.edu.unicesumar.folia.config;
-
+/*
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
@@ -42,4 +42,4 @@ public class AutenticacaoJwt extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-}
+}*/

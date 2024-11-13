@@ -67,6 +67,7 @@ public class UsuarioBoletoService {
 
     private UsuarioBoletoFiltradoDTO toDTO(Boleto boleto) {
         return new UsuarioBoletoFiltradoDTO(
+                boleto.getId(),
                 boleto.getUsuario().getIdentificacao(),
                 boleto.getUsuario().getNome(),
                 boleto.getUsuario().getUsername(),

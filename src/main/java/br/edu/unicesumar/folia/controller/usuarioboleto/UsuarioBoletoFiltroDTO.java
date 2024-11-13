@@ -22,5 +22,4 @@ public class UsuarioBoletoFiltroDTO {
     private LocalDate dataInicialVencimento;
     private LocalDate dataFinalVencimento;
     private Status status;
-
 }

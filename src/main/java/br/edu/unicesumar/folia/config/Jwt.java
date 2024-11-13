@@ -1,5 +1,5 @@
 package br.edu.unicesumar.folia.config;
-
+/*
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -101,6 +101,6 @@ public class Jwt {
         return (username.equals(extrairUser(token)) && !tokenExpirou(token));
     }
 
-     */
 
-}
+
+}*/
