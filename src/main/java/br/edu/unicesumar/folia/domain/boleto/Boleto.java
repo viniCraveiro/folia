@@ -19,15 +19,15 @@ public class Boleto extends Entidade {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "BANCO_FK")
-    private Banco banco;
+    private Banco banco; //traz
     @Column
-    private String valor;
+    private String valor; //traz
     @Column
-    private LocalDate dataEmissao;
+    private LocalDate dataEmissao; //traz
     @Column
-    private LocalDate dataVencimento;
+    private LocalDate dataVencimento; //traz
     @Column
-    private String totalParcelas;
+    private String totalParcelas; //traz
     @Column
     private Integer convenio;
     @Column
@@ -55,14 +55,14 @@ public class Boleto extends Entidade {
     @Column
     private Integer identificacaoDistribuicao;
     @Column
-    private String operacao;
+    private String operacao; //traz
     @Column
-    private String chavePix;
+    private String chavePix; //traz
     @Column
-    private Integer tipoChavePix;
+    private Integer tipoChavePix; //traz
     @Enumerated(EnumType.STRING)
     @Column
-    private Status status;
+    private Status status; //traz // Forma de alterar o status
     @Column
-    private String url;
+    private String url; //traz!!!
 }

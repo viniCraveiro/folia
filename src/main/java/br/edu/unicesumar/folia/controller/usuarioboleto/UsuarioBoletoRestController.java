@@ -24,6 +24,12 @@ public class UsuarioBoletoRestController {
 
     @GetMapping("/{uuid}")
     public ResponseEntity<UsuarioBoletoListaDTO> obterBoletosPorUsuario(@PathVariable UUID uuid) {
+        /***
+         * lISTAGEM PARA A EMPRESA DOS SEUS USUARIOS
+         * MOSTRANDO ESSAS INFOS NO DTO
+         */
+
+
         UsuarioBoletoListaDTO dto = usuarioBoletoService.obterDadosUsuarioBoletos(uuid);
         return ResponseEntity.ok(dto);
     }
