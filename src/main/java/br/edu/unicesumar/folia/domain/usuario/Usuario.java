@@ -20,23 +20,23 @@ public class Usuario extends Entidade {
 
     @NotBlank(message = "Identificação não pode ser vazia")
     @Column
-    private String identificacao;
+    private String identificacao; //EMPRESA DETALHADO traz
 
     @Column
-    private String nome;
+    private String nome; //EMPRESA traz
 
     @Column
-    private String email;
+    private String email; //EMPRESA traz
 
     @Column
-    private String username;
+    private String username; //EMPRESA traz
 
     @Column
     private String senha;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TIPO_USUARIO", length = 7)
-    private TipoUsuario tipoUsuario;
+    private TipoUsuario tipoUsuario; //EMPRESA traz
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ENDERECO_FK")

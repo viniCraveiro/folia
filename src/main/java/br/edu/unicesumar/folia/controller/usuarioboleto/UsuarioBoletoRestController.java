@@ -24,13 +24,19 @@ public class UsuarioBoletoRestController {
 
     @GetMapping("/{uuid}")
     public ResponseEntity<UsuarioBoletoListaDTO> obterBoletosPorUsuario(@PathVariable UUID uuid) {
+        /***
+         * lISTAGEM PARA A EMPRESA DOS SEUS USUARIOS
+         * MOSTRANDO ESSAS INFOS NO DTO
+         */
+
+
         UsuarioBoletoListaDTO dto = usuarioBoletoService.obterDadosUsuarioBoletos(uuid);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping("/filtrar")
-    public List<UsuarioBoletoFiltradoDTO> filtrarBoletos(@RequestBody UsuarioBoletoFiltroDTO filtro) {
-        return usuarioBoletoService.buscarComFiltro(filtro);
+    public ResponseEntity<List<UsuarioBoletoFiltradoDTO>> filtrarBoletos(@RequestBody UsuarioBoletoFiltroDTO filtro) {
+        return ResponseEntity.ok(usuarioBoletoService.buscarComFiltro(filtro));
     }
 
 }
