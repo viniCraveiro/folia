@@ -22,16 +22,10 @@ public class UsuarioBoletoRestController {
     @Autowired
     private UsuarioBoletoService usuarioBoletoService;
 
-    @GetMapping("/{uuid}")
-    public ResponseEntity<UsuarioBoletoListaDTO> obterBoletosPorUsuario(@PathVariable UUID uuid) {
-        /***
-         * lISTAGEM PARA A EMPRESA DOS SEUS USUARIOS
-         * MOSTRANDO ESSAS INFOS NO DTO
-         */
-
-
-        UsuarioBoletoListaDTO dto = usuarioBoletoService.obterDadosUsuarioBoletos(uuid);
-        return ResponseEntity.ok(dto);
+    @GetMapping("/empresa/{empresaUuid}")
+    public ResponseEntity<List<UsuarioBoletoListaDTO>> obterBoletosPorEmpresa(@PathVariable UUID empresaUuid) {
+        List<UsuarioBoletoListaDTO> dtos = usuarioBoletoService.obterDadosUsuariosPorEmpresa(empresaUuid);
+        return ResponseEntity.ok(dtos);
     }
 
     @PostMapping("/filtrar")

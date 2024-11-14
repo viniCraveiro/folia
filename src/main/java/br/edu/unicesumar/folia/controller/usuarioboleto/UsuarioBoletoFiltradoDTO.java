@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class UsuarioBoletoFiltradoDTO {
+    private UUID uuid;
     private String identificacao;
     private String nome;
     private String usuario;
@@ -20,7 +22,8 @@ public class UsuarioBoletoFiltradoDTO {
     private Status status;
 
     // Construtor completo
-    public UsuarioBoletoFiltradoDTO(String identificacao, String nome, String usuario, String banco, String valor, String parcela, LocalDate dataEmissao, LocalDate dataVencimento, Status status) {
+    public UsuarioBoletoFiltradoDTO(UUID  uuid, String identificacao, String nome, String usuario, String banco, String valor, String parcela, LocalDate dataEmissao, LocalDate dataVencimento, Status status) {
+        this.uuid = uuid;
         this.identificacao = identificacao;
         this.nome = nome;
         this.usuario = usuario;
@@ -31,4 +34,5 @@ public class UsuarioBoletoFiltradoDTO {
         this.dataVencimento = dataVencimento;
         this.status = status;
     }
+
 }

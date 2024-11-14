@@ -15,12 +15,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioBoletoFiltroDTO {
-    private String userUuid;
-    private String banco;
+    private String identificacao;
+    private String nome;
     private LocalDate dataInicialEmissao;
     private LocalDate dataFinalEmissao;
     private LocalDate dataInicialVencimento;
     private LocalDate dataFinalVencimento;
     private Status status;
-
 }

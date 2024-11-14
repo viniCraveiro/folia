@@ -3,78 +3,63 @@ package br.edu.unicesumar.folia.domain.usuarioboleto;
 import br.edu.unicesumar.folia.controller.usuarioboleto.UsuarioBoletoFiltroDTO;
 import br.edu.unicesumar.folia.domain.boleto.Boleto;
 import br.edu.unicesumar.folia.domain.boleto.Status;
-import br.edu.unicesumar.folia.exception.UserUuidNotFoundException;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class UsuarioBoletoFiltragem {
     public static Specification<Boleto> comFiltros(UsuarioBoletoFiltroDTO filtro) {
         return (root, query, criteriaBuilder) -> {
-            // Especificações podem ser acumuladas para lidar com múltiplos filtros
-            Specification<Boleto> specification = Specification.where(null);
+            List<Predicate> predicates = new ArrayList<>();
 
-            if (filtro.getUserUuid() == null) {
-                throw new UserUuidNotFoundException("User UUID não encontrado!");
+            // Filtro por identificação do usuário
+            if (filtro.getIdentificacao() != null) {
+                predicates.add(criteriaBuilder.like(
+                        root.get("usuario").get("identificacao"), "%" + filtro.getIdentificacao() + "%"));
             }
 
-            specification = specification.and(setUserUuid(UUID.fromString(filtro.getUserUuid())));
-
-            if (filtro.getBanco() != null) {
-                specification = specification.and(filtroPorBanco(filtro.getBanco()));
+            // Filtro por nome do usuário
+            if (filtro.getNome() != null) {
+                predicates.add(criteriaBuilder.like(
+                        root.get("usuario").get("nome"), "%" + filtro.getNome() + "%"));
             }
 
+            // Filtro por status
             if (filtro.getStatus() != null) {
-                specification = specification.and(filtroPorStatus(filtro.getStatus()));
+                predicates.add(criteriaBuilder.equal(
+                        root.get("status"), filtro.getStatus()));
             }
 
-            if (filtro.getDataInicialEmissao() != null) {
-                specification = specification.and(filtroPorDataEmissaoInicial(filtro.getDataInicialEmissao()));
+            // Filtros por data de emissão
+            if (filtro.getDataInicialEmissao() != null && filtro.getDataFinalEmissao() != null) {
+                predicates.add(criteriaBuilder.between(
+                        root.get("dataEmissao"), filtro.getDataInicialEmissao(), filtro.getDataFinalEmissao()));
+            } else if (filtro.getDataInicialEmissao() != null) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(
+                        root.get("dataEmissao"), filtro.getDataInicialEmissao()));
+            } else if (filtro.getDataFinalEmissao() != null) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(
+                        root.get("dataEmissao"), filtro.getDataFinalEmissao()));
             }
 
-            if (filtro.getDataFinalEmissao() != null) {
-                specification = specification.and(filtroPorDataEmissaoFinal(filtro.getDataFinalEmissao()));
+            // Filtros por data de vencimento
+            if (filtro.getDataInicialVencimento() != null && filtro.getDataFinalVencimento() != null) {
+                predicates.add(criteriaBuilder.between(
+                        root.get("dataVencimento"), filtro.getDataInicialVencimento(), filtro.getDataFinalVencimento()));
+            } else if (filtro.getDataInicialVencimento() != null) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(
+                        root.get("dataVencimento"), filtro.getDataInicialVencimento()));
+            } else if (filtro.getDataFinalVencimento() != null) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(
+                        root.get("dataVencimento"), filtro.getDataFinalVencimento()));
             }
 
-            if (filtro.getDataInicialVencimento() != null) {
-                specification = specification.and(filtroPorDataVencimentoInicial(filtro.getDataInicialVencimento()));
-            }
-
-            if (filtro.getDataFinalVencimento() != null) {
-                specification = specification.and(filtroPorDataVencimentoFinal(filtro.getDataFinalVencimento()));
-            }
-
-            return specification.toPredicate(root, query, criteriaBuilder);
+            // Combinação de todos os filtros com AND
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
-    }
-
-    private static Specification<Boleto> setUserUuid(UUID uuid) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("usuario").get("id"),uuid);
-    }
-
-    private static Specification<Boleto> filtroPorBanco(String banco) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("banco").get("nome"), "%" + banco + "%");
-    }
-
-    private static Specification<Boleto> filtroPorStatus(Status status) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("status"), status);
-    }
-
-    private static Specification<Boleto> filtroPorDataEmissaoInicial(LocalDate dataEmissaoInicial) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("dataEmissao"), dataEmissaoInicial);
-    }
-
-    private static Specification<Boleto> filtroPorDataEmissaoFinal(LocalDate dataEmissaoFinal) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get("dataEmissao"), dataEmissaoFinal);
-    }
-
-    private static Specification<Boleto> filtroPorDataVencimentoInicial(LocalDate dataVencimentoInicial) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get("dataVencimento"), dataVencimentoInicial);
-    }
-
-    private static Specification<Boleto> filtroPorDataVencimentoFinal(LocalDate dataVencimentoFinal) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get("dataVencimento"), dataVencimentoFinal);
     }
 }

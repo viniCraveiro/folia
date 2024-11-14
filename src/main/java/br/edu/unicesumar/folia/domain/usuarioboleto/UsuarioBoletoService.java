@@ -30,24 +30,28 @@ public class UsuarioBoletoService {
     @Autowired
     private BoletoRepository boletoRepository;
 
-    public UsuarioBoletoListaDTO obterDadosUsuarioBoletos(UUID usuarioId) {
-        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+    public List<UsuarioBoletoListaDTO> obterDadosUsuariosPorEmpresa(UUID empresaId) {
+        // Busca todos os usuários associados à empresa
+        List<Usuario> usuarios = usuarioRepository.findByEmpresaId(empresaId);
 
-        List<Boleto> boletos = boletoRepository.findByUsuarioId(usuarioId, Pageable.unpaged()).getContent();
+        // Para cada usuário, busca os boletos e compila as informações no DTO
+        return usuarios.stream().map(usuario -> {
+            List<Boleto> boletos = boletoRepository.findByUsuarioId(usuario.getId(), Pageable.unpaged()).getContent();
 
-        Long quantidadeBoletos = (long) boletos.size();
-        Long quantidadeBoletosAbertos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.ABERTO).count();
-        Long quantidadeBoletosVencidos = boletos.stream().filter(boleto -> boleto.getDataVencimento().isBefore(LocalDate.now())).count();
+            Long quantidadeBoletos = (long) boletos.size();
+            Long quantidadeBoletosAbertos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.ABERTO).count();
+            Long quantidadeBoletosVencidos = boletos.stream().filter(boleto -> boleto.getDataVencimento().isBefore(LocalDate.now())).count();
 
-        UsuarioBoletoListaDTO dto = new UsuarioBoletoListaDTO();
-        dto.setIdentificacao(usuario.getIdentificacao());
-        dto.setNome(usuario.getNome());
-        dto.setUsuario(usuario.getUsername());
-        dto.setQuantidadeBoletos(quantidadeBoletos);
-        dto.setQuantidadeBoletosAbertos(quantidadeBoletosAbertos);
-        dto.setQuantidadeBoletosVencidos(quantidadeBoletosVencidos);
+            UsuarioBoletoListaDTO dto = new UsuarioBoletoListaDTO();
+            dto.setIdentificacao(usuario.getIdentificacao());
+            dto.setNome(usuario.getNome());
+            dto.setUsuario(usuario.getUsername());
+            dto.setQuantidadeBoletos(quantidadeBoletos);
+            dto.setQuantidadeBoletosAbertos(quantidadeBoletosAbertos);
+            dto.setQuantidadeBoletosVencidos(quantidadeBoletosVencidos);
 
-        return dto;
+            return dto;
+        }).collect(Collectors.toList());
     }
 
     public List<UsuarioBoletoFiltradoDTO> buscarComFiltro(UsuarioBoletoFiltroDTO filtro) {
@@ -67,6 +71,7 @@ public class UsuarioBoletoService {
 
     private UsuarioBoletoFiltradoDTO toDTO(Boleto boleto) {
         return new UsuarioBoletoFiltradoDTO(
+                boleto.getId(),
                 boleto.getUsuario().getIdentificacao(),
                 boleto.getUsuario().getNome(),
                 boleto.getUsuario().getUsername(),
