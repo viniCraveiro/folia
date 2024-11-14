@@ -3,12 +3,11 @@ package br.edu.unicesumar.folia.domain.usuarioboleto;
 import br.edu.unicesumar.folia.controller.usuarioboleto.UsuarioBoletoFiltroDTO;
 import br.edu.unicesumar.folia.domain.boleto.Boleto;
 import br.edu.unicesumar.folia.domain.boleto.Status;
-import jakarta.persistence.criteria.Predicate;
+import br.edu.unicesumar.folia.exception.UserUuidNotFoundException;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
 
 public class UsuarioBoletoFiltragem {
@@ -17,12 +16,14 @@ public class UsuarioBoletoFiltragem {
             // Especificações podem ser acumuladas para lidar com múltiplos filtros
             Specification<Boleto> specification = Specification.where(null);
 
-            if (filtro.getIdentificacao() != null) {
-                specification = specification.and(filtroPorIdentificacao(filtro.getIdentificacao()));
+            if (filtro.getUserUuid() == null) {
+                throw new UserUuidNotFoundException("User UUID não encontrado!");
             }
 
-            if (filtro.getNome() != null) {
-                specification = specification.and(filtroPorNome(filtro.getNome()));
+            specification = specification.and(setUserUuid(UUID.fromString(filtro.getUserUuid())));
+
+            if (filtro.getBanco() != null) {
+                specification = specification.and(filtroPorBanco(filtro.getBanco()));
             }
 
             if (filtro.getStatus() != null) {
@@ -49,12 +50,12 @@ public class UsuarioBoletoFiltragem {
         };
     }
 
-    private static Specification<Boleto> filtroPorIdentificacao(String identificacao) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("usuario").get("identificacao"), "%" + identificacao + "%");
+    private static Specification<Boleto> setUserUuid(UUID uuid) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("usuario").get("id"),uuid);
     }
 
-    private static Specification<Boleto> filtroPorNome(String nome) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("usuario").get("nome"), "%" + nome + "%");
+    private static Specification<Boleto> filtroPorBanco(String banco) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get("banco").get("nome"), "%" + banco + "%");
     }
 
     private static Specification<Boleto> filtroPorStatus(Status status) {

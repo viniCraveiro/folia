@@ -15,8 +15,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioBoletoFiltroDTO {
-    private String identificacao;
-    private String nome;
+    private String userUuid;
+    private String banco;
     private LocalDate dataInicialEmissao;
     private LocalDate dataFinalEmissao;
     private LocalDate dataInicialVencimento;
