@@ -26,13 +26,13 @@ VALUES
     ('e1f2a3b4-c5d6-7e8f-90a1-b2c3d4e5f6a7', 'ID001', 'Vinicius A', 'vinicius.a@email.com', 'vinicius', 'senha123', 'ADMIN',
         'a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f'),
     ('f2a3b4c5-d6e7-8f90-a1b2-c3d4e5f6a7b8', 'ID002', 'Gabriel B', 'gabriel.b@email.com', 'gabriel', 'senha456', 'USER',
-        'b2c3d4e5-f6a7-8b9c-0d1e-f2a3b4c5d6e7', 'e7f8a9b0-c1d2-3d4e-5f6a-8b9c0d1e2f3a'),
+        'b2c3d4e5-f6a7-8b9c-0d1e-f2a3b4c5d6e7', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f'),
     ('a3b4c5d6-e7f8-90a1-b2c3-d4e5f6a7b8c9', 'ID003', 'Fernando C', 'fernando.c@email.com', 'fernando', 'senha789', 'USER',
-        'c3d4e5f6-a7b8-9c0d-1e2f-a3b4c5d6e7f8', 'f8a9b0c1-d2e3-4e5f-6a7b-9c0d1e2f3a4b'),
+        'c3d4e5f6-a7b8-9c0d-1e2f-a3b4c5d6e7f8', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f'),
     ('b4c5d6e7-f8a9-0a1b-2c3d-e5f6a7b8c9d0', 'ID004', 'Yasmin D', 'yasmin.d@email.com', 'yasmin', 'senha012', 'ADMIN',
-        'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f90', 'a9b0c1d2-e3f4-5f6a-7b8c-0d1e2f3a4b5c'),
+        'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f90', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f'),
     ('c5d6e7f8-a9b0-1b2c-3d4e-f6a7b8c9d0e1', 'ID005', 'Luana E', 'luana.v@email.com', 'luana', 'senha345', 'USER',
-        'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'b0c1d2e3-f4a5-6a7b-8c9d-1e2f3a4b5c6d');
+        'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f');
 
 -- Inserir Banco
 INSERT INTO BANCO (ID, NOME, AGENCIA, AGENCIA_DIGITO, CONTA, CONTA_DIGITO, DIGITO_VERIFICADOR)
