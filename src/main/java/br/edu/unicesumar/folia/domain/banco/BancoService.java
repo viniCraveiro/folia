@@ -29,7 +29,6 @@ public class BancoService {
         bancoExistente.setConta((bancoAtualizado.getAgencia()));
         bancoExistente.setAgenciaDigito((bancoAtualizado.getAgencia()));
         bancoExistente.setContaDigito((bancoAtualizado.getAgencia()));
-        bancoExistente.setDigitoVerificadorAgenciaConta((bancoAtualizado.getAgencia()));
         bancoExistente.setAgenciaDigito((bancoAtualizado.getAgencia()));
 
         return bancoRepository.save(bancoExistente);
