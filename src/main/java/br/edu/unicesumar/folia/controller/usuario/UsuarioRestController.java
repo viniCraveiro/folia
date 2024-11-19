@@ -39,12 +39,14 @@ public class UsuarioRestController {
         this.empresaRepository = empresaRepository;
     }
 
-    @PostMapping
-    public ResponseEntity cadastrar(@RequestBody @Valid Usuario usuario){
+    @PostMapping("/empresauuid:{empresaUuid}")
+    public ResponseEntity cadastrar(@RequestBody Usuario usuario, @PathVariable UUID empresaUuid) {
+        Empresa empresa = empresaRepository.getReferenceById(empresaUuid);
+        usuario.setEmpresa(empresa);
         usuarioService.salvaUsuario(usuario);
-
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/{uuid}")
     public ResponseEntity deletar(@PathVariable UUID uuid){
