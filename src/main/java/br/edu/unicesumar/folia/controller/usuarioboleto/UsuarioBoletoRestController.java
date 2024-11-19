@@ -16,7 +16,8 @@ import java.util.UUID;
 
 )
 @RestController
-@RequestMapping("api/usuarioBoleto")
+@RequestMapping("api/usuario/boleto")
+/*FILTRAGEM E LISTAGEM DOS BOLETOS DO USUARIO*/
 public class UsuarioBoletoRestController {
 
     @Autowired
