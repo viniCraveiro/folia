@@ -45,6 +45,7 @@ public class UsuarioRestController {
         usuario.setEmpresa(empresa);
         usuarioService.salvaUsuario(usuario);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
+
     }
 
 
