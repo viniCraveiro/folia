@@ -32,9 +32,6 @@ public class Banco extends Entidade {
     @Column(length = 9)
     @NotNull
     private String contaDigito;
-    @Column(name = "DIGITO_VERIFICADOR", length = 4)
-    @NotNull
-    private String digitoVerificadorAgenciaConta;
 
     public Banco (String nome){
         this.nome = nome;

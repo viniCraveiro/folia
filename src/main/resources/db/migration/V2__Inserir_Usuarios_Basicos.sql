@@ -35,12 +35,12 @@ VALUES
         'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f');
 
 -- Inserir Banco
-INSERT INTO BANCO (ID, NOME, AGENCIA, AGENCIA_DIGITO, CONTA, CONTA_DIGITO, DIGITO_VERIFICADOR)
-VALUES ('f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f90a1b2', 'ITAU', '1234', '5', '987654', '3', '1234'),
-       ('a7b8c9d0-e1f2-3a4b-5c6d-7e8f90a1b2c3', 'SANTANDER', '5678', '9', '654321', '7', '5678'),
-       ('b8c9d0e1-f2a3-4b5c-6d7e-8f90a1b2c3d4', 'BRADESCO', '9101', '2', '123456', '1', '9101'),
-       ('c9d0e1f2-a3b4-5c6d-7e8f-90a1b2c3d4e5', 'SICOOB', '1122', '3', '543210', '8', '1122'),
-       ('d0e1f2a3-b4c5-6d7e-8f90-a1b2c3d4e5f6', 'DAYCOVAL', '3344', '6', '789012', '4', '3344');
+INSERT INTO BANCO (ID, NOME, AGENCIA, AGENCIA_DIGITO, CONTA, CONTA_DIGITO)
+VALUES ('f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f90a1b2', 'ITAU TESTE', '1234', '5', '987654', '3'),
+       ('a7b8c9d0-e1f2-3a4b-5c6d-7e8f90a1b2c3', 'SANTANDER TESTE', '5678', '9', '654321', '7'),
+       ('b8c9d0e1-f2a3-4b5c-6d7e-8f90a1b2c3d4', 'BRADESCO TESTE', '9101', '2', '123456', '1'),
+       ('c9d0e1f2-a3b4-5c6d-7e8f-90a1b2c3d4e5', 'SICOOB TESTE', '1122', '3', '543210', '8'),
+       ('d0e1f2a3-b4c5-6d7e-8f90-a1b2c3d4e5f6', 'DAYCOVAL TESTE', '3344', '6', '789012', '4');
 
 -- Inserir Boleto
 INSERT INTO BOLETO (ID, BANCO_FK, VALOR, DATA_EMISSAO, DATA_VENCIMENTO, TOTAL_PARCELAS, CONVENIO, CODIGO_CEDENTE, CODIGO_TRANSMISSAO,
