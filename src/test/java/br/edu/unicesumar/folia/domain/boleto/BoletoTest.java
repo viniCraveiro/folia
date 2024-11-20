@@ -104,7 +104,7 @@ public class BoletoTest {
         // Nenhuma exceção esperada
         doNothing().when(boletoService).atualizarStatusBoleto(uuidMock, novoStatusMock);
 
-        ResponseEntity<Void> response = boletoRestController.atualizarStatusBoleto(uuidMock, novoStatusMock);
+        ResponseEntity<String> response = boletoRestController.atualizarStatusBoleto(uuidMock, novoStatusMock);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
@@ -116,7 +116,7 @@ public class BoletoTest {
 
         doThrow(new EntityNotFoundException()).when(boletoService).atualizarStatusBoleto(uuidMock, novoStatusMock);
 
-        ResponseEntity<Void> response = boletoRestController.atualizarStatusBoleto(uuidMock, novoStatusMock);
+        ResponseEntity<String> response = boletoRestController.atualizarStatusBoleto(uuidMock, novoStatusMock);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }

@@ -9,19 +9,25 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class UsuarioBoletoFiltradoDTO {
+public class EmpresaBoletoFiltradoDTO {
     private UUID uuid;
+    private String identificacao;
+    private String nome;
+    private String usuario;
     private String banco;
     private String valor;
     private String parcela;
     private LocalDate dataEmissao;
     private LocalDate dataVencimento;
-    private Status status;
     private String url;
+    private Status status;
 
     // Construtor completo
-    public UsuarioBoletoFiltradoDTO(UUID  uuid, String banco, String valor, String parcela, LocalDate dataEmissao, LocalDate dataVencimento, Status status, String url) {
+    public EmpresaBoletoFiltradoDTO(UUID  uuid, String identificacao, String nome, String usuario, String banco, String valor, String parcela, LocalDate dataEmissao, LocalDate dataVencimento, Status status, String url) {
         this.uuid = uuid;
+        this.identificacao = identificacao;
+        this.nome = nome;
+        this.usuario = usuario;
         this.banco = banco;
         this.valor = valor;
         this.parcela = parcela;
