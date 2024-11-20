@@ -21,12 +21,15 @@ import java.util.List;
 @Service
 public class BoletosNapiService {
 
-    private final BoletoRepository boletoRepository ;
+    private final BoletoRepository boletoRepository;
     private final UsuarioRepository usuarioRepository;
     private final EmpresaRepository empresaRepository;
     private final BancoRepository bancoRepository;
 
-    public BoletosNapiService(BoletoRepository boletoRepository, UsuarioRepository usuarioRepository, UsuarioRepository usuarioRepository1, EmpresaRepository empresaRepository, BancoRepository bancoRepository){
+    public BoletosNapiService(BoletoRepository boletoRepository,
+                              UsuarioRepository usuarioRepository,
+                              EmpresaRepository empresaRepository,
+                              BancoRepository bancoRepository) {
         this.boletoRepository = boletoRepository;
         this.usuarioRepository = usuarioRepository;
         this.empresaRepository = empresaRepository;
@@ -34,38 +37,55 @@ public class BoletosNapiService {
     }
 
     public List<BoletoNapiDTO> consultarNapiEProcessarDados() {
-        // URL da API, não esquecer de remover o token antes de comitar
-        String url = "";
+        String url = "https://napi.service.dev.peon.tec.br/folia/v0/contareceber/?token=e66d98a2-28dd-4f88-b90c-916d3f4899ba";
         RestTemplate restTemplate = new RestTemplate();
 
         try {
             NapiResponseWrapper response = restTemplate.getForObject(url, NapiResponseWrapper.class);
-            List<Boleto> boletosSave= new ArrayList<>();
-            if (response  != null && response.getValues() != null) {
+            List<Boleto> boletosSave = new ArrayList<>();
+
+            if (response != null && response.getValues() != null) {
                 List<BoletoNapiDTO> dto = response.getValues();
 
-                dto.forEach(boletoDto-> {
+                dto.forEach(boletoDto -> {
+                    Banco banco = bancoRepository.findByAgenciaAndConta(
+                            boletoDto.getBancoAgencia(),
+                            boletoDto.getBancoConta()
+                    ).orElseGet(() -> {
+                        Banco novoBanco = new Banco();
+                        novoBanco.setNome(boletoDto.getBancoNome());
+                        novoBanco.setConta(boletoDto.getBancoConta());
+                        novoBanco.setContaDigito(boletoDto.getBancoContaDigito());
+                        novoBanco.setAgencia(boletoDto.getBancoAgencia());
+                        novoBanco.setAgenciaDigito("8");
+                        return bancoRepository.save(novoBanco);
+                    });
+
+                    Empresa empresa = empresaRepository.findByCnpj(
+                            boletoDto.getEstabelecimentoIdentificacao()
+                    ).orElseGet(() -> {
+                        Empresa novaEmpresa = new Empresa();
+                        novaEmpresa.setCnpj(boletoDto.getEstabelecimentoIdentificacao());
+                        novaEmpresa.setNomeFantasia(boletoDto.getEstabelecimentoNome());
+                        novaEmpresa.setRazaoSocial(boletoDto.getEstabelecimentoNome());
+                        novaEmpresa.setEmail("Teste@gmail.com");
+                        novaEmpresa.setTelefone("5544333333333");
+                        return empresaRepository.save(novaEmpresa);
+                    });
+
+                    Usuario usuario = usuarioRepository.findByIdentificacao(
+                            boletoDto.getPessoaIdentificacao()
+                    ).orElseGet(() -> {
+                        Usuario novoUsuario = new Usuario();
+                        novoUsuario.setIdentificacao(boletoDto.getPessoaIdentificacao());
+                        novoUsuario.setNome(boletoDto.getPessoaNome());
+                        novoUsuario.setTipoUsuario(TipoUsuario.valueOf("USER"));
+                        novoUsuario.setEmail("Teste@gmail.com");
+                        novoUsuario.setEmpresa(empresa);
+                        return usuarioRepository.save(novoUsuario);
+                    });
+
                     Boleto boleto = new Boleto();
-                    Banco banco = new Banco();
-                    Usuario usuario = new Usuario();
-                    Empresa empresa = new Empresa();
-
-                    banco.setNome(boletoDto.getBancoNome());
-                    banco.setConta(boletoDto.getBancoConta());
-                    banco.setContaDigito(boletoDto.getBancoContaDigito());
-                    banco.setAgencia(boletoDto.getBancoAgencia());
-
-                    empresa.setCnpj(boletoDto.getEstabelecimentoIdentificacao());
-                    empresa.setNomeFantasia(boletoDto.getEstabelecimentoNome());
-                    empresa.setRazaoSocial(boletoDto.getEstabelecimentoNome());
-                    empresa.setEmail("Teste@gmail.com");
-
-                    usuario.setIdentificacao(boletoDto.getPessoaIdentificacao());
-                    usuario.setNome(boletoDto.getPessoaNome());
-                    usuario.setTipoUsuario(TipoUsuario.valueOf("USER"));
-                    usuario.setEmail("Teste@gmail.com");
-                    usuario.setEmpresa(empresa);
-
                     boleto.setUsuario(usuario);
                     boleto.setBanco(banco);
                     boleto.setEmpresa(empresa);
@@ -76,7 +96,8 @@ public class BoletosNapiService {
                     boleto.setTipoDocumento(boletoDto.getNumeroDocumento());
                     boleto.setStatus(Status.fromString(boletoDto.getStatusParcela()));
                     boleto.setUrl(boletoDto.getUrlBoleto());
-                    //-----------------------
+
+                    // Configurações adicionais
                     boleto.setConvenio(12345);
                     boleto.setCodigoCedente(67890);
                     boleto.setCodigoTransmissao(101112);
@@ -89,9 +110,10 @@ public class BoletosNapiService {
                     boleto.setOperacao("Emissão");
                     boleto.setChavePix("1234567890");
                     boleto.setTipoChavePix(1);
-                    boletosSave.add(boleto);
 
+                    boletosSave.add(boleto);
                 });
+
                 boletoRepository.saveAll(boletosSave);
                 return dto;
             }
@@ -99,7 +121,6 @@ public class BoletosNapiService {
             System.err.println("Erro ao consultar API: " + e);
         }
         return null;
-
     }
-
 }
+

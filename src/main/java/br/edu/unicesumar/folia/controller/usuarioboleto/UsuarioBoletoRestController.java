@@ -28,6 +28,12 @@ public class UsuarioBoletoRestController {
         return ResponseEntity.ok(dtos);
     }
 
+    @GetMapping("/ultimosBoletos/{empresaUuid}")
+    public ResponseEntity<List<UsuarioBoletoListaDTO>> obterUltimosBoletos(@PathVariable UUID empresaUuid) {
+        List<UsuarioBoletoListaDTO> dtos = usuarioBoletoService.obterUltimosCincoUsuariosPorBoletos(empresaUuid);
+        return ResponseEntity.ok(dtos);
+    }
+
     @PostMapping("/filtrar")
     public ResponseEntity<List<UsuarioBoletoFiltradoDTO>> filtrarBoletos(@RequestBody UsuarioBoletoFiltroDTO filtro) {
         return ResponseEntity.ok(usuarioBoletoService.buscarComFiltro(filtro));
