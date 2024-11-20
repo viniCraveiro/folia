@@ -7,6 +7,7 @@ import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Table(name = "BOLETO")
@@ -23,7 +24,7 @@ public class Boleto extends Entidade {
     @JoinColumn(name = "BANCO_FK")
     private Banco banco; //traz
     @Column
-    private String valor; //traz
+    private BigDecimal valor; //traz
     @Column
     private LocalDate dataEmissao; //traz
     @Column

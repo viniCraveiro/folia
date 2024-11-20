@@ -10,6 +10,7 @@ import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -17,8 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,10 +31,8 @@ public class UsuarioBoletoService {
     private BoletoRepository boletoRepository;
 
     public List<UsuarioBoletoListaDTO> obterDadosUsuariosPorEmpresa(UUID empresaId) {
-        // Busca todos os usuários associados à empresa
         List<Usuario> usuarios = usuarioRepository.findByEmpresaId(empresaId);
 
-        // Para cada usuário, busca os boletos e compila as informações no DTO
         return usuarios.stream().map(usuario -> {
             List<Boleto> boletos = boletoRepository.findByUsuarioId(usuario.getId(), Pageable.unpaged()).getContent();
 
@@ -53,6 +51,31 @@ public class UsuarioBoletoService {
             return dto;
         }).collect(Collectors.toList());
     }
+
+    public List<UsuarioBoletoListaDTO> obterUltimosCincoUsuariosPorBoletos(UUID empresaId) {
+        List<Usuario> usuarios = usuarioRepository.findByEmpresaId(empresaId);
+
+        return usuarios.stream().map(usuario -> {
+            Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Order.desc("dataVencimento"))); // Ordenando por data de vencimento, do mais recente ao mais antigo
+            List<Boleto> boletos = boletoRepository.findByUsuarioId(usuario.getId(), pageable).getContent();
+
+            Long quantidadeBoletos = (long) boletos.size();
+            Long quantidadeBoletosAbertos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.ABERTO).count();
+            Long quantidadeBoletosVencidos = boletos.stream().filter(boleto -> boleto.getDataVencimento().isBefore(LocalDate.now())).count();
+
+            UsuarioBoletoListaDTO dto = new UsuarioBoletoListaDTO();
+            dto.setIdentificacao(usuario.getIdentificacao());
+            dto.setNome(usuario.getNome());
+            dto.setUsuario(usuario.getUsername());
+            dto.setQuantidadeBoletos(quantidadeBoletos);
+            dto.setQuantidadeBoletosAbertos(quantidadeBoletosAbertos);
+            dto.setQuantidadeBoletosVencidos(quantidadeBoletosVencidos);
+
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+
 
     public List<UsuarioBoletoFiltradoDTO> buscarComFiltro(UsuarioBoletoFiltroDTO filtro) {
         Specification<Boleto> specification = UsuarioBoletoFiltragem.comFiltros(filtro);

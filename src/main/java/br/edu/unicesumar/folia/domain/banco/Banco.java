@@ -21,16 +21,12 @@ public class Banco extends Entidade {
     @Column
     private String nome;
     @Column(length = 36)
-    @NotNull
     private String agencia;
     @Column(length = 5)
-    @NotNull
     private String agenciaDigito;
     @Column(length = 9)
-    @NotNull
     private String conta;
     @Column(length = 9)
-    @NotNull
     private String contaDigito;
 
     public Banco (String nome){

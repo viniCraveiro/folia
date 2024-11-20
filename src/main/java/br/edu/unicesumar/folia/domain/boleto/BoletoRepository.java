@@ -20,4 +20,5 @@ public interface BoletoRepository extends JpaRepository<Boleto, UUID> {
     List<Boleto> findByEmpresaId(UUID empresaId);
 
     List<Boleto> findAll(Specification<Boleto> specification, Sort sort);
+
 }
