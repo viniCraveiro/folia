@@ -5,7 +5,6 @@ VALUES ('a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6', 'Rua das Flores', '123', 'Apto 1
        ('c3d4e5f6-a7b8-9c0d-1e2f-a3b4c5d6e7f8', 'Praça da Sé', '789', 'Sala 202', 'Sé', 'São Paulo', '01001000', 'SP'),
        ('d4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f90', 'Rua dos Coqueiros', '321', 'Casa', 'Vila Nova', 'Campinas', '13000000', 'SP'),
        ('e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'Rua das Palmeiras', '654', '', 'Bela Vista', 'São Paulo', '01002000', 'SP');
-
 -- Inserir Empresas
 INSERT INTO EMPRESA (ID, NOME_FANTASIA, RAZAO_SOCIAL, CNPJ, EMAIL, TELEFONE, ENDERECO_FK)
 VALUES

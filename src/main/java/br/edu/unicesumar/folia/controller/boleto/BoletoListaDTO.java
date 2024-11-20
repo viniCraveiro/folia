@@ -6,6 +6,7 @@ import br.edu.unicesumar.folia.domain.boleto.Status;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -18,7 +19,7 @@ public class BoletoListaDTO {
     private String banco;
     private String parcela;
     private LocalDate vencimento;
-    private String valor;
+    private BigDecimal valor;
 
     public void alimentarDados(Boleto boleto) {
         this.uuid = boleto.getId().toString();

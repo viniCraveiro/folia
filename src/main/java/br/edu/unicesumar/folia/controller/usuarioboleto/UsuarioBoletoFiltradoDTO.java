@@ -4,6 +4,7 @@ import br.edu.unicesumar.folia.domain.boleto.Status;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -11,8 +12,11 @@ import java.util.UUID;
 @Setter
 public class UsuarioBoletoFiltradoDTO {
     private UUID uuid;
+    private String identificacao;
+    private String nome;
+    private String usuario;
     private String banco;
-    private String valor;
+    private BigDecimal valor;
     private String parcela;
     private LocalDate dataEmissao;
     private LocalDate dataVencimento;
@@ -20,8 +24,11 @@ public class UsuarioBoletoFiltradoDTO {
     private String url;
 
     // Construtor completo
-    public UsuarioBoletoFiltradoDTO(UUID  uuid, String banco, String valor, String parcela, LocalDate dataEmissao, LocalDate dataVencimento, Status status, String url) {
+    public UsuarioBoletoFiltradoDTO(UUID  uuid, String identificacao, String nome, String usuario, String banco, BigDecimal valor, String parcela, LocalDate dataEmissao, LocalDate dataVencimento, Status status, String url) {
         this.uuid = uuid;
+        this.identificacao = identificacao;
+        this.nome = nome;
+        this.usuario = usuario;
         this.banco = banco;
         this.valor = valor;
         this.parcela = parcela;
