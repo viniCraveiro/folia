@@ -82,11 +82,26 @@ VALUES ('c1d2e3f4-a5b6-7b8c-9d0e-2f3a4b5c6d7e', 'f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f9
         '04', '07', 'e1f2a3b4-c5d6-7e8f-90a1-b2c3d4e5f6a7', '02', '03', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f', '02',
         'Operacao7', 'chavePix7', '02',
         'PAGO', 'https://boleto7.com.br'),
-       ('8bb04988-d014-4e80-a44e-19a1edaaebe9', 'a7b8c9d0-e1f2-3a4b-5c6d-7e8f90a1b2c3', '5000.00',
+       ('8bb04988-d014-4e80-a44e-19a1edaaebe9', 'a7b8c9d0-e1f2-3a4b-5c6d-7e8f90a1b2c3', '2500.00',
         CURRENT_DATE - INTERVAL '2' DAY, CURRENT_DATE + INTERVAL '2' DAY, '10', '14', '08', '11', '03', '04',
         '05', '08', 'e1f2a3b4-c5d6-7e8f-90a1-b2c3d4e5f6a7', '03', '04', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f', '03',
         'Operacao8', 'chavePix8', '03',
-        'ABERTO', 'https://boleto8.com.br');
+        'ABERTO', 'https://boleto8.com.br'),
+       ('d282e9e5-090a-427f-bee4-ceabfd19be8e', 'a7b8c9d0-e1f2-3a4b-5c6d-7e8f90a1b2c3', '100.00',
+        CURRENT_DATE - INTERVAL '12' DAY, CURRENT_DATE - INTERVAL '2' DAY, '10', '14', '08', '11', '03', '04',
+        '05', '08', 'f2a3b4c5-d6e7-8f90-a1b2-c3d4e5f6a7b8', '03', '04', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f', '03',
+        'Operacao9', 'chavePix9', '03',
+        'VENCIDO', 'https://boleto10.com.br'),
+    ('105f56dc-aa3d-4848-9d72-4dd6ed50dc94', 'f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f90a1b2', '5000.00',
+        CURRENT_DATE - INTERVAL '1' DAY, CURRENT_DATE + INTERVAL '10' DAY, '10', '14', '08', '11', '03', '04',
+        '05', '08', 'e1f2a3b4-c5d6-7e8f-90a1-b2c3d4e5f6a7', '03', '04', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f', '03',
+        'Operacao9', 'chavePix10', '03',
+        'ABERTO', 'https://boleto11.com.br'),
+       ('6e5ea07a-01bc-4bda-ac94-17eb320a95f3', 'b8c9d0e1-f2a3-4b5c-6d7e-8f90a1b2c3d4', '200.00',
+        CURRENT_DATE - INTERVAL '4' DAY, CURRENT_DATE + INTERVAL '10' DAY, '10', '14', '08', '11', '03', '04',
+        '05', '08', 'a3b4c5d6-e7f8-90a1-b2c3-d4e5f6a7b8c9', '03', '04', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f', '03',
+        'Operacao9', 'chavePix11', '03',
+        'ABERTO', 'https://boleto12.com.br');
 
 -- Inserir Conta Bancaria
 INSERT INTO CONTA_BANCARIA (ID, BANCO_FK, NUMERO_CONTA, AGENCIA, TITULAR, CPF_CNPJ, TIPO_CONTA, CODIGO_IBAN, DATA_ABERTURA, TELEFONE_CONTATO,

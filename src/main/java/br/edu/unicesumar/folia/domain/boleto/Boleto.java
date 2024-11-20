@@ -18,6 +18,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Boleto extends Entidade {
 
+
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "BANCO_FK")
     private Banco banco; //traz
