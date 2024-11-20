@@ -35,7 +35,7 @@ public class BoletosNapiService {
 
     public List<BoletoNapiDTO> consultarNapiEProcessarDados() {
         // URL da API, não esquecer de remover o token antes de comitar
-        String url = "https://napi.service.dev.peon.tec.br/folia/v0/contareceber/?token=e66d98a2-28dd-4f88-b90c-916d3f4899ba";
+        String url = "";
         RestTemplate restTemplate = new RestTemplate();
 
         try {
@@ -76,7 +76,7 @@ public class BoletosNapiService {
                     boleto.setTipoDocumento(boletoDto.getNumeroDocumento());
                     boleto.setStatus(Status.fromString(boletoDto.getStatusParcela()));
                     boleto.setUrl(boletoDto.getUrlBoleto());
-
+                    //-----------------------
                     boleto.setConvenio(12345);
                     boleto.setCodigoCedente(67890);
                     boleto.setCodigoTransmissao(101112);
