@@ -11,6 +11,7 @@ import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -144,6 +145,29 @@ public class BoletoService {
                 .collect(Collectors.toList());
     }
 
+    public List<UsuarioBoletoListaDTO> obterUltimosCincoUsuariosPorBoletos(UUID empresaId) {
+        List<Usuario> usuarios = usuarioRepository.findByEmpresaId(empresaId);
+
+        return usuarios.stream().map(usuario -> {
+            Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Order.desc("dataVencimento"))); // Ordenando por data de vencimento, do mais recente ao mais antigo
+            List<Boleto> boletos = boletoRepository.findByUsuarioId(usuario.getId(), pageable).getContent();
+
+            Long quantidadeBoletos = (long) boletos.size();
+            Long quantidadeBoletosAbertos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.ABERTO).count();
+            Long quantidadeBoletosVencidos = boletos.stream().filter(boleto -> boleto.getDataVencimento().isBefore(LocalDate.now())).count();
+
+            UsuarioBoletoListaDTO dto = new UsuarioBoletoListaDTO();
+            dto.setIdentificacao(usuario.getIdentificacao());
+            dto.setNome(usuario.getNome());
+            dto.setUsuario(usuario.getUsername());
+            dto.setQuantidadeBoletos(quantidadeBoletos);
+            dto.setQuantidadeBoletosAbertos(quantidadeBoletosAbertos);
+            dto.setQuantidadeBoletosVencidos(quantidadeBoletosVencidos);
+
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
     private UsuarioBoletoFiltradoDTO toDTOUsuario(Boleto boleto) {
         return new UsuarioBoletoFiltradoDTO(
                 boleto.getId(),
@@ -172,5 +196,6 @@ public class BoletoService {
                 boleto.getUrl()
         );
     }
+
 }
 

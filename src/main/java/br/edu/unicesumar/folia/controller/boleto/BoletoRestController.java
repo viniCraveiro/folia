@@ -93,5 +93,11 @@ public class BoletoRestController {
         return ResponseEntity.ok(boletoService.buscarComFiltroUsuario(filtro));
     }
 
+    @GetMapping("/ultimosBoletos/{empresaUuid}")
+    public ResponseEntity<List<UsuarioBoletoListaDTO>> obterUltimosBoletos(@PathVariable UUID empresaUuid) {
+        List<UsuarioBoletoListaDTO> dtos = boletoService.obterUltimosCincoUsuariosPorBoletos(empresaUuid);
+        return ResponseEntity.ok(dtos);
+    }
+
 }
 

@@ -24,11 +24,8 @@ public class UsuarioBoletoFiltradoDTO {
     private String url;
 
     // Construtor completo
-    public UsuarioBoletoFiltradoDTO(UUID  uuid, String identificacao, String nome, String usuario, String banco, BigDecimal valor, String parcela, LocalDate dataEmissao, LocalDate dataVencimento, Status status, String url) {
+    public UsuarioBoletoFiltradoDTO(UUID  uuid, String banco, BigDecimal valor, String parcela, LocalDate dataEmissao, LocalDate dataVencimento, Status status, String url) {
         this.uuid = uuid;
-        this.identificacao = identificacao;
-        this.nome = nome;
-        this.usuario = usuario;
         this.banco = banco;
         this.valor = valor;
         this.parcela = parcela;
