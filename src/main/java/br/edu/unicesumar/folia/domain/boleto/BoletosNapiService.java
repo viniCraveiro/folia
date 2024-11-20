@@ -54,20 +54,17 @@ public class BoletosNapiService {
                     banco.setConta(boletoDto.getBancoConta());
                     banco.setContaDigito(boletoDto.getBancoContaDigito());
                     banco.setAgencia(boletoDto.getBancoAgencia());
-                    //bancoRepository.save(banco);
 
                     empresa.setCnpj(boletoDto.getEstabelecimentoIdentificacao());
                     empresa.setNomeFantasia(boletoDto.getEstabelecimentoNome());
                     empresa.setRazaoSocial(boletoDto.getEstabelecimentoNome());
                     empresa.setEmail("Teste@gmail.com");
-                    //empresaRepository.save(empresa);
 
                     usuario.setIdentificacao(boletoDto.getPessoaIdentificacao());
                     usuario.setNome(boletoDto.getPessoaNome());
                     usuario.setTipoUsuario(TipoUsuario.valueOf("USER"));
                     usuario.setEmail("Teste@gmail.com");
                     usuario.setEmpresa(empresa);
-                    //usuarioRepository.save(usuario);
 
                     boleto.setUsuario(usuario);
                     boleto.setBanco(banco);
@@ -93,7 +90,6 @@ public class BoletosNapiService {
                     boleto.setChavePix("1234567890");
                     boleto.setTipoChavePix(1);
                     boletosSave.add(boleto);
-                    //boletoRepository.save(boleto);
 
                 });
                 boletoRepository.saveAll(boletosSave);
