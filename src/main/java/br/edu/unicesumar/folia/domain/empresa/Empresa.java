@@ -18,30 +18,23 @@ import java.util.Set;
 public class Empresa extends Entidade {
 
         @Column(nullable = false)
-        @NotBlank(message = "O nome fantasia não pode estar em branco.")
         private String nomeFantasia;
 
         @Column(nullable = false)
-        @NotBlank(message = "A razão social não pode estar em branco.")
         private String razaoSocial;
 
         @Column(nullable = false, unique = true)
-        @NotBlank(message = "O CNPJ não pode estar em branco.")
        // @Pattern(regexp = "\\d{14}", message = "O CNPJ deve conter exatamente 14 dígitos.")
         private String cnpj;
 
         @Column(nullable = false)
-        @NotBlank(message = "O email não pode estar em branco.")
-        @Email(message = "O email deve ser válido.")
         private String email;
 
         @Column(nullable = false)
-        @NotNull(message = "o relefone não pode estar em branco")
         private String telefone;
 
         @ManyToOne(cascade = CascadeType.ALL)
         @JoinColumn(name = "ENDERECO_FK")
-        @NotNull(message = "O endereço é obrigatório.")
         private Endereco endereco;
 
         @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
