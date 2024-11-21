@@ -1,5 +1,6 @@
 package br.edu.unicesumar.folia.domain.boleto;
 
+import br.edu.unicesumar.folia.controller.boleto.BoletoDTO;
 import br.edu.unicesumar.folia.controller.boleto.BoletoInformacoesDTO;
 import br.edu.unicesumar.folia.controller.boleto.BoletoListaDTO;
 import br.edu.unicesumar.folia.controller.boleto.BoletoRestController;
@@ -78,11 +79,10 @@ public class BoletoTest {
 
         when(boletoService.buscarBoleto(uuidMock)).thenReturn(boletoMock);
 
-        ResponseEntity<Boleto> response = boletoRestController.buscarBoleto(uuidMock);
+        ResponseEntity<BoletoDTO> response = boletoRestController.buscarBoleto(uuidMock);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(boletoMock, response.getBody());
     }
 
     @Test
@@ -91,7 +91,7 @@ public class BoletoTest {
 
         when(boletoService.buscarBoleto(uuidMock)).thenThrow(new EntityNotFoundException());
 
-        ResponseEntity<Boleto> response = boletoRestController.buscarBoleto(uuidMock);
+        ResponseEntity<BoletoDTO> response = boletoRestController.buscarBoleto(uuidMock);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }

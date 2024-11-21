@@ -51,9 +51,9 @@ public class BoletoRestController {
 
     // Buscar boleto
     @GetMapping("/{uuid}")
-    public ResponseEntity<Boleto> buscarBoleto(@PathVariable UUID uuid) {
+    public ResponseEntity<BoletoDTO> buscarBoleto(@PathVariable UUID uuid) {
         try {
-            Boleto boleto = boletoService.buscarBoleto(uuid);
+            BoletoDTO boleto = new BoletoDTO(boletoService.buscarBoleto(uuid));
             return new ResponseEntity<>(boleto, HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -95,7 +95,7 @@ public class BoletoRestController {
 
     @GetMapping("/ultimosBoletos/{empresaUuid}")
     public ResponseEntity<List<UsuarioBoletoListaDTO>> obterUltimosBoletos(@PathVariable UUID empresaUuid) {
-        List<UsuarioBoletoListaDTO> dtos = boletoService.obterUltimosCincoUsuariosPorBoletos(empresaUuid);
+        List<UsuarioBoletoListaDTO> dtos = boletoService.obterUltimosQuatrosUsuariosPorBoletos(empresaUuid);
         return ResponseEntity.ok(dtos);
     }
 

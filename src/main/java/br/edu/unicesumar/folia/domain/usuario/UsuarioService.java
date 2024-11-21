@@ -1,6 +1,8 @@
 package br.edu.unicesumar.folia.domain.usuario;
 
 
+import br.edu.unicesumar.folia.controller.usuario.UsuarioDTO;
+import br.edu.unicesumar.folia.controller.usuario.UsuarioFiltroDTO;
 import br.edu.unicesumar.folia.controller.usuario.UsuarioResponseDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
@@ -8,7 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -29,12 +33,13 @@ public class UsuarioService {
             throw new RuntimeException("Senha não é válida!");
         }
         throw new RuntimeException("Identificação não é válida!");
-    };
+    }
+
+    ;
 
     public void deletaUsuario(UUID uuid) {
         Usuario usuario = usuarioRepository.findById(uuid).orElseThrow(EntityNotFoundException::new);
         usuarioRepository.delete(usuario);
-
     }
 
     public Usuario atualizaUsuario(UUID uuid, Usuario usuarioAtualizado) {
@@ -78,7 +83,12 @@ public class UsuarioService {
         return response;
     }
 
-
-
+    public List<UsuarioDTO> buscarComFiltro(UsuarioFiltroDTO filtro) {
+        return usuarioRepository.buscarUsuariosComResumoBoletos(
+                UUID.fromString(filtro.getEmpresaUUID()),
+                filtro.getNome(),
+                filtro.getIdentificacao(),
+                filtro.getTipoUsuario());
+    }
 
 }

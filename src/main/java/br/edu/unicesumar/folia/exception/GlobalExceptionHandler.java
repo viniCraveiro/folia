@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(UserUuidNotFoundException.class)
-    public ResponseEntity<ApiError> handleUserUuidNotFound(UserUuidNotFoundException error) {
+    @ExceptionHandler(UuidNotFoundException.class)
+    public ResponseEntity<ApiError> handleUserUuidNotFound(UuidNotFoundException error) {
         ApiError apiError = new ApiError("UserUuidNotFoundException", error.getMessage(), HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }

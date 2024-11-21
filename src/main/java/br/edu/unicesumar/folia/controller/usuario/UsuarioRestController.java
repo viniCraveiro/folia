@@ -6,8 +6,8 @@ import br.edu.unicesumar.folia.domain.empresa.EmpresaRepository;
 import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioService;
+import br.edu.unicesumar.folia.exception.UuidNotFoundException;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -107,6 +107,14 @@ public class UsuarioRestController {
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+    }
+
+    @PostMapping("/filtrar")
+    public ResponseEntity<List<UsuarioDTO>> filtrarUsuario(@RequestBody UsuarioFiltroDTO filtro) {
+        if (filtro.getEmpresaUUID() == null) {
+            throw new UuidNotFoundException("O UUID da empresa é obrigatório.");
+        }
+        return ResponseEntity.ok(usuarioService.buscarComFiltro(filtro));
     }
 
 }
