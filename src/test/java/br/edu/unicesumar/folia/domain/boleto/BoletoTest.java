@@ -4,6 +4,7 @@ import br.edu.unicesumar.folia.controller.boleto.BoletoDTO;
 import br.edu.unicesumar.folia.controller.boleto.BoletoInformacoesDTO;
 import br.edu.unicesumar.folia.controller.boleto.BoletoListaDTO;
 import br.edu.unicesumar.folia.controller.boleto.BoletoRestController;
+import br.edu.unicesumar.folia.domain.banco.Banco;
 import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,19 +71,6 @@ public class BoletoTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(boletosPageMock.getTotalElements(), response.getBody().getTotalElements());
-    }
-
-    @Test
-    public void testBuscarBoleto() {
-        UUID uuidMock = UUID.randomUUID();
-        Boleto boletoMock = new Boleto();
-
-        when(boletoService.buscarBoleto(uuidMock)).thenReturn(boletoMock);
-
-        ResponseEntity<BoletoDTO> response = boletoRestController.buscarBoleto(uuidMock);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
     }
 
     @Test

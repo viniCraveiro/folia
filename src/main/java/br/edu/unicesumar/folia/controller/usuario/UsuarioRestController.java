@@ -72,6 +72,8 @@ public class UsuarioRestController {
         Optional<Usuario> usuario = usuarioService.buscarPorId(id);
         if (usuario.isPresent()) {
             UsuarioDetailDTO dto = new UsuarioDetailDTO(usuario.get());
+            dto.setSenha(null);
+            dto.setConfirmarSenha(null);
             return ResponseEntity.ok(dto);
         }
         return ResponseEntity.notFound().build();

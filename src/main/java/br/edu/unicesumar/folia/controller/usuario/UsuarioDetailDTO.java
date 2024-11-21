@@ -20,7 +20,7 @@ public class UsuarioDetailDTO {
     private String identificacao;
     private String nome;
     private String email;
-    private String usuario;
+    private String username;
     private String senha;
     private String confirmarSenha;
     private TipoUsuario tipoUsuario;
@@ -30,7 +30,7 @@ public class UsuarioDetailDTO {
         this.identificacao = usuario.getIdentificacao();
         this.nome = usuario.getNome();
         this.email = usuario.getEmail();
-        this.usuario = usuario.getUsername();
+        this.username = usuario.getUsername();
         this.senha = usuario.getSenha();
         this.confirmarSenha = usuario.getSenha();
         this.tipoUsuario = usuario.getTipoUsuario();
