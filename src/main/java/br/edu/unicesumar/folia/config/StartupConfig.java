@@ -22,8 +22,6 @@ public class StartupConfig {
     public ApplicationRunner onStartup() {
         return args -> {
             List<BoletoNapiDTO> dtos = service.consultarNapiEProcessarDados();
-            System.out.println(dtos);
-
         };
     }
 }
