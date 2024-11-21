@@ -1,6 +1,7 @@
 package br.edu.unicesumar.folia.domain.boleto;
 
 
+import br.edu.unicesumar.folia.config.properties.NapiProperties;
 import br.edu.unicesumar.folia.controller.boleto.BoletoNapiDTO;
 import br.edu.unicesumar.folia.controller.boleto.NapiResponseWrapper;
 import br.edu.unicesumar.folia.domain.banco.Banco;
@@ -11,12 +12,14 @@ import br.edu.unicesumar.folia.domain.usuario.TipoUsuario;
 import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Transactional
 @Service
 public class BoletosNapiService {
@@ -25,21 +28,23 @@ public class BoletosNapiService {
     private final UsuarioRepository usuarioRepository;
     private final EmpresaRepository empresaRepository;
     private final BancoRepository bancoRepository;
+    private final NapiProperties napiProperties;
 
     public BoletosNapiService(BoletoRepository boletoRepository,
                               UsuarioRepository usuarioRepository,
                               EmpresaRepository empresaRepository,
-                              BancoRepository bancoRepository) {
+                              BancoRepository bancoRepository, NapiProperties napiProperties) {
         this.boletoRepository = boletoRepository;
         this.usuarioRepository = usuarioRepository;
         this.empresaRepository = empresaRepository;
         this.bancoRepository = bancoRepository;
+        this.napiProperties = napiProperties;
     }
 
     public List<BoletoNapiDTO> consultarNapiEProcessarDados() {
-        String url = "";
+        String url = napiProperties.getUrl();
+        log.info("Consultando API: " + url);
         RestTemplate restTemplate = new RestTemplate();
-
         try {
             NapiResponseWrapper response = restTemplate.getForObject(url, NapiResponseWrapper.class);
             List<Boleto> boletosSave = new ArrayList<>();
