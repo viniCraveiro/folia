@@ -17,7 +17,9 @@ VALUES
     ('a9b0c1d2-e3f4-5f6a-7b8c-0d1e2f3a4b5c', 'Empresa D', 'Razao Social D', '56473829000104', 'contato@empresad.com', '5544666666666',
         'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f90'),
     ('b0c1d2e3-f4a5-6a7b-8c9d-1e2f3a4b5c6d', 'Empresa E', 'Razao Social E', '10293847560105', 'contato@empresae.com', '5544555555555',
-        'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1');
+        'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1'),
+    ('e23d2789-5c7e-4c97-a69f-d567652d3553', 'VINICIUS CRAVEIRO TECNOLOGIA', 'VINICIUS CRAVEIRO TECNOLOGIA', '96834234000103', 'contato@empresae.com', '5544555555555',
+     'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1');
 
 -- Inserir Usuários com referência aos endereços e empresas
 INSERT INTO USUARIO (ID, IDENTIFICACAO, NOME, EMAIL, USERNAME, SENHA, TIPO_USUARIO, ENDERECO_FK, EMPRESA_FK)
@@ -31,7 +33,9 @@ VALUES
     ('b4c5d6e7-f8a9-0a1b-2c3d-e5f6a7b8c9d0', 'ID004', 'Yasmin D', 'yasmin.d@email.com', 'yasmin', 'senha012', 'ADMIN',
         'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f90', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f'),
     ('c5d6e7f8-a9b0-1b2c-3d4e-f6a7b8c9d0e1', 'ID005', 'Luana E', 'luana.v@email.com', 'luana', 'senha345', 'USER',
-        'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f');
+        'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f'),
+    ('297f94d4-432f-4d17-aa08-2deed751b60e', '72366875000112', 'AVIAMENTOS VERA CRUZ LTDA', 'aviamentoveracruz@gmail.com', 'veracruz', '1234', 'USER',
+     'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'e23d2789-5c7e-4c97-a69f-d567652d3553');
 
 -- Inserir Banco
 INSERT INTO BANCO (ID, NOME, AGENCIA, AGENCIA_DIGITO, CONTA, CONTA_DIGITO)

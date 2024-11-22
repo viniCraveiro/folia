@@ -29,6 +29,7 @@ public class BoletoNapiDTO {
     private Long parcela;
     private String statusParcela;
     private String urlBoleto;
+    private String parcelaDescricao;
 
 
 }
