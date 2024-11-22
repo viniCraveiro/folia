@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class BoletosNapiService {
 
     public List<BoletoNapiDTO> consultarNapiEProcessarDados() {
         String url = napiProperties.getUrl();
-        url = "https://napi.service.dev.peon.tec.br/folia/v0/contareceber/?token=e66d98a2-28dd-4f88-b90c-916d3f4899ba&pageSize=999";
+        url = "";
         log.info("Consultando API: " + url);
         RestTemplate restTemplate = new RestTemplate();
         try {
@@ -102,7 +103,11 @@ public class BoletosNapiService {
                     boleto.setDataVencimento(boletoDto.getDataVencimento());
                     boleto.setTotalParcelas(boletoDto.getTotalParcela());
                     boleto.setTipoDocumento(boletoDto.getNumeroDocumento());
-                    boleto.setStatus(Status.fromString(boletoDto.getStatusParcela()));
+                    if (boletoDto.getDataVencimento().isBefore(LocalDate.now())) {
+                        boleto.setStatus(Status.VENCIDO);
+                    } else {
+                        boleto.setStatus(Status.fromString(boletoDto.getStatusParcela()));
+                    }
                     boleto.setUrl(boletoDto.getUrlBoleto());
 
                     // Configurações adicionais
