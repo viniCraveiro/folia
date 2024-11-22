@@ -7,6 +7,7 @@ import br.edu.unicesumar.folia.controller.usuarioboleto.EmpresaBoletoFiltradoDTO
 import br.edu.unicesumar.folia.controller.usuarioboleto.UsuarioBoletoFiltradoDTO;
 import br.edu.unicesumar.folia.controller.usuarioboleto.BoletoFiltroDTO;
 import br.edu.unicesumar.folia.controller.usuarioboleto.UsuarioBoletoListaDTO;
+import br.edu.unicesumar.folia.domain.usuario.TipoUsuario;
 import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -69,12 +70,11 @@ public class BoletoService {
 
         long totalBoletos = boletos.size();
         long boletosAbertos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.ABERTO).count();
+        long boletosPagos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.PAGO).count();
         long boletosVencidos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.VENCIDO).count();
 
-        // Definir o formato da data
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        // Contagem de boletos próximos ao vencimento
         long boletosProximosVencimento = boletos.stream()
                 .filter(boleto -> {
                     LocalDate dataVencimento = boleto.getDataVencimento();
@@ -84,6 +84,7 @@ public class BoletoService {
 
         BoletoInformacoesDTO boletoDTO = new BoletoInformacoesDTO();
         boletoDTO.setQuantidadeBoletos(totalBoletos);
+        boletoDTO.setQuantidadeBoletosPago(boletosPagos);
         boletoDTO.setQuantidadeBoletosAberto(boletosAbertos);
         boletoDTO.setQuantidadeBoletosVencido(boletosVencidos);
         boletoDTO.setQuantidadeBoletosProximosVencimento(boletosProximosVencimento);
@@ -149,24 +150,30 @@ public class BoletoService {
         List<Usuario> usuarios = usuarioRepository.findByEmpresaId(empresaId);
 
 
-        return usuarios.stream().limit(4).map(usuario -> {
-            Pageable pageable = PageRequest.of(0, 4, Sort.by(Sort.Order.desc("dataVencimento"))); // Ordenando por data de vencimento, do mais recente ao mais antigo
-            List<Boleto> boletos = boletoRepository.findByUsuarioId(usuario.getId(), pageable).getContent();
+        return usuarios.stream()
+                .filter(usuario -> usuario.getTipoUsuario() == TipoUsuario.USER)
+                .limit(4)
+                .map(usuario -> {
+                    Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(Sort.Order.desc("dataVencimento"))); // Ordenando por data de vencimento, do mais recente ao mais antigo
+                    List<Boleto> boletos = boletoRepository.findByUsuarioId(usuario.getId(), pageable).getContent();
 
-            Long quantidadeBoletos = (long) boletos.size();
-            Long quantidadeBoletosAbertos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.ABERTO).count();
-            Long quantidadeBoletosVencidos = boletos.stream().filter(boleto -> boleto.getDataVencimento().isBefore(LocalDate.now())).count();
+                    Long quantidadeBoletos = (long) boletos.size();
+                    Long quantidadeBoletosAbertos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.ABERTO).count();
+                    Long quantidadeBoletosPagos = boletos.stream().filter(boleto -> boleto.getStatus() == Status.PAGO).count();
+                    Long quantidadeBoletosVencidos = boletos.stream().filter(boleto -> boleto.getDataVencimento().isBefore(LocalDate.now())).count();
 
-            UsuarioBoletoListaDTO dto = new UsuarioBoletoListaDTO();
-            dto.setIdentificacao(usuario.getIdentificacao());
-            dto.setNome(usuario.getNome());
-            dto.setUsuario(usuario.getUsername());
-            dto.setQuantidadeBoletos(quantidadeBoletos);
-            dto.setQuantidadeBoletosAbertos(quantidadeBoletosAbertos);
-            dto.setQuantidadeBoletosVencidos(quantidadeBoletosVencidos);
+                    UsuarioBoletoListaDTO dto = new UsuarioBoletoListaDTO();
+                    dto.setIdentificacao(usuario.getIdentificacao());
+                    dto.setNome(usuario.getNome());
+                    dto.setUsuario(usuario.getUsername());
+                    dto.setQuantidadeBoletos(quantidadeBoletos);
+                    dto.setQuantidadeBoletosPagos(quantidadeBoletosPagos);
+                    dto.setQuantidadeBoletosAbertos(quantidadeBoletosAbertos);
+                    dto.setQuantidadeBoletosVencidos(quantidadeBoletosVencidos);
 
-            return dto;
-        }).collect(Collectors.toList());
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
     private UsuarioBoletoFiltradoDTO toDTOUsuario(Boleto boleto) {

@@ -13,6 +13,7 @@ import java.time.LocalDate;
 public class BoletoDTO {
     private String uuid;
     private BancoDTO banco;
+    private String numero;
     private String status;
     private String estabelecimento;
     private LocalDate dataEmissao;
@@ -45,6 +46,7 @@ public class BoletoDTO {
 
     public BoletoDTO(Boleto boleto) {
         this.uuid = boleto.getId().toString();
+        this.numero = boleto.getTipoDocumento().toString();
         this.banco = new BancoDTO(boleto.getBanco());
         this.estabelecimento = boleto.getEstabelecimento();
         this.status = boleto.getStatus().toString();
