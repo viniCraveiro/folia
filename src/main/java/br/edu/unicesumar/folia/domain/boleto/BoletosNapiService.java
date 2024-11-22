@@ -44,7 +44,6 @@ public class BoletosNapiService {
 
     public List<BoletoNapiDTO> consultarNapiEProcessarDados() {
         String url = napiProperties.getUrl();
-        url = "";
         log.info("Consultando API: " + url);
         RestTemplate restTemplate = new RestTemplate();
         try {
