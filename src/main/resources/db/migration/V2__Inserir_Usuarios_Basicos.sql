@@ -44,7 +44,9 @@ VALUES ('e1f2a3b4-c5d6-7e8f-90a1-b2c3d4e5f6a7', 'ID001', 'Vinicius A', 'vinicius
         'USER',
         'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'd6e7f8a9-b0c1-2c3d-4e5f-7a8b9c0d1e2f'),
        ('297f94d4-432f-4d17-aa08-2deed751b60e', '72366875000112', 'AVIAMENTOS VERA CRUZ LTDA', 'aviamentoveracruz@gmail.com', 'veracruz', '1234',
-        'USER', 'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'e23d2789-5c7e-4c97-a69f-d567652d3553');
+        'USER', 'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'e23d2789-5c7e-4c97-a69f-d567652d3553'),
+('4163e1dc-98dc-40f0-b193-4c19a70b6d9d', '96834234000103', 'VINICIUS CRAVEIRO TECNOLOGIA', 'viniciuscraveiroo@gmail.com', 'vinicius.craveiro', '1234',
+    'ADMIN', 'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f90a1', 'e23d2789-5c7e-4c97-a69f-d567652d3553');
 
 -- Inserir Banco
 INSERT INTO BANCO (ID, NOME, AGENCIA, AGENCIA_DIGITO, CONTA, CONTA_DIGITO)
