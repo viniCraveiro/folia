@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +103,11 @@ public class BoletosNapiService {
                     boleto.setDataVencimento(boletoDto.getDataVencimento());
                     boleto.setTotalParcelas(boletoDto.getTotalParcela());
                     boleto.setTipoDocumento(boletoDto.getNumeroDocumento());
-                    boleto.setStatus(Status.fromString(boletoDto.getStatusParcela()));
+                    if (boletoDto.getDataVencimento().isBefore(LocalDate.now())) {
+                        boleto.setStatus(Status.VENCIDO);
+                    } else {
+                        boleto.setStatus(Status.fromString(boletoDto.getStatusParcela()));
+                    }
                     boleto.setUrl(boletoDto.getUrlBoleto());
 
                     // Configurações adicionais
