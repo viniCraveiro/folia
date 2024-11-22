@@ -11,5 +11,6 @@ public class UsuarioBoletoListaDTO {
     private String usuario;
     private Long quantidadeBoletos;
     private Long quantidadeBoletosAbertos;
+    private Long quantidadeBoletosPagos;
     private Long quantidadeBoletosVencidos;
 }
