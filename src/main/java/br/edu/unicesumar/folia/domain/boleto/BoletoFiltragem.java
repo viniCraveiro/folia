@@ -1,7 +1,7 @@
 package br.edu.unicesumar.folia.domain.boleto;
 
 import br.edu.unicesumar.folia.controller.usuarioboleto.BoletoFiltroDTO;
-import br.edu.unicesumar.folia.exception.UserUuidNotFoundException;
+import br.edu.unicesumar.folia.exception.UuidNotFoundException;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -20,7 +20,7 @@ public class BoletoFiltragem {
                 predicates.add(criteriaBuilder.equal(
                         root.get("usuario").get("id"), UUID.fromString(filtro.getUsuarioUUID())));
             } else {
-                throw new UserUuidNotFoundException("UUID do usuario não encontrando");
+                throw new UuidNotFoundException("UUID do usuario não encontrando");
             }
 
             // Filtro por nome do banco
@@ -74,7 +74,7 @@ public class BoletoFiltragem {
                 predicates.add(criteriaBuilder.equal(
                         root.get("empresa").get("id"), UUID.fromString(filtro.getEmpresaUUID())));
             } else {
-                throw new UserUuidNotFoundException("UUID da empresa não encontrando");
+                throw new UuidNotFoundException("UUID da empresa não encontrando");
             }
 
             // Filtro por nome do usuário

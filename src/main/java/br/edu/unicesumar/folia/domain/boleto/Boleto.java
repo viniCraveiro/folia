@@ -18,8 +18,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Boleto extends Entidade {
 
-
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "BANCO_FK")
     private Banco banco; //traz
@@ -31,6 +29,12 @@ public class Boleto extends Entidade {
     private LocalDate dataVencimento; //traz
     @Column
     private String totalParcelas; //traz
+    @Column
+    private String parcela; //traz
+    @Column
+    private String descricaoCobranca; //traz
+    // @Column
+    private String estabelecimento; //traz
     @Column
     private Integer convenio;
     @Column
@@ -60,7 +64,7 @@ public class Boleto extends Entidade {
     @Column
     private String operacao; //traz
     @Column
-    private String chavePix; //traz
+     private String chavePix; //traz
     @Column
     private Integer tipoChavePix; //traz
     @Enumerated(EnumType.STRING)

@@ -6,8 +6,8 @@ import br.edu.unicesumar.folia.domain.empresa.EmpresaRepository;
 import br.edu.unicesumar.folia.domain.usuario.Usuario;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioRepository;
 import br.edu.unicesumar.folia.domain.usuario.UsuarioService;
+import br.edu.unicesumar.folia.exception.UuidNotFoundException;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -15,7 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Tag(
         name = "Usuario",
@@ -45,32 +47,36 @@ public class UsuarioRestController {
         usuario.setEmpresa(empresa);
         usuarioService.salvaUsuario(usuario);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
-
     }
 
-
     @DeleteMapping("/{uuid}")
-    public ResponseEntity deletar(@PathVariable UUID uuid){
+    public ResponseEntity deletar(@PathVariable UUID uuid) {
         usuarioService.deletaUsuario(uuid);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity atualizar(@PathVariable UUID uuid, @RequestBody Usuario usuario){
-        usuarioService.atualizaUsuario(uuid, usuario);
-        return ResponseEntity.ok(usuario);
+    public ResponseEntity atualizar(@PathVariable UUID uuid, @RequestBody Usuario usuario) {
+        UsuarioDetailDTO dto = new UsuarioDetailDTO(usuarioService.atualizaUsuario(uuid, usuario));
+        return ResponseEntity.ok(dto);
     }
 
     @GetMapping
-    public ResponseEntity<Page<Usuario>> listar(Pageable paginacao){
+    public ResponseEntity<Page<Usuario>> listar(Pageable paginacao) {
         var page = repository.findAll(paginacao).map(Usuario::new);
         return ResponseEntity.ok(page);
     }
 
-    @GetMapping("/buscarPorId/{id}")
-    public ResponseEntity<Usuario> buscarPorId(@PathVariable UUID id) {
+    @GetMapping("/buscarPorId:{id}")
+    public ResponseEntity<UsuarioDetailDTO> buscarPorId(@PathVariable UUID id) {
         Optional<Usuario> usuario = usuarioService.buscarPorId(id);
-        return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        if (usuario.isPresent()) {
+            UsuarioDetailDTO dto = new UsuarioDetailDTO(usuario.get());
+            dto.setSenha(null);
+            dto.setConfirmarSenha(null);
+            return ResponseEntity.ok(dto);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/buscarPorNome") //Utilizar ?nome={nome}&page=0&size=5
@@ -96,17 +102,25 @@ public class UsuarioRestController {
     }
 
     @PostMapping("/empresas/{usuarioUUID}")
-    public ResponseEntity<EmpresaInformacaoDTO> empresaVinculada(@PathVariable  UUID usuarioUUID) {
+    public ResponseEntity<EmpresaInformacaoDTO> empresaVinculada(@PathVariable UUID usuarioUUID) {
         Optional<Usuario> usuarioOptional = repository.findById(usuarioUUID);
         if (usuarioOptional.isPresent()) {
-            Empresa empresa  = usuarioOptional.get().getEmpresa();
+            Empresa empresa = usuarioOptional.get().getEmpresa();
             if (empresa != null) {
-                return ResponseEntity.ok(new EmpresaInformacaoDTO(empresa.getNomeFantasia(),empresa.getId()));
+                return ResponseEntity.ok(new EmpresaInformacaoDTO(empresa.getNomeFantasia(), empresa.getId()));
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+    }
+
+    @PostMapping("/filtrar")
+    public ResponseEntity<List<UsuarioDTO>> filtrarUsuario(@RequestBody UsuarioFiltroDTO filtro) {
+        if (filtro.getEmpresaUUID() == null) {
+            throw new UuidNotFoundException("O UUID da empresa é obrigatório.");
+        }
+        return ResponseEntity.ok(usuarioService.buscarComFiltro(filtro));
     }
 
 }

@@ -18,13 +18,14 @@ public class EmpresaBoletoFiltradoDTO {
     private String banco;
     private BigDecimal valor;
     private String parcela;
+    private String totalParcelas;
     private LocalDate dataEmissao;
     private LocalDate dataVencimento;
     private String url;
     private Status status;
 
     // Construtor completo
-    public EmpresaBoletoFiltradoDTO(UUID  uuid, String identificacao, String nome, String usuario, String banco, BigDecimal valor, String parcela, LocalDate dataEmissao, LocalDate dataVencimento, Status status, String url) {
+    public EmpresaBoletoFiltradoDTO(UUID  uuid, String identificacao, String nome, String usuario, String banco, BigDecimal valor, String parcela,  String totalParcelas, LocalDate dataEmissao, LocalDate dataVencimento, Status status, String url) {
         this.uuid = uuid;
         this.identificacao = identificacao;
         this.nome = nome;
@@ -32,6 +33,7 @@ public class EmpresaBoletoFiltradoDTO {
         this.banco = banco;
         this.valor = valor;
         this.parcela = parcela;
+        this.totalParcelas = totalParcelas;
         this.dataEmissao = dataEmissao;
         this.dataVencimento = dataVencimento;
         this.status = status;
