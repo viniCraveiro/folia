@@ -145,11 +145,12 @@ public class BoletoService {
                 .collect(Collectors.toList());
     }
 
-    public List<UsuarioBoletoListaDTO> obterUltimosCincoUsuariosPorBoletos(UUID empresaId) {
+    public List<UsuarioBoletoListaDTO> obterUltimosQuatrosUsuariosPorBoletos(UUID empresaId) {
         List<Usuario> usuarios = usuarioRepository.findByEmpresaId(empresaId);
 
-        return usuarios.stream().map(usuario -> {
-            Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Order.desc("dataVencimento"))); // Ordenando por data de vencimento, do mais recente ao mais antigo
+
+        return usuarios.stream().limit(4).map(usuario -> {
+            Pageable pageable = PageRequest.of(0, 4, Sort.by(Sort.Order.desc("dataVencimento"))); // Ordenando por data de vencimento, do mais recente ao mais antigo
             List<Boleto> boletos = boletoRepository.findByUsuarioId(usuario.getId(), pageable).getContent();
 
             Long quantidadeBoletos = (long) boletos.size();
@@ -173,6 +174,7 @@ public class BoletoService {
                 boleto.getId(),
                 boleto.getBanco().getNome(),
                 boleto.getValor(),
+                boleto.getParcela(),
                 boleto.getTotalParcelas(),
                 boleto.getDataEmissao(),
                 boleto.getDataVencimento(),
@@ -189,6 +191,7 @@ public class BoletoService {
                 boleto.getUsuario().getUsername(),
                 boleto.getBanco().getNome(),
                 boleto.getValor(),
+                boleto.getParcela(),
                 boleto.getTotalParcelas(),
                 boleto.getDataEmissao(),
                 boleto.getDataVencimento(),
