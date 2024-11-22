@@ -44,7 +44,7 @@ public class BoletosNapiService {
 
     public List<BoletoNapiDTO> consultarNapiEProcessarDados() {
         String url = napiProperties.getUrl();
-        url = "https://napi.service.dev.peon.tec.br/folia/v0/contareceber/?token=e66d98a2-28dd-4f88-b90c-916d3f4899ba&pageSize=999";
+        url = "";
         log.info("Consultando API: " + url);
         RestTemplate restTemplate = new RestTemplate();
         try {
