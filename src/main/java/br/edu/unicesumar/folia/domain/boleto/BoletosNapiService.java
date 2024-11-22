@@ -100,7 +100,7 @@ public class BoletosNapiService {
                     boleto.setValor(boletoDto.getValor());
                     boleto.setDataEmissao(boletoDto.getDataEmissao());
                     boleto.setDataVencimento(boletoDto.getDataVencimento());
-                    boleto.setTotalParcelas(boletoDto.getParcelaDescricao());
+                    boleto.setTotalParcelas(boletoDto.getTotalParcela());
                     boleto.setTipoDocumento(boletoDto.getNumeroDocumento());
                     boleto.setStatus(Status.fromString(boletoDto.getStatusParcela()));
                     boleto.setUrl(boletoDto.getUrlBoleto());
